@@ -14,7 +14,7 @@ public class TestGui extends JFrame{
 	Cities[] ct = new Cities[24];
 	
 	
-	public TestGui(){
+	public TestGui(){ 
 		
 		
 		c = new Charcter(1, "1번", 2000, 0);
