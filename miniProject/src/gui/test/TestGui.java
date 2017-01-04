@@ -7,7 +7,8 @@ import java.util.*;
 public class TestGui extends JFrame{
 	
 	Charcter c;
-	JLabel car, carinfo;
+	JLabel car, carinfo, diceLabel;
+	JLabel diceLabelImage1, diceLabelImage2;
 	JButton btn1;
 	JLabel[] Jlist = new JLabel[24];
 	Cities[] ct = new Cities[24];
@@ -178,10 +179,24 @@ public class TestGui extends JFrame{
 			
 			
 		});*/
-	
+
+		ImageIcon diceImage[] = new ImageIcon[6];
+		for (int i=0 ; i<6 ; i++) 
+			diceImage[i] = new ImageIcon("dice" + (i+1) + ".png");
 		
+		diceLabel = new JLabel("");
+		diceLabel.setLocation(240, 220);
+		diceLabel.setSize(100, 20);
 		
-		btn1= new JButton("주사위 버튼");
+		diceLabelImage1 = new JLabel("");
+		diceLabelImage1.setLocation(430, 180);
+		diceLabelImage1.setSize(100, 100);
+		
+		diceLabelImage2 = new JLabel("");
+		diceLabelImage2.setLocation(540, 180);
+		diceLabelImage2.setSize(100, 100);
+		
+		btn1 = new JButton("주사위 버튼");
 		btn1.setLocation(300, 200);
 		btn1.setSize(100, 50);
 		btn1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -191,20 +206,32 @@ public class TestGui extends JFrame{
 		btn1.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Random r = new Random();
-				int dice = r.nextInt(6) + 1;
+				
+				int dice1 = new Random().nextInt(6) + 1;
+				int dice2 = new Random().nextInt(6) + 1;
+				int dice = dice1 + dice2;
+				
+				diceLabel.setText(dice + "칸 이동! ");
+				
+				diceLabelImage1.setIcon(diceImage[dice1-1]);
+				diceLabelImage2.setIcon(diceImage[dice2-1]);
+
 				int location = c.getLocation() + dice;
+				
 				if(location >= Jlist.length){
 					location -= Jlist.length;
 				}
-				c.setLocation(location);
+				
+				c.setLocation(location); // 캐릭터 위치 값 저장
+				
 				int xPoint = (int)Jlist[location].getLocation().getX() + 50;
 				int yPoint = (int)Jlist[location].getLocation().getY() + 20;
-				car.setLocation(xPoint, yPoint);
+				car.setLocation(xPoint, yPoint); // 말 위치 이동
+				
 				if(ct[location] != null){
 					cityAction(location);
-					f.add(carinfo);
-					carinfo.setText("이름 : " + c.getName() + " 자금 : " + c.getMoney());
+					carinfo.setText("이름 : " + c.getName()
+					+ " 자금 : " + c.getMoney());
 				}
 			}
 
@@ -225,6 +252,9 @@ public class TestGui extends JFrame{
 		f.add(car);
 		f.add(carinfo);
 		f.add(btn1);
+		f.add(diceLabel);
+		f.add(diceLabelImage1);
+		f.add(diceLabelImage2);
 		
 		f.setVisible(true);
 	}
@@ -234,6 +264,7 @@ public class TestGui extends JFrame{
 	
 	public void cityAction(int location) {
 		if(ct[location].getStatus() == 0){
+			// 구입 했으면 1, 구입 X 0
 			new CityManager().OwnCity(ct[location], c);
 		}
 		
