@@ -6,9 +6,9 @@ public class TestGUI {
 
 	public static void main(String[] args) {
 
-		//new pageLogIn();
+		new pageLogIn();
 		//new pageJoin();
-		new pageGame();
+		//new pageGame();
 	}
 
 }

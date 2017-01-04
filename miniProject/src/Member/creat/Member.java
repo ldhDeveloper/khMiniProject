@@ -1,63 +1,63 @@
 package Member.creat;
+
 import java.io.*;
 import java.util.*;
 
-public class SigningUp implements Serializable {
+public class Member implements Serializable {
 	private String id;
 	private String password;
-	ArrayList<SigningUp> list = new ArrayList<SigningUp>();
 
-	public SigningUp() {
+	public Member() {
 	}
 
-	public SigningUp(String id, String password) {// 추후 아이디 입력창에서 각각 입력받음
+	public Member(String id, String password) {// 추후 아이디 입력창에서 각각 입력받음
 		this.id = id;
 		this.password = password;
 	}
 
-	public void createMember() {
+	public int createMember(String name, String pwd, String confirm) {
+		int result = 2;
+		if (pwd.equals(confirm)) {
+			String[] compareName = null;
+			try (BufferedWriter ow = new BufferedWriter(new FileWriter("memberInfo.txt", true));
+					BufferedReader or = new BufferedReader(new FileReader("memberInfo.txt"));) {
+				for (;;) {
+					compareName = or.readLine().split(" ");
+					if (compareName[0].equals(name)) {
+						result = 1;
+						break;
+					}
+				}
 
-		Scanner sc = new Scanner(System.in);
-		System.out.print("이름 입력) :"); // 확인용(로그인화면대용)
-		this.setId(sc.next());
-		String name = this.getId();
-		System.out.print("비번 입력 : "); // 확인용 (로그인화면대용)
-		this.setPassword(sc.next());
-		String pwd = this.getPassword();
-
-		try (ObjectOutputStream ow
-				= new ObjectOutputStream(new FileOutputStream("memberInfo.dat"));
-				ObjectInputStream or = new ObjectInputStream(new FileInputStream("memberInfo.dat"));) {
-			ow.writeObject(new SigningUp(name, pwd));
-			ow.flush();
-		} catch (Exception e) {
-			e.printStackTrace();
+			} catch (Exception e) {
+				try (BufferedWriter ow = new BufferedWriter(new FileWriter("memberInfo.txt", true));
+						BufferedReader or = new BufferedReader(new FileReader("memberInfo.txt"));) {
+					ow.write(name + " " + pwd + "\n");
+					ow.flush();
+					result =0;
+					return result;
+				} catch (Exception ee) {
+				}
+			}
 		}
+		return result;
 	}
 
-	public void Login() {
+	public int Login(String name, String pwd) {
+		String compare = name + " " + pwd;
+		int result = 1;
 		Scanner sc = new Scanner(System.in);
-		try (ObjectInputStream or = new ObjectInputStream(new FileInputStream("memberInfo.dat"))) {
-			System.out.print("아이디  입력 : ");
-			String name = sc.next();
-			System.out.print("암호 입력: ");
-			String pwd = sc.next();
-			SigningUp cname;
-
-			for (int i = 0; i < 100; i++) {
-				System.out.println("sss");
-				cname = (SigningUp)(or.readObject());
-				if (cname.getId().equals(name) && cname.getPassword().equals(pwd)) {
-					System.out.println(name);
+		try (BufferedReader or = new BufferedReader(new FileReader("memberInfo.txt"))) {
+			for (;;) {
+				if (compare.equals(or.readLine())) {
+					result = 0;
 					break;
 				}
 			}
-			// 불리는지 확인
-		} catch (EOFException ee) {
-			System.out.println("아");
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			return result;
+			}
+		return result;
 	}
 
 	public void setId(String id) {
@@ -74,11 +74,6 @@ public class SigningUp implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public static void main(String args[]) {
-		new SigningUp().createMember();
-		new SigningUp().Login();
 	}
 
 	@Override

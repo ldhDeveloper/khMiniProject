@@ -1,6 +1,9 @@
 package gui.mvc.view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.event.*;
 
@@ -52,6 +55,7 @@ public class pageLogIn extends JFrame {
 		buttonLogin.setBounds(40, 40, 65, 40);
 		buttonLogin.setLocation(630, 470);
 		buttonLogin.setBackground(new Color(176,196,222));
+		buttonLogin.addActionListener(new ButtonLoginAction());
 		buttonJoin.setBounds(40, 40, 175, 40);
 		buttonJoin.setLocation(520, 520);
 		buttonJoin.setBackground(new Color(30,144,255));
@@ -68,6 +72,22 @@ public class pageLogIn extends JFrame {
 		this.setVisible(true);
 	}
 	
+	//buttonLogin에 대한 ActionEvent처리용 내부클래스
+	private class ButtonLoginAction implements ActionListener{
 
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			int answer = 0;
+			answer = new Member.creat.Member().Login(tfID.getText(), tfPWD.getText());
+			switch (answer) {
+			case 0:
+				JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
+				break;
+			case 1:
+				JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
+				break;
+			}
+			
+		}}
 
 }
