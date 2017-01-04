@@ -38,7 +38,6 @@ public class SigningUp implements Serializable {
 	public void Login() {
 		Scanner sc = new Scanner(System.in);
 		try (ObjectInputStream or = new ObjectInputStream(new FileInputStream("memberInfo.dat"))) {
-			System.out.println(or.readObject());// 제대로 읽혔는지 확인
 			System.out.print("아이디  입력 : ");
 			String name = sc.next();
 			System.out.print("암호 입력: ");
