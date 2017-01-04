@@ -469,7 +469,6 @@ public class pageGame extends JFrame {
 		
 		// 게임정보창
 		gameInfo = new JTextArea("게임안내창", 10, 5);
-		//JScrollPane textPane = new JScrollPane(texta);
 		gameInfo.setBounds(20, 360, 180, 190);
 		gameInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		gameInfo.setBorder(BorderFactory.createCompoundBorder
@@ -486,7 +485,6 @@ public class pageGame extends JFrame {
 		buttonFinish.setBounds(20, 640, 180, 40);
 		buttonFinish.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		buttonFinish.setBackground(new Color(193, 193, 193));
-		
 		
 		
 		panelInfo = new JPanel();
@@ -508,7 +506,6 @@ public class pageGame extends JFrame {
 		panelInfo.add(gameInfo);
 		panelInfo.add(buttonStart);
 		panelInfo.add(buttonFinish);
-		
 		
 		this.add(panelInfo);
 		
