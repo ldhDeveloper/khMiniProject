@@ -5,6 +5,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import gui.test.Cities;
+
 public class pageGame extends JFrame {
 
 	private JPanel panelBoard, panelChat, panelInfo;
@@ -20,6 +22,8 @@ public class pageGame extends JFrame {
 	private JTextField chatField;
 	private JButton buttonStart, buttonFinish;
 	private JLabel[] Jlist = new JLabel[24];
+	private JButton btn1;
+	private Cities[] ct = new Cities[24];
 	
 	public pageGame(){
 		this.setTitle("BlueMarble");
@@ -28,6 +32,7 @@ public class pageGame extends JFrame {
 		this.setLayout(null);
 		
 		Board();
+		diceInit();
 		Chat();
 		Info();
 			
@@ -79,7 +84,7 @@ public class pageGame extends JFrame {
 		Jlist[3].setBounds(405, 0, 90, 100);
 		Jlist[3].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[4] = new JLabel("도시3");
+		Jlist[4] = new JLabel("도쿄");
 		Jlist[4].setHorizontalAlignment(Jlist[4].CENTER);
 		Jlist[4].setBounds(500, 0, 120, 100);
 		Jlist[4].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -93,7 +98,7 @@ public class pageGame extends JFrame {
 		c3b3.setBounds(580, 80, 40, 20);
 		c3b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
-		Jlist[5] = new JLabel("도시4");
+		Jlist[5] = new JLabel("베이징");
 		Jlist[5].setHorizontalAlignment(Jlist[5].CENTER);
 		Jlist[5].setBounds(625, 0, 120, 100);
 		Jlist[5].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -113,7 +118,7 @@ public class pageGame extends JFrame {
 		Jlist[6].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
 		
-		Jlist[7] = new JLabel("도시5");
+		Jlist[7] = new JLabel("뉴델리");
 		Jlist[7].setHorizontalAlignment(Jlist[7].CENTER);
 		Jlist[7].setBounds(750, 105, 150, 60);
 		Jlist[7].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -127,7 +132,7 @@ public class pageGame extends JFrame {
 		c5b3.setBounds(750, 145, 30, 20);
 		c5b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
-		Jlist[8] = new JLabel("도시6");
+		Jlist[8] = new JLabel("두바이");
 		Jlist[8].setHorizontalAlignment(Jlist[8].CENTER);
 		Jlist[8].setBounds(750, 170, 150, 60);
 		Jlist[8].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -146,7 +151,7 @@ public class pageGame extends JFrame {
 		Jlist[9].setBounds(750, 235, 150, 80);
 		Jlist[9].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[10] = new JLabel("도시7");
+		Jlist[10] = new JLabel("캔버라");
 		Jlist[10].setHorizontalAlignment(Jlist[10].CENTER);
 		Jlist[10].setBounds(750, 320, 150, 60);
 		Jlist[10].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -160,7 +165,7 @@ public class pageGame extends JFrame {
 		c7b3.setBounds(750, 360, 30, 20);
 		c7b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
-		Jlist[11] = new JLabel("도시8");
+		Jlist[11] = new JLabel("카이로");
 		Jlist[11].setHorizontalAlignment(Jlist[11].CENTER);
 		Jlist[11].setBounds(750, 385, 150, 60);
 		Jlist[11].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -179,7 +184,7 @@ public class pageGame extends JFrame {
 		Jlist[12].setBounds(750, 450, 150, 100);
 		Jlist[12].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[13] = new JLabel("도시9");
+		Jlist[13] = new JLabel("상파울로");
 		Jlist[13].setHorizontalAlignment(Jlist[13].CENTER);
 		Jlist[13].setBounds(625, 450, 120, 100);
 		Jlist[13].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -193,7 +198,7 @@ public class pageGame extends JFrame {
 		c9b3.setBounds(705, 450, 40, 20);
 		c9b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
-		Jlist[14] = new JLabel("도시10");
+		Jlist[14] = new JLabel("아테네");
 		Jlist[14].setHorizontalAlignment(Jlist[14].CENTER);
 		Jlist[14].setBounds(500, 450, 120, 100);
 		Jlist[14].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -212,7 +217,7 @@ public class pageGame extends JFrame {
 		Jlist[15].setBounds(405, 450, 90, 100);
 		Jlist[15].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[16] = new JLabel("도시11");
+		Jlist[16] = new JLabel("코펜하겐");
 		Jlist[16].setHorizontalAlignment(Jlist[16].CENTER);
 		Jlist[16].setBounds(280, 450, 120, 100);
 		Jlist[16].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -226,7 +231,7 @@ public class pageGame extends JFrame {
 		c11b3.setBounds(360, 450, 40, 20);
 		c11b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
-		Jlist[17] = new JLabel("도시12");
+		Jlist[17] = new JLabel("베를린");
 		Jlist[17].setHorizontalAlignment(Jlist[17].CENTER);
 		Jlist[17].setBounds(155, 450, 120, 100);
 		Jlist[17].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -245,7 +250,7 @@ public class pageGame extends JFrame {
 		Jlist[18].setBounds(0, 450, 150, 100);
 		Jlist[18].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[19] = new JLabel("도시13");
+		Jlist[19] = new JLabel("런던");
 		Jlist[19].setHorizontalAlignment(Jlist[19].CENTER);
 		Jlist[19].setBounds(0, 385, 150, 60);
 		Jlist[19].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -259,7 +264,7 @@ public class pageGame extends JFrame {
 		c13b3.setBounds(120, 425, 30, 20);
 		c13b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
-		Jlist[20] = new JLabel("도시14");
+		Jlist[20] = new JLabel("파리");
 		Jlist[20].setHorizontalAlignment(Jlist[20].CENTER);
 		Jlist[20].setBounds(0, 320, 150, 60);
 		Jlist[20].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -278,7 +283,7 @@ public class pageGame extends JFrame {
 		Jlist[21].setBounds(0, 235, 150, 80);
 		Jlist[21].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[22] = new JLabel("도시15");
+		Jlist[22] = new JLabel("뉴욕");
 		Jlist[22].setHorizontalAlignment(Jlist[22].CENTER);
 		Jlist[22].setBounds(0, 170, 150, 60);
 		Jlist[22].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -292,7 +297,7 @@ public class pageGame extends JFrame {
 		c15b3.setBounds(120, 210, 30, 20);
 		c15b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		
-		Jlist[23] = new JLabel("도시16");
+		Jlist[23] = new JLabel("서울");
 		Jlist[23].setHorizontalAlignment(Jlist[23].CENTER);
 		Jlist[23].setBounds(0, 105, 150, 60);
 		Jlist[23].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -392,7 +397,6 @@ public class pageGame extends JFrame {
 		this.add(panelChat);
 		
 	}
-
 	
 	private void Info() {
 
@@ -511,5 +515,30 @@ public class pageGame extends JFrame {
 		
 	}
 	
-	
+	public void diceInit() {
+		btn1 = new JButton("주사위 버튼");
+		btn1.setLocation(300, 200);
+		btn1.setSize(100, 50);
+		btn1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		panelBoard.add(btn1);
+	}
+
+	public void cityInit() {
+		ct[1] = new Cities("뉴욕", 0, 0, 20);
+		ct[2] = new Cities("서울", 0, 0, 20);
+		ct[4] = new Cities("도쿄", 0, 0, 15);
+		ct[5] = new Cities("베이징", 0, 0, 20);
+		ct[7] = new Cities("뉴델리", 0, 0, 25);
+		ct[8] = new Cities("두바이", 0, 0, 30);
+		ct[10] = new Cities("캔버라", 0, 0, 35);
+		ct[11] = new Cities("카이로", 0, 0, 40);
+		ct[13] = new Cities("상파울로", 0, 0, 45);
+		ct[14] = new Cities("아테네", 0, 0, 45);
+		ct[16] = new Cities("코펜하겐", 0, 0, 45);
+		ct[17] = new Cities("베를린", 0, 0, 45);
+		ct[19] = new Cities("런던", 0, 0, 45);
+		ct[20] = new Cities("파리", 0, 0, 45);
+		ct[22] = new Cities("뉴욕", 0, 0, 45);
+		ct[23] = new Cities("서울", 0, 0, 45);
+	}
 }

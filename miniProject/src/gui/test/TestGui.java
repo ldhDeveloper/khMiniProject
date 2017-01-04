@@ -23,25 +23,9 @@ public class TestGui extends JFrame implements ActionListener, MouseListener {
 	public TestGui(){ 
 		
 		c = new Charcter(1, "1번", 2000, 0);
-		
-		
-		ct[1] = new Cities("뉴욕", 0, 0, 20);
-		ct[2] = new Cities("서울", 0, 0, 20);
-		ct[4] = new Cities("도쿄", 0, 0, 15);
-		ct[5] = new Cities("베이징", 0, 0, 20);
-		ct[7] = new Cities("뉴델리", 0, 0, 25);
-		ct[8] = new Cities("두바이", 0, 0, 30);
-		ct[10] = new Cities("캔버라", 0, 0, 35);
-		ct[11] = new Cities("카이로", 0, 0, 40);
-		ct[13] = new Cities("상파울로", 0, 0, 45);
-		ct[14] = new Cities("아테네", 0, 0, 45);
-		ct[16] = new Cities("코펜하겐", 0, 0, 45);
-		ct[17] = new Cities("베를린", 0, 0, 45);
-		ct[19] = new Cities("런던", 0, 0, 45);
-		ct[20] = new Cities("파리", 0, 0, 45);
-		ct[22] = new Cities("뉴욕", 0, 0, 45);
-		ct[23] = new Cities("서울", 0, 0, 45);
 
+		cityInit();
+		
 		f.setTitle("부루마블");
 		f.setSize(1000, 780);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -262,6 +246,25 @@ public class TestGui extends JFrame implements ActionListener, MouseListener {
 		
 		planeMsg.setVisible(false);
 		f.setVisible(true);
+	}
+	
+	public void cityInit() {
+		ct[1] = new Cities("뉴욕", 0, 0, 20);
+		ct[2] = new Cities("서울", 0, 0, 20);
+		ct[4] = new Cities("도쿄", 0, 0, 15);
+		ct[5] = new Cities("베이징", 0, 0, 20);
+		ct[7] = new Cities("뉴델리", 0, 0, 25);
+		ct[8] = new Cities("두바이", 0, 0, 30);
+		ct[10] = new Cities("캔버라", 0, 0, 35);
+		ct[11] = new Cities("카이로", 0, 0, 40);
+		ct[13] = new Cities("상파울로", 0, 0, 45);
+		ct[14] = new Cities("아테네", 0, 0, 45);
+		ct[16] = new Cities("코펜하겐", 0, 0, 45);
+		ct[17] = new Cities("베를린", 0, 0, 45);
+		ct[19] = new Cities("런던", 0, 0, 45);
+		ct[20] = new Cities("파리", 0, 0, 45);
+		ct[22] = new Cities("뉴욕", 0, 0, 45);
+		ct[23] = new Cities("서울", 0, 0, 45);
 	}
 	
 	public void cityAction(int location) {
