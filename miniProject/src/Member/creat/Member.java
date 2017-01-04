@@ -10,12 +10,12 @@ public class Member implements Serializable {
 	public Member() {
 	}
 
-	public Member(String id, String password) {// 추후 아이디 입력창에서 각각 입력받음
+	public Member(String id, String password) {
 		this.id = id;
 		this.password = password;
 	}
 
-	public int createMember(String name, String pwd, String confirm) {
+	public int createMember(String name, String pwd, String confirm) {//arguments는 텍스트필드에서 입력받음
 		int result = 2;
 		if (pwd.equals(confirm)) {
 			String[] compareName = null;
@@ -43,7 +43,7 @@ public class Member implements Serializable {
 		return result;
 	}
 
-	public int Login(String name, String pwd) {
+	public int Login(String name, String pwd) {//arguments는 텍스트필드에서 입력받음
 		String compare = name + " " + pwd;
 		int result = 1;
 		Scanner sc = new Scanner(System.in);
