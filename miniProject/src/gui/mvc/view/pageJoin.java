@@ -56,39 +56,38 @@ public class pageJoin extends JFrame {
 		tfPWD2.setLocation(580, 520);
 		// 회원로그인 동작용 KeyListener
 
-		tfID.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent e) {
-				if (focusId == true && e.getKeyCode() == e.VK_ENTER)
-					System.out.println();
-			}
-
-		});
-		tfID.addFocusListener(new FocusListener() {
-
-			@Override
-			public void focusGained(FocusEvent e) {
-				// TODO Auto-generated method stub
-				focusId = true;
-
-			}
-
-			@Override
-			public void focusLost(FocusEvent arg0) {
-				// TODO Auto-generated method stub
-				focusId = false;
-			}
-
-		});
-
 		// 버튼
 		buttonJoin.setBounds(40, 40, 175, 30);
 		buttonJoin.setLocation(510, 550);
 		buttonJoin.setBackground(new Color(35, 144, 255));
-		buttonJoin.addActionListener(new joinButtonAction());
+		buttonJoin.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int answer = 0;
+				answer = new Member.creat.Member().createMember(tfID.getText(), tfPWD1.getText(), tfPWD2.getText());
+				switch (answer) {
+				case 1:
+					JOptionPane.showMessageDialog(tfID.getParent(), "동일한 아이디가 존재합니다.");
+					break;
+				case 0:
+					JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
+					break;
+				case 2:
+					JOptionPane.showMessageDialog(tfID.getParent(), "password가 확인문구와 일치하지 않습니다.");
+					break;
+				}
+			}
+		});
 		buttonCancel.setBounds(40, 40, 175, 30);
 		buttonCancel.setLocation(510, 590);
 		buttonCancel.setBackground(Color.GRAY);
-
+		buttonCancel.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+							
+			}
+			
+		});
 		this.add(titleBL);
 		this.add(titleL);
 		this.add(idL);
@@ -101,26 +100,6 @@ public class pageJoin extends JFrame {
 		this.add(buttonCancel);
 
 		this.setVisible(true);
-	}
-	//buttonJoin의 ActionEvent처리 클래스
-	private class joinButtonAction implements ActionListener {
-		
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			int answer = 0;
-			answer = new Member.creat.Member().createMember(tfID.getText(), tfPWD1.getText(), tfPWD2.getText());
-			switch (answer) {
-			case 1:
-				JOptionPane.showMessageDialog(tfID.getParent(), "동일한 아이디가 존재합니다.");
-				break;
-			case 0:
-				JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
-				break;
-			case 2:
-				JOptionPane.showMessageDialog(tfID.getParent(), "password가 확인문구와 일치하지 않습니다.");
-				break;
-			}
-		}
 	}
 
 }
