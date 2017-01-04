@@ -17,7 +17,8 @@ public class Cities implements Serializable{
 	}
 	
 	
-	public Cities(String name, int cost, int status, int owner, int grandCost, int upCost) {
+	public Cities(String name, int cost, int status,
+			int owner, int grandCost, int upCost) {
 		super();
 		this.name = name;
 		this.cost = cost;
