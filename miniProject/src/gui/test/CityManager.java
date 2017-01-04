@@ -18,7 +18,7 @@ public class CityManager extends JFrame{
 		
 		if(result == 0){
 			city.setOwner(c.getcNo());
-			c.setMoney(c.getMoney() - city.getCost());
+			c.setMoney(c.getMoney() - city.getGrandCost());
 			city.setStatus(1);
 		}
 		

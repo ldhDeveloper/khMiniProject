@@ -21,9 +21,22 @@ public class TestGui extends JFrame{
 		c = new Charcter(1, "1번", 2000, 0);
 		
 		
-		ct[1] = new Cities("뉴욕", 50, 0, 0, 20, 10);
-		ct[2] = new Cities("서울", 70, 0, 0, 20, 10);
-		ct[3] = new Cities("도쿄", 15, 0, 0, 15, 10);
+		ct[1] = new Cities("뉴욕", 0, 0, 20);
+		ct[2] = new Cities("서울", 0, 0, 20);
+		ct[4] = new Cities("도쿄", 0, 0, 15);
+		ct[5] = new Cities("베이징", 0, 0, 20);
+		ct[7] = new Cities("뉴델리", 0, 0, 25);
+		ct[8] = new Cities("두바이", 0, 0, 30);
+		ct[10] = new Cities("캔버라", 0, 0, 35);
+		ct[11] = new Cities("카이로", 0, 0, 40);
+		ct[13] = new Cities("상파울로", 0, 0, 45);
+		ct[14] = new Cities("아테네", 0, 0, 45);
+		ct[16] = new Cities("코펜하겐", 0, 0, 45);
+		ct[17] = new Cities("베를린", 0, 0, 45);
+		ct[19] = new Cities("런던", 0, 0, 45);
+		ct[20] = new Cities("파리", 0, 0, 45);
+		ct[22] = new Cities("뉴욕", 0, 0, 45);
+		ct[23] = new Cities("서울", 0, 0, 45);
 
 		f.setTitle("부루마블");
 		f.setSize(1000, 780);
@@ -60,107 +73,107 @@ public class TestGui extends JFrame{
 		Jlist[2].setSize(100, 50);
 		Jlist[2].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[3] = new JLabel(" 도쿄");
+		Jlist[3] = new JLabel(" ★");
 		Jlist[3].setLocation(380, 50);
 		Jlist[3].setSize(100, 50);
 		Jlist[3].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[4] = new JLabel(" 도시5");
+		Jlist[4] = new JLabel(" 도쿄");
 		Jlist[4].setLocation(490, 50);
 		Jlist[4].setSize(100, 50);
 		Jlist[4].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[5] = new JLabel(" 도시6");
+		Jlist[5] = new JLabel(" " + ct[5].getName());
 		Jlist[5].setLocation(600, 50);
 		Jlist[5].setSize(100, 50);
 		Jlist[5].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[6] = new JLabel(" 도시7");
+		Jlist[6] = new JLabel("★");
 		Jlist[6].setLocation(710, 50);
 		Jlist[6].setSize(100, 50);
 		Jlist[6].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[7] = new JLabel(" 도시8");
+		Jlist[7] = new JLabel(" " + ct[7].getName());
 		Jlist[7].setLocation(710, 110);
 		Jlist[7].setSize(100, 50);
 		Jlist[7].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[8] = new JLabel(" 도시9");
+		Jlist[8] = new JLabel(" " + ct[8].getName());
 		Jlist[8].setLocation(710, 170);
 		Jlist[8].setSize(100, 50);
 		Jlist[8].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[9] = new JLabel(" 도시10");
+		Jlist[9] = new JLabel("★");
 		Jlist[9].setLocation(710, 230);
 		Jlist[9].setSize(100, 50);
 		Jlist[9].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[10] = new JLabel(" 도시11");
+		Jlist[10] = new JLabel(" " + ct[10].getName());
 		Jlist[10].setLocation(710, 290);
 		Jlist[10].setSize(100, 50);
 		Jlist[10].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[11] = new JLabel(" 도시12");
+		Jlist[11] = new JLabel(" " + ct[11].getName());
 		Jlist[11].setLocation(710, 350);
 		Jlist[11].setSize(100, 50);
 		Jlist[11].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[12] = new JLabel(" 도시13");
+		Jlist[12] = new JLabel("★");
 		Jlist[12].setLocation(710, 410);
 		Jlist[12].setSize(100, 50);
 		Jlist[12].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[13] = new JLabel(" 도시14");
+		Jlist[13] = new JLabel(" " + ct[13].getName());
 		Jlist[13].setLocation(600, 410);
 		Jlist[13].setSize(100, 50);
 		Jlist[13].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[14] = new JLabel(" 도시15");
+		Jlist[14] = new JLabel(" " + ct[14].getName());
 		Jlist[14].setLocation(490, 410);
 		Jlist[14].setSize(100, 50);
 		Jlist[14].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[15] = new JLabel(" 도시16");
+		Jlist[15] = new JLabel("★");
 		Jlist[15].setLocation(380, 410);
 		Jlist[15].setSize(100, 50);
 		Jlist[15].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[16] = new JLabel(" 도시17");
+		Jlist[16] = new JLabel(" " + ct[16].getName());
 		Jlist[16].setLocation(270, 410);
 		Jlist[16].setSize(100, 50);
 		Jlist[16].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[17] = new JLabel(" 도시18");
+		Jlist[17] = new JLabel(" " + ct[17].getName());
 		Jlist[17].setLocation(160, 410);
 		Jlist[17].setSize(100, 50);
 		Jlist[17].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[18] = new JLabel(" 도시19");
+		Jlist[18] = new JLabel("★");
 		Jlist[18].setLocation(50, 410);
 		Jlist[18].setSize(100, 50);
 		Jlist[18].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[19] = new JLabel(" 도시20");
+		Jlist[19] = new JLabel(" " + ct[19].getName());
 		Jlist[19].setLocation(50, 350);
 		Jlist[19].setSize(100, 50);
 		Jlist[19].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[20] = new JLabel(" 도시21");
+		Jlist[20] = new JLabel(" " + ct[20].getName());
 		Jlist[20].setLocation(50, 290);
 		Jlist[20].setSize(100, 50);
 		Jlist[20].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[21] = new JLabel(" 도시22");
+		Jlist[21] = new JLabel("★");
 		Jlist[21].setLocation(50, 230);
 		Jlist[21].setSize(100, 50);
 		Jlist[21].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[22] = new JLabel(" 도시23");
+		Jlist[22] = new JLabel(" " + ct[22].getName());
 		Jlist[22].setLocation(50, 170);
 		Jlist[22].setSize(100, 50);
 		Jlist[22].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[23] = new JLabel(" 도시24");
+		Jlist[23] = new JLabel(" " + ct[23].getName());
 		Jlist[23].setLocation(50, 110);
 		Jlist[23].setSize(100, 50);
 		Jlist[23].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -267,7 +280,7 @@ public class TestGui extends JFrame{
 			if ((result = new CityManager().
 					OwnCity(ct[location], c)) == 0) {
 				building = new JLabel();
-				building.setSize(15,15);
+				building.setSize(30,30);
 				building.setLocation(Jlist[location].getLocation());
 				building.setOpaque(true);
 				building.setBackground(Color.blue);
