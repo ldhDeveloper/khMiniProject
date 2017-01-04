@@ -16,13 +16,11 @@ public class pageJoin extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		
-		titleBL = new JLabel("블루마블");
+		titleBL = new JLabel("부루마블");
 		titleL = new JLabel("회원가입");
 		idL = new JLabel("ID");
 		pwdL1 = new JLabel("PWD");
 		pwdL2 = new JLabel("PWD 확인");
-		
-		
 		tfID = new JTextField(7);
 		tfPWD1 = new JTextField(7);
 		tfPWD2 = new JTextField(7);
@@ -32,12 +30,12 @@ public class pageJoin extends JFrame {
 		//블루마블
 		titleBL.setFont(new Font("SansSerif", Font.BOLD, 40));
 		titleBL.setBounds(100, 100, 400, 200);
-		titleBL.setLocation(540, 200);
+		titleBL.setLocation(510, 200);
 		
 		//회원가입
 		titleL.setFont(new Font("SansSerif", Font.BOLD, 20));
 		titleL.setSize(100, 80);
-		titleL.setLocation(590, 400);
+		titleL.setLocation(550, 400);
 		
 		//아이디입력
 		idL.setSize(20, 20);
@@ -55,17 +53,13 @@ public class pageJoin extends JFrame {
 		tfPWD2.setSize(100, 20);
 		tfPWD2.setLocation(580, 520);
 		
-		//(new Color(176,196,222));
-		
 		//버튼
 		buttonJoin.setBounds(40, 40, 175, 30);
-		buttonJoin.setLocation(540, 550);
+		buttonJoin.setLocation(510, 550);
 		buttonJoin.setBackground(new Color(35,144,255));
-		
 		buttonCancel.setBounds(40, 40, 175, 30);
-		buttonCancel.setLocation(540, 590);
+		buttonCancel.setLocation(510, 590);
 		buttonCancel.setBackground(Color.GRAY);
-		
 		
 		this.add(titleBL);
 		this.add(titleL);
