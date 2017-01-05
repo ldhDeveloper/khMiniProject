@@ -1,13 +1,17 @@
 package marble.view;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import gui.test.Cities;
+import marble.model.Cities;
+import marble.controller.MarbleController;
 
-public class PageGame extends JFrame {
+public class PageGame extends JFrame implements MouseListener {
 
 	private JPanel panelBoard, panelChat, panelInfo;
 	private JLabel infoLabel, infoLabel2, infoLabel3, user1Label, user2Label, 
@@ -24,8 +28,12 @@ public class PageGame extends JFrame {
 	private JLabel[] Jlist = new JLabel[24];
 	private JButton btn1;
 	private Cities[] ct = new Cities[24];
+	private MarbleController controller;
 	
 	public PageGame(){
+		
+		controller = new MarbleController();
+		
 		this.setTitle("BlueMarble");
 		this.setSize(1200, 800);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -384,7 +392,7 @@ public class PageGame extends JFrame {
 		chatField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		chatField.setBorder(BorderFactory.createCompoundBorder
 						(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(5,5,5,5)));
-		
+		chatField.addMouseListener(this);
 		
 		panelChat = new JPanel();
 		panelChat.setLayout(null);
@@ -395,6 +403,7 @@ public class PageGame extends JFrame {
 		panelChat.add(chatField);
 		
 		this.add(panelChat);
+	
 		
 	}
 	
@@ -477,6 +486,7 @@ public class PageGame extends JFrame {
 		gameInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		gameInfo.setBorder(BorderFactory.createCompoundBorder
 				(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(5,5,5,5)));
+		gameInfo.setEditable(false);
 		
 		// 버튼
 		buttonStart = new JButton("게임시작");
@@ -520,6 +530,7 @@ public class PageGame extends JFrame {
 		btn1.setLocation(300, 200);
 		btn1.setSize(100, 50);
 		btn1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		btn1.addMouseListener(this);
 		panelBoard.add(btn1);
 	}
 
@@ -541,4 +552,27 @@ public class PageGame extends JFrame {
 		ct[22] = new Cities("뉴욕", 0, 0, 45);
 		ct[23] = new Cities("서울", 0, 0, 45);
 	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource()==chatField) {
+			if (chatField.getText().equals("입력"))
+				chatField.setText("");
+		}
+		else if (e.getSource()==btn1)
+			controller.rollDice();
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+
+	@Override
+	public void mouseExited(MouseEvent e) {}
 }
