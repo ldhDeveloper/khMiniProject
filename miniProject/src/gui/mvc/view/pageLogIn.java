@@ -14,6 +14,13 @@ public class pageLogIn extends JPanel {
 	private JButton buttonLogin, buttonJoin;
 	private JPanel panel1, panel2;
 
+	public JButton getButtonLogin(){
+		return this.buttonLogin;
+	} 
+	public JButton getButtonJoin(){
+		return this.buttonJoin;
+	}
+	
 	public pageLogIn() {
 		
 		this.setSize(new Dimension(1200, 800));
