@@ -22,7 +22,7 @@ public class Member implements Serializable {
 		if (name.equals("") || pwd.equals("") || confirm.equals(""))
 			result = 3;
 		
-		if (pwd.equals(confirm)) {
+		else if (pwd.equals(confirm)) {
 			String[] compareName = null;
 			try (BufferedWriter ow = new BufferedWriter(new FileWriter("memberInfo.txt", true));
 					BufferedReader or = new BufferedReader(new FileReader("memberInfo.txt"));) {

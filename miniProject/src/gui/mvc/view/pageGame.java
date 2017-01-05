@@ -25,7 +25,7 @@ public class pageGame extends JPanel {
 	private JButton btn1;
 	private Cities[] ct = new Cities[24];
 	
-	public pageGame(){
+	public pageGame(MainFrame m){
 		
 		this.setSize(1200, 800);
 		

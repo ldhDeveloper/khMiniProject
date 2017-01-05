@@ -6,7 +6,8 @@ public class TestGUI {
 
 	public static void main(String[] args) {
 
-		new pageLogIn();
+		new MainFrame();
+		//new pageLogIn();
 		//new pageJoin();
 		//new pageGame();
 	}

@@ -21,12 +21,10 @@ public class pageLogIn extends JPanel {
 		return this.buttonJoin;
 	}
 	
-	public pageLogIn() {
+	public pageLogIn(MainFrame m) {
 		
 		this.setSize(new Dimension(1200, 800));
-		
 		this.setLayout(null);
-
 		titleBL = new JLabel("부루마블");
 		titleL = new JLabel("로그인");
 		idL = new JLabel("ID");
@@ -71,6 +69,7 @@ public class pageLogIn extends JPanel {
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
+					m.getCardLayout().show(m.getContentPane(), "game");
 					break;
 				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
@@ -84,6 +83,7 @@ public class pageLogIn extends JPanel {
 		buttonJoin.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				m.getCardLayout().show(m.getContentPane(), "Join");
 				}
 			});
 		this.add(titleBL);

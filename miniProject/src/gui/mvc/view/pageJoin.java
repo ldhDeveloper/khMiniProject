@@ -12,7 +12,7 @@ public class pageJoin extends JPanel {
 	private JButton buttonCancel, buttonJoin;
 	boolean focusId = false;
 
-	public pageJoin() {
+	public pageJoin(MainFrame m) {
 		
 		this.setSize(new Dimension(1200, 800));
 		
@@ -71,10 +71,13 @@ public class pageJoin extends JPanel {
 					break;
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
+					m.getCardLayout().show(m.getContentPane(), "Login");
 					break;
 				case 2:
 					JOptionPane.showMessageDialog(tfID.getParent(), "password가 확인문구와 일치하지 않습니다.");
 					break;
+				default : 	JOptionPane.showMessageDialog(tfID.getParent(), "입력하지 않은 공란이 존재합니다.");
+						break;
 				}
 			}
 		});
@@ -84,7 +87,7 @@ public class pageJoin extends JPanel {
 		buttonCancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-							
+							m.getCardLayout().show(m.getContentPane(), "Login");
 			}
 			
 		});
