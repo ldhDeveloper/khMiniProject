@@ -6,7 +6,9 @@ public class MainFrame extends JFrame{
 		this.setTitle("Blue Marble");
 		this.setSize(new Dimension(1200, 800));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setLayout(null);
+		CardLayout cardL = new CardLayout();
+		this.setLayout(cardL);
+		
 		
 		this.setVisible(true);
 		

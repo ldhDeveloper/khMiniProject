@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class pageLogIn extends JFrame {
+public class pageLogIn extends JPanel {
 
 	private JLabel titleBL, titleL, loginL, idL, pwdL;
 	private JTextField tfID, tfPWD;
@@ -15,9 +15,9 @@ public class pageLogIn extends JFrame {
 	private JPanel panel1, panel2;
 
 	public pageLogIn() {
-		this.setTitle("BlueMarble");
+		
 		this.setSize(new Dimension(1200, 800));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.setLayout(null);
 
 		titleBL = new JLabel("부루마블");
@@ -88,7 +88,7 @@ public class pageLogIn extends JFrame {
 		this.add(buttonLogin);
 		this.add(buttonJoin);
 
-		this.setVisible(true);
+	
 	}
 
 }

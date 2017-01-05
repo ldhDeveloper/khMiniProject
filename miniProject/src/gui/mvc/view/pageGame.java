@@ -7,7 +7,7 @@ import javax.swing.border.EmptyBorder;
 
 import gui.test.Cities;
 
-public class pageGame extends JFrame {
+public class pageGame extends JPanel {
 
 	private JPanel panelBoard, panelChat, panelInfo;
 	private JLabel infoLabel, infoLabel2, infoLabel3, user1Label, user2Label, 
@@ -26,17 +26,16 @@ public class pageGame extends JFrame {
 	private Cities[] ct = new Cities[24];
 	
 	public pageGame(){
-		this.setTitle("BlueMarble");
+		
 		this.setSize(1200, 800);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.setLayout(null);
 		
 		Board();
 		diceInit();
 		Chat();
 		Info();
-			
-		this.setVisible(true);
+		
 	}
 
 	private void Board(){

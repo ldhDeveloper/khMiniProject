@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class pageJoin extends JFrame {
+public class pageJoin extends JPanel {
 
 	private JLabel titleBL, titleL, loginL, idL, pwdL1, pwdL2;
 	private JTextField tfID, tfPWD1, tfPWD2;
@@ -13,9 +13,9 @@ public class pageJoin extends JFrame {
 	boolean focusId = false;
 
 	public pageJoin() {
-		this.setTitle("BlueMarble");
+		
 		this.setSize(new Dimension(1200, 800));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.setLayout(null);
 
 		titleBL = new JLabel("부루마블");
@@ -99,7 +99,7 @@ public class pageJoin extends JFrame {
 		this.add(buttonJoin);
 		this.add(buttonCancel);
 
-		this.setVisible(true);
+		
 	}
 
 }
