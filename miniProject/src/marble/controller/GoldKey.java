@@ -7,8 +7,20 @@ import javax.swing.*;
 import marble.model.*;
 
 public class GoldKey extends JFrame{
-		
-		public void goldKeyEvent(JLabel[] Jlist,JLabel car, Charcter c){
+	
+	private JPanel panelBoard;
+	private boolean  flag = false;
+	
+	public void setPanelBoard(JPanel panelBoard) {
+		this.panelBoard = panelBoard;
+	}
+	
+	public void setFlag(boolean flag) {
+		this.flag = flag;
+	}
+	
+		public void goldKeyEvent(JLabel[] Jlist,JLabel car, Charcter c,
+				JButton btn1, JLabel planeMsg){
 			//int keyNum = (int)Math.random() * 10 + 1;
 			int keyNum = 1;
 			
@@ -35,7 +47,7 @@ public class GoldKey extends JFrame{
 				getNoFee();
 				break;
 			case 8:
-				gotoAirport();
+				gotoAirport(btn1, planeMsg);
 				break;
 			case 9:
 				sellCity();
@@ -57,9 +69,12 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void gotoAirport() {
+		public void gotoAirport(JButton btn1, JLabel planeMsg) {
 			// TODO Auto-generated method stub
+			System.out.println("세계여행 ");
 			
+			btn1.setEnabled(false);
+			planeMsg.setVisible(true);
 		}
 
 		public void getNoFee() {
@@ -93,19 +108,23 @@ public class GoldKey extends JFrame{
 		}
 
 		public void toIslane(JLabel[] Jlist,JLabel car, Charcter c) {
+			
 			int xPoint = (int)Jlist[18].getLocation().getX() + 50;
 			int yPoint = (int)Jlist[18].getLocation().getY() + 18;
-			car.setLocation(xPoint, yPoint); // 말 위치 이동
-			c.setLocation(18);
+
+			if (flag==true) {
+				JOptionPane.showMessageDialog(this, 
+						"황금열쇠 : 무인도 \n무인도로 이동합니다.");
+				car.setLocation(xPoint, yPoint); // 말 위치 이동
+				c.setLocation(18);
+			}
 			
-			Object[] option = {"구입", "취소"};
+			else
+				JOptionPane.showMessageDialog(this, 
+						"무인도로 이동합니다.");
 			
-			int result = JOptionPane.showOptionDialog(this,
-					"황금열쇠 : 무인도 \n무인도로 이동합니다.",
-					"황금열쇠", 
-					JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE, 
-					null, option, option[1]);
+			
+			
 			
 		}
 }
