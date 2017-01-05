@@ -1,14 +1,14 @@
 package marble.run;
 
-import gui.mvc.view.*;
+import marble.view.*;
 
 public class TestGUI {
 
 	public static void main(String[] args) {
 
-		new pageLogIn();
-		//new pageJoin();
-		//new pageGame();
+		new PageLogIn();
+		//new PageJoin();
+		//new PageGame();
 	}
 
 }
