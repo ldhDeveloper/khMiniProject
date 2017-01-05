@@ -8,6 +8,11 @@ public class MainFrame extends JFrame{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		CardLayout cardL = new CardLayout();
 		this.setLayout(cardL);
+		JPanel pan1 = new pageLogIn();
+		
+		JPanel pan2 = new pageJoin();
+		JPanel pan3 = new pageGame();
+		
 		
 		
 		this.setVisible(true);
