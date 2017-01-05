@@ -1,4 +1,4 @@
-package popup;
+package gui.popup;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -20,22 +20,22 @@ public class Citybuy extends JFrame{
 	}
 	public void citypopup(){
 		EtchedBorder eborder;             
-		this.citybuy = new JLabel("µµ½Ã ±¸ÀÔ",JLabel.CENTER);
+		this.citybuy = new JLabel("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½",JLabel.CENTER);
 		eborder = new EtchedBorder(EtchedBorder.RAISED); 
 		citybuy.setBorder(eborder);
 		citybuy.setSize(212, 30);
-		citybuy.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		citybuy.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 15));
 		
-		this.cityName = new JLabel("µµ½Ã¸í", JLabel.CENTER);
+		this.cityName = new JLabel("ï¿½ï¿½ï¿½Ã¸ï¿½", JLabel.CENTER);
 		cityName.setSize(210, 160);
-		cityName.setFont(new Font("±¼¸²", Font.BOLD, 12));
+		cityName.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		
-		this.citypay = new JLabel("µµ½Ã±Ý¾×", JLabel.CENTER);
+		this.citypay = new JLabel("ï¿½ï¿½ï¿½Ã±Ý¾ï¿½", JLabel.CENTER);
 		citypay.setSize(210, 230);
 		
 		
 		
-		this.ans1 = new JLabel("±¸ÀÔÇÏ½Ã°Ú½À´Ï±î?");
+		this.ans1 = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?");
 		ans1.setSize(200,100);
 		ans1.setLocation(55, 100);
 		

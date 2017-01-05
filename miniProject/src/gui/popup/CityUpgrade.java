@@ -1,4 +1,4 @@
-package popup;
+package gui.popup;
 
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
@@ -16,23 +16,23 @@ public class CityUpgrade extends JFrame{
 		this.setSize(230, 270);
 	
 		EtchedBorder eborder;
-		this.cityUpgrade = new JLabel("µµ½Ã ¾÷±×·¹ÀÌµå", JLabel.CENTER);
+		this.cityUpgrade = new JLabel("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½", JLabel.CENTER);
 		eborder = new EtchedBorder(EtchedBorder.RAISED); 
 		cityUpgrade.setBorder(eborder);
 		cityUpgrade.setSize(212, 30);
-		cityUpgrade.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		cityUpgrade.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 15));
 		
-		this.cityName3 = new JLabel("µµ½Ã¸í", JLabel.CENTER);
+		this.cityName3 = new JLabel("ï¿½ï¿½ï¿½Ã¸ï¿½", JLabel.CENTER);
 		cityName3.setSize(210, 160);
-		cityName3.setFont(new Font("±¼¸²", Font.BOLD, 12));
+		cityName3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		
-		this.upPay = new JLabel("¾÷±×·¹ÀÌµå ºñ¿ë", JLabel.CENTER);
+		this.upPay = new JLabel("ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½", JLabel.CENTER);
 		upPay.setSize(210, 230);
-		upPay.setFont(new Font("±¼¸²", Font.BOLD, 12));
+		upPay.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		
-		this.ans3 = new JLabel("¾÷±×·¹ÀÌµå ÇÏ½Ã°Ú½À´Ï±î?",JLabel.CENTER);
+		this.ans3 = new JLabel("ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµï¿½ ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?",JLabel.CENTER);
 		ans3.setSize(223,280);
-		ans3.setFont(new Font("±¼¸²", Font.BOLD, 12));
+		ans3.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		
 		this.yes1 = new JButton("yes");
 		yes1.setBounds(30, 170, 70, 30);

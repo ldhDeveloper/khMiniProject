@@ -1,4 +1,4 @@
-package popup;
+package gui.popup;
 
 import java.awt.Font;
 
@@ -19,30 +19,30 @@ public class Fine extends JFrame{
 	}
 	public void finepopup(){
 		EtchedBorder eborder;             
-		this.fine = new JLabel("ÅëÇà·á",JLabel.CENTER);
+		this.fine = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½",JLabel.CENTER);
 		eborder = new EtchedBorder(EtchedBorder.RAISED); 
 		fine.setBorder(eborder);
 		fine.setSize(212, 30);
-		fine.setFont(new Font("±¼¸²",Font.BOLD, 15));
+		fine.setFont(new Font("ï¿½ï¿½ï¿½ï¿½",Font.BOLD, 15));
 		
-		this.cityName2 = new JLabel("µµ½Ã¸í", JLabel.CENTER);
+		this.cityName2 = new JLabel("ï¿½ï¿½ï¿½Ã¸ï¿½", JLabel.CENTER);
 		cityName2.setSize(210 , 160);
-		cityName2.setFont(new Font("±¼¸²", Font.BOLD, 12));
+		cityName2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		
-		this.cityfine = new JLabel("ÅëÇà·á", JLabel.CENTER);
+		this.cityfine = new JLabel("ï¿½ï¿½ï¿½ï¿½ï¿½", JLabel.CENTER);
 		cityfine.setSize(210,230);
-		cityfine.setFont(new Font("±¼¸²", Font.BOLD, 12));
+		cityfine.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		
-		this.ans2 = new JLabel("ÅëÇà·á¸¦ ÁöºÒÇÏ½Ã°Ú½À´Ï±î?");
+		this.ans2 = new JLabel("ï¿½ï¿½ï¿½ï¿½á¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï½Ã°Ú½ï¿½ï¿½Ï±ï¿½?");
 		ans2.setSize(200,100);
 		ans2.setLocation(30, 100);
-		ans2.setFont(new Font("±¼¸²", Font.BOLD, 12));
+		ans2.setFont(new Font("ï¿½ï¿½ï¿½ï¿½", Font.BOLD, 12));
 		
-		this.yes2 = new JButton("ÁöºÒ");
+		this.yes2 = new JButton("ï¿½ï¿½ï¿½ï¿½");
 		yes2.setBounds(30, 170, 70, 30);
 		yes2.setFont(new Font("Dialog", Font.ITALIC, 12));
 		
-		this.no2= new JButton("ÆÄ»ê");
+		this.no2= new JButton("ï¿½Ä»ï¿½");
 		no2.setBounds(120, 170, 70, 30);
 		no2.setFont(new Font("Dialog", Font.ITALIC, 12));
 		
