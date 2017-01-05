@@ -50,8 +50,8 @@ public class Member implements Serializable {
 
 	public int Login(String name, String pwd) {//arguments는 텍스트필드에서 입력받음
 		String compare = name + " " + pwd;
-		int result = 1;
-		try (BufferedReader or = new BufferedReader(new FileReader("memberInfo.dat"))) {
+		int result = 1;	
+		try (BufferedReader or = new BufferedReader(new InputStreamReader(new FileInputStream("memberInfo.dat")))) {
 			for (;;) {
 				if (compare.equals(or.readLine())) {
 					result = 0;
