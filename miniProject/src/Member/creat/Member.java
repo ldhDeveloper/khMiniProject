@@ -24,8 +24,8 @@ public class Member implements Serializable {
 		
 		else if (pwd.equals(confirm)) {
 			String[] compareName = null;
-			try (BufferedWriter ow = new BufferedWriter(new FileWriter("memberInfo.txt", true));
-					BufferedReader or = new BufferedReader(new FileReader("memberInfo.txt"));) {
+			try (BufferedWriter ow = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberInfo.dat", true)));
+					BufferedReader or = new BufferedReader(new InputStreamReader(new FileInputStream("memberInfo.dxt")));) {
 				for (;;) {
 					compareName = or.readLine().split(" ");
 					if (compareName[0].equals(name)) {
@@ -35,8 +35,8 @@ public class Member implements Serializable {
 				}
 
 			} catch (Exception e) {
-				try (BufferedWriter ow = new BufferedWriter(new FileWriter("memberInfo.txt", true));
-						BufferedReader or = new BufferedReader(new FileReader("memberInfo.txt"));) {
+				try (BufferedWriter ow = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("memberInfo.dat", true)));
+						BufferedReader or = new BufferedReader(new InputStreamReader(new FileInputStream("memberInfo.dat")));) {
 					ow.write(name + " " + pwd + "\n");
 					ow.flush();
 					result =0;
@@ -51,7 +51,7 @@ public class Member implements Serializable {
 	public int Login(String name, String pwd) {//arguments는 텍스트필드에서 입력받음
 		String compare = name + " " + pwd;
 		int result = 1;
-		try (BufferedReader or = new BufferedReader(new FileReader("memberInfo.txt"))) {
+		try (BufferedReader or = new BufferedReader(new FileReader("memberInfo.dat"))) {
 			for (;;) {
 				if (compare.equals(or.readLine())) {
 					result = 0;
