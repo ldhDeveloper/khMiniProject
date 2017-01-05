@@ -16,7 +16,12 @@ public class Member implements Serializable {
 	}
 
 	public int createMember(String name, String pwd, String confirm) {//arguments는 텍스트필드에서 입력받음
+		
 		int result = 2;
+		
+		if (name.equals("") || pwd.equals("") || confirm.equals(""))
+			result = 3;
+		
 		if (pwd.equals(confirm)) {
 			String[] compareName = null;
 			try (BufferedWriter ow = new BufferedWriter(new FileWriter("memberInfo.txt", true));
