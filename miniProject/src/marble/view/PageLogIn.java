@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class pageLogIn extends JFrame {
+public class PageLogIn extends JFrame {
 
 	private JLabel titleBL, titleL, loginL, idL, pwdL;
 	private JTextField tfID, tfPWD;
 	private JButton buttonLogin, buttonJoin;
 	private JPanel panel1, panel2;
 
-	public pageLogIn() {
+	public PageLogIn() {
 		this.setTitle("BlueMarble");
 		this.setSize(new Dimension(1200, 800));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

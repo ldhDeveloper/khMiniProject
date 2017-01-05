@@ -5,14 +5,14 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class pageJoin extends JFrame {
+public class PageJoin extends JFrame {
 
 	private JLabel titleBL, titleL, loginL, idL, pwdL1, pwdL2;
 	private JTextField tfID, tfPWD1, tfPWD2;
 	private JButton buttonCancel, buttonJoin;
 	boolean focusId = false;
 
-	public pageJoin() {
+	public PageJoin() {
 		this.setTitle("BlueMarble");
 		this.setSize(new Dimension(1200, 800));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
