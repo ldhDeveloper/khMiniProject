@@ -9,7 +9,7 @@ import marble.model.Cities;
 
 import java.util.*;
 
-public class TestGui extends JFrame implements ActionListener, MouseListener {
+public class marbleController extends JFrame implements ActionListener, MouseListener {
 	
 	Charcter c;
 	JFrame f = new JFrame();
@@ -24,7 +24,7 @@ public class TestGui extends JFrame implements ActionListener, MouseListener {
 	int location, xPoint, yPoint ;
 	
 	
-	public TestGui(){ 
+	public marbleController(){ 
 		
 		c = new Charcter(1, "1번", 2000, 0);
 
@@ -400,7 +400,7 @@ public class TestGui extends JFrame implements ActionListener, MouseListener {
 		
 	}
 	public static void main(String[] args) {
-		TestGui test = new TestGui();
+		marbleController test = new marbleController();
 	}
 
 }
