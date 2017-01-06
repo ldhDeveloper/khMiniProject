@@ -8,11 +8,10 @@ import marble.model.*;
 
 public class GoldKey extends JFrame{
 	
-	private JLabel user1Info, user1Money;
+	private JLabel user1Money;
 	private boolean  flag = false;
 	
-	public void setUserInfo(JLabel user1Info, JLabel user1Money) {
-		this.user1Info = user1Info;
+	public void setUserInfo(JLabel user1Money) {
 		this.user1Money = user1Money;
 	}
 	
@@ -132,8 +131,7 @@ public class GoldKey extends JFrame{
 		public void winLotto(Charcter c) {
 			// TODO Auto-generated method stub
 			c.setMoney(c.getMoney() + 300000);
-			user1Info.setText("<html>아이디: " + c.getName()
-					+ "<br>자산: " + c.getMoney() + "</html>");
+			user1Money.setText(c.getMoney()+"");
 			
 		}
 

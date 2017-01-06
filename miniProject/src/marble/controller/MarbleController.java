@@ -15,7 +15,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JFrame f = new JFrame();
 	private JPanel p = new JPanel();
 	private JPanel panelBoard;
-	private JLabel user1Info, user1Money;
+	private JLabel user1Money;
 	private JLabel car, carinfo, diceLabel;
 	private JLabel diceLabelImage1, diceLabelImage2;
 	private JLabel selectedCountry;
@@ -109,8 +109,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		this.panelBoard = panelBoard;
 	}
 	
-	public void setUserInfo(JLabel user1Info, JLabel user1Money) {
-		this.user1Info = user1Info;
+	public void setUserInfo(JLabel user1Money) {
 		this.user1Money = user1Money;
 	}
 	
@@ -185,7 +184,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	
 	public void rollDice(JTextArea gameInfo) {
 
-		goldkey.setUserInfo(user1Info, user1Money);
+		goldkey.setUserInfo(user1Money);
 		
 		dice1 = new Random().nextInt(6) + 1;
 		dice2 = new Random().nextInt(6) + 1;

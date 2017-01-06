@@ -52,7 +52,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		controller.setBtn1(btn1);
 		controller.setCar(car);
 		controller.setPanelBoard(panelBoard);
-		controller.setUserInfo(user1Info, user1Money);
+		controller.setUserInfo(user1Money);
 		controller.setPlaneMsg(planeMsg);
 		controller.setJlist(Jlist);
 		
