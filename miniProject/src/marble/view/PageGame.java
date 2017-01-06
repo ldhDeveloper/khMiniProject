@@ -315,7 +315,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		Jlist[0].setBounds(0, 0, 150, 100);
 		Jlist[0].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
-		Jlist[1] = new JLabel("도시1");
+		Jlist[1] = new JLabel("리스본");
 		Jlist[1].setHorizontalAlignment(Jlist[1].CENTER);
 		Jlist[1].setBounds(155, 0, 120, 100);
 		Jlist[1].setBorder(BorderFactory.createLineBorder(Color.black, 1));
@@ -335,7 +335,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c1b3.setOpaque(true);
 		c1b1.setName("Jlist13");
 		
-		Jlist[2] = new JLabel("도시2");
+		Jlist[2] = new JLabel("방콕");
 		Jlist[2].setHorizontalAlignment(Jlist[2].CENTER);
 		Jlist[2].setBounds(280, 0, 120, 100);
 		Jlist[2].setBorder(BorderFactory.createLineBorder(Color.black, 1));
