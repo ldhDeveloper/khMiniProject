@@ -178,8 +178,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		
 		dice1 = new Random().nextInt(6) + 1;
 		dice2 = new Random().nextInt(6) + 1;
-		//dice = dice1 + dice2;
-		dice = 6;
+		dice = dice1 + dice2;
 		
 		gameInfo.setText(dice + "칸 이동! ");
 		
