@@ -239,7 +239,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		if(cityStatus == 0) {
 			// 구입 X 0
 			
-			result = cityManager.OwnCity(ct[location], c);
+			result = cityManager.OwnCity(ct[location], c, user1Info);
 			
 			if (result == 0) {
 				cityAction(location);
@@ -249,7 +249,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		else {
 			
 			String r  = cityManager.UpgradeCity(
-					ct[location], c);
+					ct[location], c, user1Info);
 			
 			if (cityStatus == 1) {
 			// 건물이 0채일 때
