@@ -21,8 +21,7 @@ public class GoldKey extends JFrame{
 	
 		public void goldKeyEvent(JLabel[] Jlist, JLabel car, Charcter c,
 				JButton btn1, JLabel planeMsg){
-			//int keyNum = (int)Math.random() * 10 + 1;
-			int keyNum = 3;
+			int keyNum = (int)Math.random() * 10 + 1;
 					
 			switch(keyNum){
 			case 1: 

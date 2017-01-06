@@ -111,6 +111,8 @@ public class MarbleController extends JFrame implements MouseListener{
 	
 	public void setUserInfo(JLabel user1Money) {
 		this.user1Money = user1Money;
+		goldkey.setUserInfo(user1Money);
+		
 	}
 	
 	public void setPlaneMsg(JLabel planeMsg) {
@@ -164,8 +166,8 @@ public class MarbleController extends JFrame implements MouseListener{
 	}
 	
 	public void cityInit() {
-		ct[1] = new Cities("뉴욕", 0, 0, 20);
-		ct[2] = new Cities("서울", 0, 0, 20);
+		ct[1] = new Cities("리스본", 0, 0, 20);
+		ct[2] = new Cities("방콕", 0, 0, 20);
 		ct[4] = new Cities("도쿄", 0, 0, 15);
 		ct[5] = new Cities("베이징", 0, 0, 20);
 		ct[7] = new Cities("뉴델리", 0, 0, 25);
@@ -184,8 +186,6 @@ public class MarbleController extends JFrame implements MouseListener{
 	
 	public void rollDice(JTextArea gameInfo) {
 
-		goldkey.setUserInfo(user1Money);
-		
 		dice1 = new Random().nextInt(6) + 1;
 		dice2 = new Random().nextInt(6) + 1;
 		dice = dice1 + dice2;
@@ -243,12 +243,17 @@ public class MarbleController extends JFrame implements MouseListener{
 			if (result == 0) {
 				cityAction(location);
 			}
+			
+			else if (result == JOptionPane.CLOSED_OPTION)
+				;
 		}
 
 		else {
 			
 			String r  = cityManager.UpgradeCity(
 					ct[location], c, user1Money);
+			
+			if (r==null) return;
 			
 			if (cityStatus == 1) {
 			// 건물이 0채일 때

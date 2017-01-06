@@ -30,7 +30,7 @@ public class CityManager extends JFrame{
 		*/
 		user1Money.setText(c.getMoney()+"");
 		return result;
-		
+
 	}
 	
 	public String UpgradeCity(Cities city, Charcter c, JLabel user1Money) {
@@ -44,7 +44,7 @@ public class CityManager extends JFrame{
 		if (cityStatus == 1) { // 건물이 0채인 경우
 			
 			result = (String) JOptionPane.showInputDialog(this,
-				"건물을 지을까요", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
+				"건물을 지을까요?", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
 				option1, "1");
 
 			if (result == "1") { // 다이얼로그에서 1을 선택 (한채 짓기)
