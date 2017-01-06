@@ -45,16 +45,17 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		this.setLayout(null);
 		
 		Board();
-		/*Chat();*///로그인 버튼에서 실행
+		/*Chat();*/
 		Info();
 
-		planeMsg.setName("planeMsg");
-		
 		controller.setBtn1(btn1);
 		controller.setCar(car);
+		controller.setPanelBoard(panelBoard);
+		controller.setUser1Info(user1Info);
 		controller.setPlaneMsg(planeMsg);
 		controller.setJlist(Jlist);
-    /* 로그인 버튼으로 이전
+		
+		/*
         Scanner scanner = new Scanner(System.in);
 	    System.out.print("당신의 닉네임부터 설정하세요 : ");
 	    nickName = scanner.nextLine() + " : ";
@@ -71,7 +72,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		panelBoard.setLayout(null);
 		panelBoard.setBounds(20, 30, 900, 550);
 		//panelBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		controller = new MarbleController(panelBoard);
+		controller = new MarbleController();
 		
 		JlistInit();
 		
@@ -199,7 +200,8 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user1Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user1Info.setBorder(BorderFactory.createCompoundBorder
 				(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(0,5,0,0)));
-
+		user1Info.setName("user1Info");
+		
 		user2Label = new JLabel("2");
 		user2Label.setBounds(20, 170, 40, 40);
 		user2Label.setHorizontalAlignment(user2Label.CENTER);
@@ -727,9 +729,6 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	}
 	public JLabel getUser4Info(){
 		return user4Info;
-	}
-	public ClientBackground getClient(){
-		return client;
 	}
 	
 	

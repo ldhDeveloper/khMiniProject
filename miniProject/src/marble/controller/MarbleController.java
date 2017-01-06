@@ -15,6 +15,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JFrame f = new JFrame();
 	private JPanel p = new JPanel();
 	private JPanel panelBoard;
+	private JLabel user1Info;
 	private JLabel car, carinfo, diceLabel;
 	private JLabel diceLabelImage1, diceLabelImage2;
 	private JLabel selectedCountry;
@@ -23,17 +24,14 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JLabel planeMsg;
 	private JLabel[] Jlist;
 	private Cities[] ct = new Cities[24];
-	private int dice1, dice2, dice, location;
+	private int dice1, dice2, dice, location = 0;
 	private int previousLocation, xPoint = 100, yPoint = 68 ;
 	private GoldKey goldkey;
 	private CityManager cityManager;
 	
-	public MarbleController(JPanel panelBoard) { 
-		
-		this.panelBoard = panelBoard;
+	public MarbleController() { 
 		
 		goldkey = new GoldKey();
-		goldkey.setPanelBoard(panelBoard);
 		cityManager = new CityManager();
 		
 		c = new Charcter("1번", 2000, 0);
@@ -107,6 +105,14 @@ public class MarbleController extends JFrame implements MouseListener{
 		this.car = car;
 	}
 	
+	public void setPanelBoard(JPanel panelBoard) {
+		this.panelBoard = panelBoard;
+	}
+	
+	public void setUser1Info(JLabel user1Info) {
+		this.user1Info = user1Info;
+	}
+	
 	public void setPlaneMsg(JLabel planeMsg) {
 		this.planeMsg = planeMsg;
 		planeMsg.setSize(400, 150);
@@ -177,6 +183,8 @@ public class MarbleController extends JFrame implements MouseListener{
 	}
 	
 	public void rollDice(JTextArea gameInfo) {
+
+		goldkey.setUser1Info(user1Info);
 		
 		dice1 = new Random().nextInt(6) + 1;
 		dice2 = new Random().nextInt(6) + 1;

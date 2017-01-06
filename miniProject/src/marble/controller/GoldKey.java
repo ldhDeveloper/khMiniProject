@@ -8,11 +8,11 @@ import marble.model.*;
 
 public class GoldKey extends JFrame{
 	
-	private JPanel panelBoard;
+	private JLabel user1Info;
 	private boolean  flag = false;
 	
-	public void setPanelBoard(JPanel panelBoard) {
-		this.panelBoard = panelBoard;
+	public void setUser1Info(JLabel user1Info) {
+		this.user1Info = user1Info;
 	}
 	
 	public void setFlag(boolean flag) {
@@ -22,14 +22,14 @@ public class GoldKey extends JFrame{
 		public void goldKeyEvent(JLabel[] Jlist,JLabel car, Charcter c,
 				JButton btn1, JLabel planeMsg){
 			//int keyNum = (int)Math.random() * 10 + 1;
-			int keyNum = 1;
-			
+			int keyNum = 2;
+					
 			switch(keyNum){
 			case 1: 
 				toIsland(Jlist, car, c); 
 				break;
 			case 2:	
-				winLotto(); 
+				winLotto(c);
 				break;
 			case 3:
 				move3next();
@@ -102,12 +102,15 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void winLotto() {
+		public void winLotto(Charcter c) {
 			// TODO Auto-generated method stub
+			c.setMoney(c.getMoney() + 300000);
+			user1Info.setText("<html>아이디: " + c.getName()
+					+ "<br>자산: " + c.getMoney() + "</html>");
 			
 		}
 
-		public void toIsland(JLabel[] Jlist,JLabel car, Charcter c) {
+		public void toIsland(JLabel[] Jlist, JLabel car, Charcter c) {
 			
 			int xPoint = (int)Jlist[18].getLocation().getX() + 50;
 			int yPoint = (int)Jlist[18].getLocation().getY() + 18;
