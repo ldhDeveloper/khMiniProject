@@ -68,9 +68,10 @@ public class PageLogIn extends JPanel {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
 					c = new Charcter(tfID.getText(), 400, 0);
-					
-					
+					PageGame gamePanel = (PageGame)m.getPan3();
+					gamePanel.getUser1Info().setText("<html>ID : "+c.getName()+"<br>자산 :" + c.getMoney() );
 					m.getCardLayout().show(m.getContentPane(), "game");
+					gamePanel.Chat();
 					break;
 				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");

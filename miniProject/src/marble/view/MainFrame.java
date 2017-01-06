@@ -1,14 +1,12 @@
 package marble.view;
 
 import java.awt.CardLayout;
+
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import gui.mvc.view.pageGame;
-import gui.mvc.view.pageJoin;
-import gui.mvc.view.pageLogIn;
+import marble.view.*;
 
 public class MainFrame extends JFrame{
 	private CardLayout cardL= new CardLayout();

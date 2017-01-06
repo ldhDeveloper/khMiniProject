@@ -38,32 +38,31 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private static String nickName;
 	
 	public PageGame(MainFrame m){
+				
 		
-		Scanner scanner = new Scanner(System.in);
-	    System.out.print("당신의 닉네임부터 설정하세요 : ");
-	    nickName = scanner.nextLine() + " : ";
-	    scanner.close();   
-		
-		
-		this.setSize(1200, 800);
+		this.setSize(new Dimension(1200, 800));
 		this.setLocation(120, 0);
 		this.setLayout(null);
 		
 		Board();
-		Chat();
+		/*Chat();*/
 		Info();
 
-		planeMsg.setName("planeMsg");
+		/*planeMsg.setName("planeMsg");
 		
 		controller.setBtn1(btn1);
 		controller.setCar(car);
 		controller.setPlaneMsg(planeMsg);
 		controller.setJlist(Jlist);
-		
+
+        Scanner scanner = new Scanner(System.in);
+	    System.out.print("당신의 닉네임부터 설정하세요 : ");
+	    nickName = scanner.nextLine() + " : ";
+	    scanner.close();   
 		
 		client.setGui(this);
 		client.setNickname(nickName);
-        client.connet();
+        client.connet();*/
 	}
 
 	private void Board(){
@@ -134,7 +133,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		this.add(panelBoard);
 	}
 	
-	private void Chat(){
+	public void Chat(){
 		
 		// 채팅창
 		chatScreen = new JTextArea("채팅창", 10, 5);
@@ -717,4 +716,18 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		chatScreen.setCaretPosition(chatScreen.getDocument().getLength());
 		//스크롤바 아래로
 	}
+	public JLabel getUser1Info(){
+		return user1Info;
+	}
+	public JLabel getUser2Info(){
+		return user2Info;
+	}
+	public JLabel getUser3Info(){
+		return user3Info;
+	}
+	public JLabel getUser4Info(){
+		return user4Info;
+	}
+	
+	
 }
