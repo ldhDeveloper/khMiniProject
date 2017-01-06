@@ -5,12 +5,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Scanner;
 
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import marble.model.Cities;
+import marble.controller.ClientBackground;
 import marble.controller.MarbleController;
 
 public class PageGame extends JFrame implements MouseListener, ActionListener {
@@ -32,8 +34,15 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 	private JLabel planeMsg = new JLabel("이동할 도시를 선택해주세요 ", JLabel.CENTER);
 	private Cities[] ct = new Cities[24];
 	private MarbleController controller;
+	private ClientBackground client = new ClientBackground();
+	private static String nickName;
 	
 	public PageGame(){
+		
+		Scanner scanner = new Scanner(System.in);
+	    System.out.print("당신의 닉네임부터 설정하세요 : ");
+	    nickName = scanner.nextLine();
+	    scanner.close();   
 		
 		this.setTitle("BlueMarble");
 		this.setSize(1200, 800);
@@ -53,6 +62,10 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 		controller.setJlist(Jlist);
 		
 		this.setVisible(true);
+		
+		client.setGui(this);
+		client.setNickname(nickName);
+        client.connet();
 	}
 
 	private void Board(){
@@ -127,11 +140,11 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 		
 		// 채팅창
 		chatScreen = new JTextArea("채팅창", 10, 5);
-		/*JScrollPane scroll = new JScrollPane(chatScreen);
-		chatScreen.setPreferredSize(new Dimension(900, 100));*/
-		chatScreen.setBounds(0, 0, 900, 100);
-		chatScreen.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		chatScreen.setBorder(BorderFactory.createCompoundBorder
+		JScrollPane scroll = new JScrollPane(chatScreen);
+		//chatScreen.setPreferredSize(new Dimension(900, 100));
+		scroll.setBounds(0, 0, 900, 100);
+		scroll.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		scroll.setBorder(BorderFactory.createCompoundBorder
 						(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(5,5,5,5)));
 		
 		// 채팅입력창
@@ -141,13 +154,21 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 		chatField.setBorder(BorderFactory.createCompoundBorder
 						(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(5,5,5,5)));
 		chatField.addMouseListener(this);
+		chatField.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String msg = nickName + chatField.getText() + "\n";
+				client.sendMessage(msg);
+				chatField.setText("");
+			}});
 		
 		panelChat = new JPanel();
 		panelChat.setLayout(null);
 		panelChat.setBounds(20, 600, 900, 130);
 		panelChat.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		
-		panelChat.add(chatScreen);
+		panelChat.add(scroll);
 		panelChat.add(chatField);
 		
 		this.add(panelChat);
@@ -662,6 +683,7 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+	
 		if (e.getSource()==chatField) {
 			if (chatField.getText().equals("입력"))
 				chatField.setText("");
@@ -691,4 +713,10 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 
 	@Override
 	public void mouseExited(MouseEvent e) {}
+	
+	public void appendMsg(String msg) {
+		chatScreen.append(msg);
+		chatScreen.setCaretPosition(chatScreen.getDocument().getLength());
+		//스크롤바 아래로
+	}
 }
