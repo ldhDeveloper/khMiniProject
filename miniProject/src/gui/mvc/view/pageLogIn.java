@@ -3,12 +3,16 @@ package gui.mvc.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class pageLogIn extends JPanel {
+import marble.model.Charcter;
 
+public class pageLogIn extends JPanel {
+	private Charcter m;
+	private ArrayList<Charcter> user = new ArrayList<Charcter>();
 	private JLabel titleBL, titleL, loginL, idL, pwdL;
 	private JTextField tfID, tfPWD;
 	private JButton buttonLogin, buttonJoin;
@@ -97,5 +101,13 @@ public class pageLogIn extends JPanel {
 
 	
 	}
-
+	public ArrayList<Charcter> getUser() {
+		return user;
+	}
+	public void setUser(ArrayList<Charcter> user) {
+		this.user = user;
+	}
+	public void addUser(Charcter c){
+		user.add(c);
+	}
 }

@@ -1,21 +1,22 @@
 package marble.view;
 
 import java.awt.*;
+
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class PageJoin extends JFrame {
 
+public class PageJoin extends JPanel {
 	private JLabel titleBL, titleL, loginL, idL, pwdL1, pwdL2;
 	private JTextField tfID, tfPWD1, tfPWD2;
 	private JButton buttonCancel, buttonJoin;
 	boolean focusId = false;
 
-	public PageJoin() {
-		this.setTitle("BlueMarble");
+	public PageJoin(MainFrame m) {
+		
 		this.setSize(new Dimension(1200, 800));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.setLayout(null);
 
 		titleBL = new JLabel("부루마블");
@@ -71,10 +72,13 @@ public class PageJoin extends JFrame {
 					break;
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
+					m.getCardLayout().show(m.getContentPane(), "Login");
 					break;
 				case 2:
 					JOptionPane.showMessageDialog(tfID.getParent(), "password가 확인문구와 일치하지 않습니다.");
 					break;
+				default : 	JOptionPane.showMessageDialog(tfID.getParent(), "입력하지 않은 공란이 존재합니다.");
+						break;
 				}
 			}
 		});
@@ -84,7 +88,7 @@ public class PageJoin extends JFrame {
 		buttonCancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-							
+							m.getCardLayout().show(m.getContentPane(), "Login");
 			}
 			
 		});
@@ -98,8 +102,6 @@ public class PageJoin extends JFrame {
 		this.add(tfPWD2);
 		this.add(buttonJoin);
 		this.add(buttonCancel);
-
-		this.setVisible(true);
+		
 	}
-
 }
