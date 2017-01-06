@@ -1,18 +1,28 @@
-package gui.mvc.view;
-import javax.swing.*;import java.awt.*;
+package marble.view;
+
+import java.awt.CardLayout;
+import java.awt.Dimension;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import gui.mvc.view.pageGame;
+import gui.mvc.view.pageJoin;
+import gui.mvc.view.pageLogIn;
+
 public class MainFrame extends JFrame{
 	private CardLayout cardL= new CardLayout();
-private	JPanel pan1 = new pageLogIn(this);
+/*private	JPanel pan1 = new pageLogIn(this);
 private	JPanel pan2 = new pageJoin(this);
-private	JPanel pan3 = new pageGame(this);
+private	JPanel pan3 = new pageGame(this);*/
 	public MainFrame(){
 		this.setTitle("Blue Marble");
 		this.setSize(new Dimension(1200, 800));
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(cardL);
-		this.getContentPane().add("Login", pan1);
+		/*this.getContentPane().add("Login", pan1);
 		this.getContentPane().add("Join", pan2);
-		this.getContentPane().add("game", pan3);
+		this.getContentPane().add("game", pan3);*/
 		this.setVisible(true);
 		
 	}
@@ -23,7 +33,7 @@ private	JPanel pan3 = new pageGame(this);
 	public CardLayout getCardLayout(){
 		return cardL;
 	}
-	public void setPan1(JPanel pan){
+	/*public void setPan1(JPanel pan){
 		this.pan1=pan;
 	}
 	public void setPan2(JPanel pan){
@@ -42,5 +52,5 @@ private	JPanel pan3 = new pageGame(this);
 
 	public JPanel getPan3(){
 		return this.pan3;
-	}
+	}*/
 }

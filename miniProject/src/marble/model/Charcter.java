@@ -34,9 +34,8 @@ public class Charcter {
 	public Charcter(){
 		
 	}
-	public Charcter(int cNo, String name, int money, int location) {
+	public Charcter( String name, int money, int location) {
 		super();
-		this.cNo = cNo;
 		this.name = name;
 		this.money = money;
 		this.location = location;
