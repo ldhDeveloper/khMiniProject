@@ -19,7 +19,7 @@ public class GoldKey extends JFrame{
 		this.flag = flag;
 	}
 	
-		public void goldKeyEvent(JLabel[] Jlist,JLabel car, Charcter c,
+		public void goldKeyEvent(JLabel[] Jlist, JLabel car, Charcter c,
 				JButton btn1, JLabel planeMsg){
 			//int keyNum = (int)Math.random() * 10 + 1;
 			int keyNum = 2;
@@ -32,10 +32,10 @@ public class GoldKey extends JFrame{
 				winLotto(c);
 				break;
 			case 3:
-				move3next();
+				move3next(car, c, Jlist);
 				break;
 			case 4:
-				move3before();
+				move3before(car, c, Jlist);
 				break;
 			case 5:
 				gotoStart();
@@ -92,13 +92,39 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void move3before() {
+		public void move3before(JLabel car, Charcter c, JLabel[] Jlist) {
 			// TODO Auto-generated method stub
+
+			int location = c.getLocation() - 3;
+			JOptionPane.showMessageDialog(this, "3칸 뒤로 이동합니다.");
+			
+			if(location <= Jlist.length)
+				location += Jlist.length;
+
+			c.setLocation(location);
+			
+			int xPoint = (int)Jlist[location].getLocation().getX() + 50;
+			int yPoint = (int)Jlist[location].getLocation().getY() + 18;
+			
+			car.setLocation(xPoint, yPoint);
 			
 		}
 
-		public void move3next() {
+		public void move3next(JLabel car, Charcter c, JLabel[] Jlist) {
 			// TODO Auto-generated method stub
+
+			int location = c.getLocation() + 3;
+			JOptionPane.showMessageDialog(this, "3칸 앞으로 이동합니다.");
+			
+			if(location >= Jlist.length)
+				location -= Jlist.length;
+
+			c.setLocation(location);
+			
+			int xPoint = (int)Jlist[location].getLocation().getX() + 50;
+			int yPoint = (int)Jlist[location].getLocation().getY() + 18;
+
+			car.setLocation(xPoint, yPoint);
 			
 		}
 

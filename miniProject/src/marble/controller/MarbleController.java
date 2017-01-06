@@ -215,8 +215,6 @@ public class MarbleController extends JFrame implements MouseListener{
 			xPoint = (int)Jlist[i].getLocation().getX() + 50;
 			yPoint = (int)Jlist[i].getLocation().getY() + 18;
 			
-			car.setLocation(xPoint, yPoint); // 말 위치 이동
-			
 		}
 		
 		if(ct[location] != null){
