@@ -1,11 +1,11 @@
 package marble.view;
 
 import java.awt.*;
+
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 
-import gui.mvc.view.MainFrame;
 
 public class PageJoin extends JPanel {
 	private JLabel titleBL, titleL, loginL, idL, pwdL1, pwdL2;
