@@ -336,7 +336,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	
 	public void salary() {
 		JOptionPane.showMessageDialog(this, "월급을 받습니다 (+1000000원)");
-		c.setMoney(1000000);
+		c.setMoney(c.getMoney()+1000000);
 		
 		/*
 		user1Info.setText("<html>아이디: " + c.getName()

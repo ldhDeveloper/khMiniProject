@@ -47,22 +47,26 @@ public class PageLogIn extends JPanel {
 		idL.setLocation(480, 470);
 		tfID.setSize(100, 20);
 		tfID.setLocation(520, 470);
+		tfID.setNextFocusableComponent(tfPWD);
 
 		// 패스워드 입력
 		pwdL.setSize(40, 20);
 		pwdL.setLocation(480, 490);
 		tfPWD.setSize(100, 20);
 		tfPWD.setLocation(520, 490);
+		tfPWD.setNextFocusableComponent(buttonLogin);
 
 		// 버튼
 		buttonLogin.setBounds(40, 40, 65, 40);
 		buttonLogin.setLocation(630, 470);
 		buttonLogin.setBackground(new Color(176, 196, 222));
+		buttonLogin.setNextFocusableComponent(buttonJoin);
 		buttonLogin.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int answer = 0;
+				
 				answer = new marble.model.Member().Login(tfID.getText(), tfPWD.getText());
 				switch (answer) {
 				case 0:
@@ -100,7 +104,7 @@ public class PageLogIn extends JPanel {
 		this.add(tfPWD);
 		this.add(buttonLogin);
 		this.add(buttonJoin);
-
+		
 		this.setVisible(true);
 	}
 
