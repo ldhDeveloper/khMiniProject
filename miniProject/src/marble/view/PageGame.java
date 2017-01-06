@@ -15,7 +15,7 @@ import marble.model.Cities;
 import marble.controller.ClientBackground;
 import marble.controller.MarbleController;
 
-public class PageGame extends JFrame implements MouseListener, ActionListener {
+public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 	private JPanel panelBoard, panelChat, panelInfo;
 	private JLabel infoLabel, infoLabel2, infoLabel3, user1Label, user2Label, 
@@ -37,17 +37,16 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 	private ClientBackground client = new ClientBackground();
 	private static String nickName;
 	
-	public PageGame(){
+	public PageGame(MainFrame m){
 		
 		Scanner scanner = new Scanner(System.in);
 	    System.out.print("당신의 닉네임부터 설정하세요 : ");
 	    nickName = scanner.nextLine() + " : ";
 	    scanner.close();   
 		
-		this.setTitle("BlueMarble");
+		
 		this.setSize(1200, 800);
 		this.setLocation(120, 0);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLayout(null);
 		
 		Board();
@@ -61,7 +60,6 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 		controller.setPlaneMsg(planeMsg);
 		controller.setJlist(Jlist);
 		
-		this.setVisible(true);
 		
 		client.setGui(this);
 		client.setNickname(nickName);

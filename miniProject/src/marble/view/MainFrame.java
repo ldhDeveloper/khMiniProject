@@ -14,7 +14,7 @@ public class MainFrame extends JFrame{
 	private CardLayout cardL= new CardLayout();
 private	JPanel pan1 = new PageLogIn(this);
 private	JPanel pan2 = new PageJoin(this);
-/*private	JPanel pan3 = new pageGame(this);*/
+private	JPanel pan3 = new PageGame(this);
 	public MainFrame(){
 		this.setTitle("Blue Marble");
 		this.setSize(new Dimension(1200, 800));
@@ -22,7 +22,7 @@ private	JPanel pan2 = new PageJoin(this);
 		this.setLayout(cardL);
 		this.getContentPane().add("Login", pan1);
 		this.getContentPane().add("Join", pan2);
-	//	this.getContentPane().add("game", pan3);
+	    this.getContentPane().add("game", pan3);
 		this.setVisible(true);
 		
 	}
@@ -39,9 +39,9 @@ private	JPanel pan2 = new PageJoin(this);
 	public void setPan2(JPanel pan){
 		this.pan2=pan;
 	}
-	/*public void setPan3(JPanel pan){
+	public void setPan3(JPanel pan){
 		this.pan3=pan;
-	}*/
+	}
 	public JPanel getPan1(){
 		return this.pan1;
 	}
@@ -50,7 +50,7 @@ private	JPanel pan2 = new PageJoin(this);
 		return this.pan2;
 	}
 
-	/*public JPanel getPan3(){
+	public JPanel getPan3(){
 		return this.pan3;
-	}*/
+	}
 }
