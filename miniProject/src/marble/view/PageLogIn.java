@@ -68,6 +68,8 @@ public class PageLogIn extends JPanel {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
 					c = new Charcter(tfID.getText(), 400, 0);
+					
+					
 					m.getCardLayout().show(m.getContentPane(), "game");
 					break;
 				case 1:
@@ -82,6 +84,7 @@ public class PageLogIn extends JPanel {
 		buttonJoin.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				m.getCardLayout().show(m.getContentPane(), "Join");
 				}
 			});
 		this.add(titleBL);
