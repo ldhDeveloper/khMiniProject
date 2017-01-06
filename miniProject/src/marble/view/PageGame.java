@@ -20,6 +20,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private JPanel panelBoard, panelChat, panelInfo;
 	private JLabel infoLabel, infoLabel2, infoLabel3, user1Label, user2Label, 
 					user3Label, user4Label, user1Info, user2Info, user3Info, user4Info,
+					user1Money,user2Money,user3Money,user4Money,
 					c1b1, c1b2, c1b3, c2b1, c2b2, c2b3, c3b1, c3b2, c3b3,
 					c4b1, c4b2, c4b3, c5b1, c5b2, c5b3, c6b1, c6b2, c6b3,
 					c7b1, c7b2, c7b3, c8b1, c8b2, c8b3, c9b1, c9b2, c9b3,
@@ -200,7 +201,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user1Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user1Info.setBorder(BorderFactory.createCompoundBorder
 				(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(0,5,0,0)));
-		user1Info.setName("user1Info");
+		user1Money=new JLabel();
+		user1Info.add(user1Money);
+		user1Money.setBorder(null);
+		user1Money.setBounds(40, 19, 70, 20);
 		
 		user2Label = new JLabel("2");
 		user2Label.setBounds(20, 170, 40, 40);
@@ -215,6 +219,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user2Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user2Info.setBorder(BorderFactory.createCompoundBorder
 				(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(0,5,0,0)));
+		user2Money=new JLabel();
+		user2Info.add(user2Money);
+		user2Money.setBorder(null);
+		user2Money.setBounds(40, 19, 70, 20);
 		
 		user3Label = new JLabel("3");
 		user3Label.setBounds(20, 220, 40, 40);
@@ -229,6 +237,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user3Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user3Info.setBorder(BorderFactory.createCompoundBorder
 				(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(0,5,0,0)));
+		user3Money=new JLabel();
+		user3Info.add(user3Money);
+		user3Money.setBorder(null);
+		user3Money.setBounds(40, 19, 70, 20);
 		
 		user4Label = new JLabel("4");
 		user4Label.setBounds(20, 270, 40, 40);
@@ -243,6 +255,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user4Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user4Info.setBorder(BorderFactory.createCompoundBorder
 				(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(0,5,0,0)));
+		user4Money=new JLabel();
+		user4Info.add(user4Money);
+		user4Money.setBorder(null);
+		user4Money.setBounds(40, 19, 70, 20);
 		
 		//게임정보창 타이틀
 		infoLabel3 = new JLabel("게임안내창");
@@ -733,6 +749,18 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	
 	public ClientBackground getClient() {
 		return client;
+	}
+	public JLabel getUser1Money(){
+		return this.user1Money;
+	}
+	public JLabel getUser2Money(){
+		return this.user2Money;
+	}
+	public JLabel getUser3Money(){
+		return this.user3Money;
+	}
+	public JLabel getUser4Money(){
+		return this.user4Money;
 	}
 	
 	

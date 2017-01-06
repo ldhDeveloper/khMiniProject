@@ -69,7 +69,8 @@ public class PageLogIn extends JPanel {
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
 					c = new Charcter(tfID.getText(), 400, 0);
 					PageGame gamePanel = (PageGame)m.getPan3();
-					gamePanel.getUser1Info().setText("<html>ID : "+c.getName()+"<br>자산 :" + c.getMoney() );
+					gamePanel.getUser1Info().setText("<html>ID : "+c.getName()+"<br>자산 :");
+					gamePanel.getUser1Money().setText(""+c.getMoney());
 					m.getCardLayout().show(m.getContentPane(), "game");
 					gamePanel.Chat();
 					gamePanel.getClient().setGui(gamePanel);
