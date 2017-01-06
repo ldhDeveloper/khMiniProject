@@ -7,17 +7,20 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import javax.swing.event.*;
 
-public class PageLogIn extends JFrame {
+import marble.model.Charcter;
 
+public class PageLogIn extends JPanel {
+	
+	private Charcter c;
 	private JLabel titleBL, titleL, loginL, idL, pwdL;
 	private JTextField tfID, tfPWD;
 	private JButton buttonLogin, buttonJoin;
 	private JPanel panel1, panel2;
 
-	public PageLogIn() {
-		this.setTitle("BlueMarble");
+	public PageLogIn(MainFrame m) {
+	
 		this.setSize(new Dimension(1200, 800));
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		this.setLayout(null);
 
 		titleBL = new JLabel("부루마블");
@@ -64,6 +67,10 @@ public class PageLogIn extends JFrame {
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
+					c = new Charcter(tfID.getText(), 400, 0);
+					
+					
+					m.getCardLayout().show(m.getContentPane(), "game");
 					break;
 				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
@@ -77,6 +84,7 @@ public class PageLogIn extends JFrame {
 		buttonJoin.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				m.getCardLayout().show(m.getContentPane(), "Join");
 				}
 			});
 		this.add(titleBL);

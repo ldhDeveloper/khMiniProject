@@ -36,7 +36,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		goldkey.setPanelBoard(panelBoard);
 		cityManager = new CityManager();
 		
-		c = new Charcter(1, "1번", 2000, 0);
+		c = new Charcter("1번", 2000, 0);
 
 		cityInit();
 		

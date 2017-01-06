@@ -5,8 +5,8 @@ import marble.view.*;
 public class TestGUI {
 
 	public static void main(String[] args) {
-
-		new PageLogIn();
+		new MainFrame();
+		//new PageLogIn();
 		//new PageJoin();
 		//new PageGame();
 	}
