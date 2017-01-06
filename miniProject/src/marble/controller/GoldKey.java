@@ -26,7 +26,7 @@ public class GoldKey extends JFrame{
 			
 			switch(keyNum){
 			case 1: 
-				toIslane(Jlist, car, c); 
+				toIsland(Jlist, car, c); 
 				break;
 			case 2:	
 				winLotto(); 
@@ -107,7 +107,7 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void toIslane(JLabel[] Jlist,JLabel car, Charcter c) {
+		public void toIsland(JLabel[] Jlist,JLabel car, Charcter c) {
 			
 			int xPoint = (int)Jlist[18].getLocation().getX() + 50;
 			int yPoint = (int)Jlist[18].getLocation().getY() + 18;

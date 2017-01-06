@@ -263,13 +263,14 @@ public class MarbleController extends JFrame implements MouseListener{
 		case 18 :
 			System.out.println("무인도 ");
 			goldkey.setFlag(false);
-			goldkey.toIslane(Jlist, car, c); 
+			goldkey.toIsland(Jlist, car, c); 
 			break;
 		case 21 :
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
 			break;
 		}
+		location = c.getLocation();
 	}
 	
 	
