@@ -214,6 +214,7 @@ public class MarbleController extends JFrame implements MouseListener{
 			
 			xPoint = (int)Jlist[i].getLocation().getX() + 50;
 			yPoint = (int)Jlist[i].getLocation().getY() + 18;
+			car.setLocation(xPoint, yPoint);
 			
 		}
 		
@@ -291,6 +292,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		switch (location) {
 		case 0 :
 			System.out.println("월급 ");
+			salary();
 			break;
 		case 3 :
 			goldkey.setFlag(true);
@@ -327,7 +329,12 @@ public class MarbleController extends JFrame implements MouseListener{
 		}
 	}
 	
-	
+	public void salary() {
+		JOptionPane.showMessageDialog(this, "월급을 받습니다 (+1000000원)");
+		c.setMoney(1000000);
+		user1Info.setText("<html>아이디: " + c.getName()
+		+ "<br>자산: " + c.getMoney() + "</html>");
+	}
 	
 	public void building(int location, int cityStatus, int upto) {
 		if (cityStatus<4 && cityStatus>0)
