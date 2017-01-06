@@ -9,7 +9,7 @@ import marble.model.Cities;
 
 public class CityManager extends JFrame{
 		
-	public int OwnCity(Cities city, Charcter c, JLabel user1Info){
+	public int OwnCity(Cities city, Charcter c, JLabel user1Money){
 		Object[] option = {"구입", "취소"};
 		
 		int result = JOptionPane.showOptionDialog(this,
@@ -24,13 +24,16 @@ public class CityManager extends JFrame{
 			c.setMoney(c.getMoney() - city.getGrandCost());
 			city.setStatus(1);
 		}
+		/*
 		user1Info.setText("<html>아이디: " + c.getName()
 		+ "<br>자산: " + c.getMoney() + "</html>");
+		*/
+		user1Money.setText(c.getMoney()+"");
 		return result;
 		
 	}
 	
-	public String UpgradeCity(Cities city, Charcter c, JLabel user1Info) {
+	public String UpgradeCity(Cities city, Charcter c, JLabel user1Money) {
 		
 		String result = "";
 		int cityStatus = city.getStatus();
@@ -93,8 +96,11 @@ public class CityManager extends JFrame{
 			result = buildLand(city, c);
 		}
 
+		/*
 		user1Info.setText("<html>아이디: " + c.getName()
 		+ "<br>자산: " + c.getMoney() + "</html>");
+		*/
+		user1Money.setText(c.getMoney()+"");
 		return result;
 	}
 
