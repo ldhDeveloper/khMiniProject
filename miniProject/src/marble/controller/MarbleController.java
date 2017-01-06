@@ -15,7 +15,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JFrame f = new JFrame();
 	private JPanel p = new JPanel();
 	private JPanel panelBoard;
-	private JLabel user1Info;
+	private JLabel user1Info, user1Money;
 	private JLabel car, carinfo, diceLabel;
 	private JLabel diceLabelImage1, diceLabelImage2;
 	private JLabel selectedCountry;
@@ -109,8 +109,9 @@ public class MarbleController extends JFrame implements MouseListener{
 		this.panelBoard = panelBoard;
 	}
 	
-	public void setUser1Info(JLabel user1Info) {
+	public void setUserInfo(JLabel user1Info, JLabel user1Money) {
 		this.user1Info = user1Info;
+		this.user1Money = user1Money;
 	}
 	
 	public void setPlaneMsg(JLabel planeMsg) {
@@ -184,7 +185,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	
 	public void rollDice(JTextArea gameInfo) {
 
-		goldkey.setUser1Info(user1Info);
+		goldkey.setUserInfo(user1Info, user1Money);
 		
 		dice1 = new Random().nextInt(6) + 1;
 		dice2 = new Random().nextInt(6) + 1;
@@ -332,8 +333,12 @@ public class MarbleController extends JFrame implements MouseListener{
 	public void salary() {
 		JOptionPane.showMessageDialog(this, "월급을 받습니다 (+1000000원)");
 		c.setMoney(1000000);
+		
+		/*
 		user1Info.setText("<html>아이디: " + c.getName()
 		+ "<br>자산: " + c.getMoney() + "</html>");
+		*/
+		
 	}
 	
 	public void building(int location, int cityStatus, int upto) {

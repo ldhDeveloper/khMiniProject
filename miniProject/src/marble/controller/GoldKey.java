@@ -8,11 +8,12 @@ import marble.model.*;
 
 public class GoldKey extends JFrame{
 	
-	private JLabel user1Info;
+	private JLabel user1Info, user1Money;
 	private boolean  flag = false;
 	
-	public void setUser1Info(JLabel user1Info) {
+	public void setUserInfo(JLabel user1Info, JLabel user1Money) {
 		this.user1Info = user1Info;
+		this.user1Money = user1Money;
 	}
 	
 	public void setFlag(boolean flag) {
