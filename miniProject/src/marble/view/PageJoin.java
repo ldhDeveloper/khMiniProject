@@ -1,7 +1,6 @@
 package marble.view;
 
 import java.awt.*;
-
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
@@ -65,7 +64,7 @@ public class PageJoin extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int answer = 0;
-				answer = new Member.creat.Member().createMember(tfID.getText(), tfPWD1.getText(), tfPWD2.getText());
+				answer = new marble.model.Member().createMember(tfID.getText(), tfPWD1.getText(), tfPWD2.getText());
 				switch (answer) {
 				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "동일한 아이디가 존재합니다.");

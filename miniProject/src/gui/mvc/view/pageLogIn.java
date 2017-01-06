@@ -69,7 +69,7 @@ public class pageLogIn extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int answer = 0;
-				answer = new Member.creat.Member().Login(tfID.getText(), tfPWD.getText());
+				answer = new marble.model.Member().Login(tfID.getText(), tfPWD.getText());
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");

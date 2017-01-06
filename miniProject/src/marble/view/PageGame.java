@@ -45,16 +45,16 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		this.setLayout(null);
 		
 		Board();
-		/*Chat();*/
+		/*Chat();*///로그인 버튼에서 실행
 		Info();
 
-		/*planeMsg.setName("planeMsg");
+		planeMsg.setName("planeMsg");
 		
 		controller.setBtn1(btn1);
 		controller.setCar(car);
 		controller.setPlaneMsg(planeMsg);
 		controller.setJlist(Jlist);
-
+    /* 로그인 버튼으로 이전
         Scanner scanner = new Scanner(System.in);
 	    System.out.print("당신의 닉네임부터 설정하세요 : ");
 	    nickName = scanner.nextLine() + " : ";
@@ -727,6 +727,9 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	}
 	public JLabel getUser4Info(){
 		return user4Info;
+	}
+	public ClientBackground getClient(){
+		return client;
 	}
 	
 	

@@ -1,4 +1,4 @@
-package Member.creat;
+package marble.model;
 
 import java.io.*;
 import java.util.*;

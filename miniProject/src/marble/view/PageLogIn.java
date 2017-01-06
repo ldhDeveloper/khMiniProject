@@ -63,7 +63,7 @@ public class PageLogIn extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int answer = 0;
-				answer = new Member.creat.Member().Login(tfID.getText(), tfPWD.getText());
+				answer = new marble.model.Member().Login(tfID.getText(), tfPWD.getText());
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
@@ -72,6 +72,9 @@ public class PageLogIn extends JPanel {
 					gamePanel.getUser1Info().setText("<html>ID : "+c.getName()+"<br>자산 :" + c.getMoney() );
 					m.getCardLayout().show(m.getContentPane(), "game");
 					gamePanel.Chat();
+					gamePanel.getClient().setGui(gamePanel);
+					gamePanel.getClient().setNickname(c.getName());
+					gamePanel.getClient().connet();
 					break;
 				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
