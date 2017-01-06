@@ -41,7 +41,7 @@ public class PageGame extends JFrame implements MouseListener, ActionListener {
 		
 		Scanner scanner = new Scanner(System.in);
 	    System.out.print("당신의 닉네임부터 설정하세요 : ");
-	    nickName = scanner.nextLine();
+	    nickName = scanner.nextLine() + " : ";
 	    scanner.close();   
 		
 		this.setTitle("BlueMarble");
