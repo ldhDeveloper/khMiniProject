@@ -37,7 +37,7 @@ public class GoldKey extends JFrame{
 				move3before(car, c, Jlist);
 				break;
 			case 5:
-				gotoStart();
+				gotoStart(car, c, Jlist);
 				break;
 			case 6:
 				buildingRepair();
@@ -86,9 +86,15 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void gotoStart() {
+		public void gotoStart(JLabel car, Charcter c, JLabel[] Jlist) {
 			// TODO Auto-generated method stub
+			JOptionPane.showMessageDialog(this, "출발 지점으로 이동합니다.");
+			c.setLocation(0);
 			
+			int xPoint = (int)Jlist[0].getLocation().getX() + 50;
+			int yPoint = (int)Jlist[0].getLocation().getY() + 18;
+			
+			car.setLocation(xPoint, yPoint);
 		}
 
 		public void move3before(JLabel car, Charcter c, JLabel[] Jlist) {
