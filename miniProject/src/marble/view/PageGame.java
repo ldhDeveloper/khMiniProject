@@ -731,5 +731,9 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		return user4Info;
 	}
 	
+	public ClientBackground getClient() {
+		return client;
+	}
+	
 	
 }
