@@ -328,12 +328,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c1b2.setBounds(195, 80, 40, 20);
 		c1b2.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		c1b2.setOpaque(true);
-		c1b1.setName("Jlist12");
+		c1b2.setName("Jlist12");
 		c1b3 = new JLabel();
 		c1b3.setBounds(235, 80, 40, 20);
 		c1b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		c1b3.setOpaque(true);
-		c1b1.setName("Jlist13");
+		c1b3.setName("Jlist13");
 		
 		Jlist[2] = new JLabel("방콕");
 		Jlist[2].setHorizontalAlignment(Jlist[2].CENTER);
@@ -348,12 +348,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c2b2.setBounds(320, 80, 40, 20);
 		c2b2.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		c2b2.setOpaque(true);
-		c2b1.setName("Jlist22");
+		c2b2.setName("Jlist22");
 		c2b3 = new JLabel();
 		c2b3.setBounds(360, 80, 40, 20);
 		c2b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		c2b3.setOpaque(true);
-		c2b1.setName("Jlist23");
+		c2b3.setName("Jlist23");
 	
 		Jlist[3] = new JLabel("황금열쇠");
 		Jlist[3].setHorizontalAlignment(Jlist[3].CENTER);
@@ -398,7 +398,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c4b3.setBounds(705, 80, 40, 20);
 		c4b3.setBorder(BorderFactory.createLineBorder(Color.GRAY, 1));
 		c4b3.setOpaque(true);
-		c4b3.setName("Jlist453");
+		c4b3.setName("Jlist53");
 		
 		Jlist[6] = new JLabel("세계여행");
 		Jlist[6].setHorizontalAlignment(Jlist[6].CENTER);

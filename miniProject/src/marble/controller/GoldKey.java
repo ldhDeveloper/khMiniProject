@@ -10,6 +10,7 @@ public class GoldKey extends JFrame{
 	
 	private JLabel user1Money;
 	private boolean  flag = false;
+	private int keyNum;
 	
 	public void setUserInfo(JLabel user1Money) {
 		this.user1Money = user1Money;
@@ -21,7 +22,7 @@ public class GoldKey extends JFrame{
 	
 		public void goldKeyEvent(JLabel[] Jlist, JLabel car, Charcter c,
 				JButton btn1, JLabel planeMsg){
-			int keyNum = (int)Math.random() * 10 + 1;
+			keyNum = (int) (Math.random() * 10 + 1);
 					
 			switch(keyNum){
 			case 1: 
@@ -70,10 +71,17 @@ public class GoldKey extends JFrame{
 
 		public void gotoAirport(JButton btn1, JLabel planeMsg) {
 			// TODO Auto-generated method stub
-			System.out.println("세계여행 ");
+
+			if (flag==true) {
+				planeMsg.setText("황금열쇠 : \n이동할 도시를 선택해주세요 ");
+				flag = false;
+			}
 			
-			btn1.setEnabled(false);
-			planeMsg.setVisible(true);
+			else
+				planeMsg.setText("이동할 도시를 선택해주세요 ");
+			
+				btn1.setEnabled(false);
+				planeMsg.setVisible(true);
 		}
 
 		public void getNoFee() {
@@ -95,6 +103,7 @@ public class GoldKey extends JFrame{
 			int yPoint = (int)Jlist[0].getLocation().getY() + 18;
 			
 			car.setLocation(xPoint, yPoint);
+			
 		}
 
 		public void move3before(JLabel car, Charcter c, JLabel[] Jlist) {
@@ -135,6 +144,7 @@ public class GoldKey extends JFrame{
 
 		public void winLotto(Charcter c) {
 			// TODO Auto-generated method stub
+			JOptionPane.showMessageDialog(this, "황금열쇠 : 로또 \n300000원 get");
 			c.setMoney(c.getMoney() + 300000);
 			user1Money.setText(c.getMoney()+"");
 			
@@ -154,7 +164,7 @@ public class GoldKey extends JFrame{
 			
 			else
 				JOptionPane.showMessageDialog(this, 
-						"무인도로 이동합니다.");
+						"무인도 입니다.");
 			
 			
 			

@@ -47,12 +47,12 @@ public class CityManager extends JFrame{
 				"건물을 지을까요?", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
 				option1, "1");
 
-			if (result == "1") { // 다이얼로그에서 1을 선택 (한채 짓기)
+			if (result.equals("1")) { // 다이얼로그에서 1을 선택 (한채 짓기)
 				c.setMoney(c.getMoney() - 10); // 첫번째 건물 비용(10)
 				city.setStatus(2); // 건물 1채인 상태로 변경
 			}
 			
-			else if (result == "2") {
+			else if (result.equals("2")) {
 				c.setMoney(c.getMoney() - 10 - 15);
 				city.setStatus(3);
 			}
@@ -69,7 +69,7 @@ public class CityManager extends JFrame{
 					"건물을 지을까요", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
 					option2, "1");
 			
-			if (result == "1") {
+			if (result.equals("1")) {
 				c.setMoney(c.getMoney() - 15);
 				city.setStatus(3);
 			}
@@ -84,7 +84,7 @@ public class CityManager extends JFrame{
 			result = (String) JOptionPane.showInputDialog(this,
 					"건물을 지을까요", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
 					option3, "예");
-			if (result == "예") {
+			if (result.equals("예")) {
 				c.setMoney(c.getMoney() - 20); // 세번째 건물 비용(20)
 				city.setStatus(4);
 				result = "1";
@@ -92,7 +92,7 @@ public class CityManager extends JFrame{
 			else result = "";
 		}
 		
-		else {
+		else if (cityStatus == 4) {
 			result = buildLand(city, c);
 		}
 
@@ -106,22 +106,23 @@ public class CityManager extends JFrame{
 
 	public String buildLand(Cities city, Charcter c) {
 		
-		Object[] option = { "구입", "취소" };
+		Object[] option = { "건설", "취소" };
 
 		String result = JOptionPane.showOptionDialog(this,
 				city.getName() + " 입니다. \n랜드마크를 짓겠습니까?", "랜드마크",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
 				null, option, option[1]) + "";
 
-		if (result == "0") {
+		if (result.equals("0")) {
 			city.setOwner(c.getcNo());
 			c.setMoney(c.getMoney() - 20);
-			city.setStatus(6);
+			city.setStatus(5);
 		}
 		
-		else
+		else {
 			result = "";
-
+		}
+		
 		return result;
 	}
 

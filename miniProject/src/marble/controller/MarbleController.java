@@ -210,6 +210,19 @@ public class MarbleController extends JFrame implements MouseListener{
 		
 		c.setLocation(location); // 캐릭터 위치 값 저장
 		
+		if(previousLocation+dice >= ct.length) {
+			for (int i=previousLocation+1 ; i<Jlist.length ; i++) {
+				xPoint = (int)Jlist[i].getLocation().getX() + 50;
+				yPoint = (int)Jlist[i].getLocation().getY() + 18;
+				car.setLocation(xPoint, yPoint);
+			}
+			for (int i=0 ; i<=location ; i++) {
+				xPoint = (int)Jlist[i].getLocation().getX() + 50;
+				yPoint = (int)Jlist[i].getLocation().getY() + 18;
+				car.setLocation(xPoint, yPoint);
+			}
+		}
+		
 		for (int i=previousLocation+1 ; i<=location ; i++) {
 			
 			xPoint = (int)Jlist[i].getLocation().getX() + 50;
@@ -258,36 +271,43 @@ public class MarbleController extends JFrame implements MouseListener{
 			if (cityStatus == 1) {
 			// 건물이 0채일 때
 				
-				if (r == "1") // 1채 짓기
+				if (r.equals("1")) // 1채 짓기
 					building(location, cityStatus, 1);
 			
-				else if (r == "2") // 2채 짓기
+				else if (r.equals("2")) // 2채 짓기
 					building(location, cityStatus, 2);
 				
-				else if (r == "3") // 3채 짓기
+				else if (r.equals("3")) // 3채 짓기
 					building(location, cityStatus, 3);
 			}
 			
 			else if (cityStatus == 2) {
-				
-				if (r == "1")
+
+				if (r.equals("1"))
 							building(location, cityStatus, 1);
 				
-				else if (r == "2")
+				else if (r.equals("2"))
 					building(location, cityStatus, 2);
 			}
 			
 			else if (cityStatus == 3) {
+
+				cityStatus = ct[location].getStatus();
 				
-				if (r == "1")
+				if (r.equals("1"))
 					building(location, cityStatus, 1);
 			}
 			
-			else {
+			else if (cityStatus == 4) {
+
+				cityStatus = ct[location].getStatus();
 				
-				if (r == "0")
+				if (r.equals("0")) 
 					building(location, cityStatus, 0);
 			}
+			
+			else
+				System.out.println("랜드마크 방문 보상 ");
 		}
 		
 	}
@@ -303,6 +323,7 @@ public class MarbleController extends JFrame implements MouseListener{
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
 			location = c.getLocation();
+			func();
 			break;
 		case 6:
 			goldkey.gotoAirport(btn1, planeMsg); 
@@ -311,6 +332,7 @@ public class MarbleController extends JFrame implements MouseListener{
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
 			location = c.getLocation();
+			func();
 			break;
 		case 12 :
 			System.out.println("★");
@@ -319,6 +341,7 @@ public class MarbleController extends JFrame implements MouseListener{
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
 			location = c.getLocation();
+			func();
 			break;
 		case 18 :
 			System.out.println("무인도 ");
@@ -330,6 +353,7 @@ public class MarbleController extends JFrame implements MouseListener{
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
 			location = c.getLocation();
+			func();
 			break;
 		}
 	}
@@ -347,9 +371,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	}
 	
 	public void building(int location, int cityStatus, int upto) {
-		if (cityStatus<4 && cityStatus>0)
-			printBuildingColor(location, cityStatus, cityStatus-1+upto);
-		else System.out.println("랜드마크 건설");
+		printBuildingColor(location, cityStatus, cityStatus-1+upto);
 	}	
 
 	public void printBuildingColor(int location,
@@ -357,14 +379,23 @@ public class MarbleController extends JFrame implements MouseListener{
 		
 		String name;
 		
-		for(Component pan : panelBoard.getComponents()) {
-			name = pan.getName();
-			if (name!=null) {
-				for (int i=cityStatus ; i<=lastBuilding ; i++)
-					if (name.equals("Jlist"+location+""+i))
-						pan.setBackground(Color.blue);
-			}
+		if (cityStatus==5) {
+			Jlist[location].setOpaque(true);
+			Jlist[location].setBackground(Color.blue);
+			Jlist[location].setText("랜드마크 ");
 		}
+		
+		else
+			for(Component pan : panelBoard.getComponents()) {
+				
+				for (int i=cityStatus ; i<=lastBuilding ; i++) {
+					name = pan.getName();
+					if (name!=null) {
+						if (name.equals("Jlist"+location+""+i))
+							pan.setBackground(Color.blue);
+					}
+				}
+			}
 	}
 	
 	public void selection(JLabel selectedCountry) {
