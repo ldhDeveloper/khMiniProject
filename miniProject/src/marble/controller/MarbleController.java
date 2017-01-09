@@ -22,7 +22,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JLabel selectedCountry;
 	private ImageIcon diceImage[] ;
 	private JButton btn1;
-	private JLabel planeMsg, sellMsg, olympicMsg;
+	private JLabel cityInfoLabel, planeMsg, sellMsg, olympicMsg;
 	private JLabel[] Jlist;
 	private Cities[] ct = new Cities[24];
 	private int dice1, dice2, dice, location = 0;
@@ -113,6 +113,16 @@ public class MarbleController extends JFrame implements MouseListener{
 	public void setUserInfo(JLabel user1Money) {
 		this.user1Money = user1Money;
 		goldkey.setUserInfo(user1Money);
+		
+	}
+	
+	public void setCityInfoLabel(JLabel cityInfoLabel) {
+		this.cityInfoLabel = cityInfoLabel;
+		cityInfoLabel.setSize(150, 150);
+		cityInfoLabel.setOpaque(true);
+		cityInfoLabel.setBackground(new Color(255, 255, 255));
+		cityInfoLabel.setBorder(BorderFactory.createLineBorder(Color.black));
+		cityInfoLabel.setVisible(false);
 		
 	}
 	
@@ -523,7 +533,7 @@ public class MarbleController extends JFrame implements MouseListener{
 				}
 		}
 		
-		else {
+		else if (olympicMsg.isVisible()) {
 			
 			for (int i=1 ; i<Jlist.length ; i++)
 				
@@ -597,8 +607,18 @@ public class MarbleController extends JFrame implements MouseListener{
 	public void mouseReleased(MouseEvent e) {}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {
+		JLabel cityLabel = (JLabel)(e.getSource());
+		for (int i=1 ; i<Jlist.length ; i++) {
+			cityInfoLabel.setText(Jlist[i].getText());
+			cityInfoLabel.setLocation(cityLabel.getLocation().x+10, 
+					cityLabel.getLocation().y+20);
+			cityInfoLabel.setVisible(true);
+		}
+	}
 
 	@Override
-	public void mouseExited(MouseEvent e) {}
+	public void mouseExited(MouseEvent e) {
+		cityInfoLabel.setVisible(false);
+	}
 }
