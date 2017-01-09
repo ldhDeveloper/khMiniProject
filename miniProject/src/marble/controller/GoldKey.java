@@ -20,10 +20,12 @@ public class GoldKey extends JFrame{
 		this.flag = flag;
 	}
 	
-		public void goldKeyEvent(Cities[] ct, JLabel[] Jlist, JLabel car, Charcter c,
-				JButton btn1, JLabel planeMsg){
+		public void goldKeyEvent(Cities[] ct, JLabel[] Jlist,
+				JLabel car, Charcter c, JButton btn1,
+				JLabel planeMsg, JLabel sellMsg, JLabel olympicMsg){
+			
 			keyNum = (int) (Math.random() * 10 + 1);
-					
+			
 			switch(keyNum){
 			case 1: 
 				toIsland(Jlist, car, c); 
@@ -50,30 +52,84 @@ public class GoldKey extends JFrame{
 				gotoAirport(btn1, planeMsg);
 				break;
 			case 9:
-				sellCity();
+				sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
 				break;
 			case 10:
-				openOlympic();
+				openOlympic(ct, Jlist, btn1, olympicMsg);
 				break;
 		}
 		
 		}
 
-		public void openOlympic() {
+		public void openOlympic(Cities[] ct, JLabel[] Jlist, JButton btn1,
+				JLabel olympicMsg) {
 			// TODO Auto-generated method stub
+			
+			if (sellable(ct) == false) {
+				JOptionPane.showMessageDialog(this, "황금열쇠 : 도시 매각 \n"
+						+ "소유한 도시가 없기 때문에 올림픽 개최를 할 수 없습니다.");
+				return;
+			}
+
+			if (flag==true) {
+				olympicMsg.setText("황금열쇠 : 올림픽 \n올림픽을 개최할 도시를 선택해주세요 ");
+				flag = false;
+			}
+
+			listEnableFalse(ct, Jlist);
+			
+			olympicMsg.setVisible(true);
+			btn1.setEnabled(false);
 			
 		}
 
-		public void sellCity() {
+		public void sellCity(JButton btn1, JLabel sellMsg,
+				Cities[] ct, JLabel[] Jlist, JLabel planeMsg) {
 			// TODO Auto-generated method stub
+
+			if (sellable(ct) == false) {
+				JOptionPane.showMessageDialog(this, "황금열쇠 : 도시 매각 \n"
+						+ "소유한 도시가 없기 때문에 매각할 수 없습니다.");
+				return;
+			}
+
+			listEnableFalse(ct, Jlist);
+
+			btn1.setEnabled(false);
+			sellMsg.setVisible(true);
 			
 		}
 
+		public void listEnableFalse(Cities[] ct, JLabel[] Jlist) {
+			for (int i=0 ; i<ct.length ; i++) {
+				if (i%3!=0)
+					continue;
+				Jlist[i].setEnabled(false);
+			}
+		}
+		
+		public boolean sellable(Cities[] ct) {
+			
+			boolean sellable = false;
+			int cityStatus;
+			
+			for (int i=1 ; i<ct.length ; i++) {
+				if (i%3==0)
+					continue;
+				cityStatus = ct[i].getStatus();
+				if (cityStatus>0 && cityStatus!=5) {
+					sellable = true;
+					break;
+				}
+			}
+			return sellable;
+		}
+		
 		public void gotoAirport(JButton btn1, JLabel planeMsg) {
 			// TODO Auto-generated method stub
 
 			if (flag==true) {
-				planeMsg.setText("황금열쇠 : \n이동할 도시를 선택해주세요 ");
+				planeMsg.setText("황금열쇠 :\n이동할 도시를 선택해주세요 ");
 				flag = false;
 			}
 			
@@ -86,6 +142,9 @@ public class GoldKey extends JFrame{
 
 		public void getNoFee() {
 			// TODO Auto-generated method stub
+			
+			JOptionPane.showMessageDialog(this, "황금열쇠 : 무료 통행권 \n"
+					+ "다음 상대방 도시 방문 시 무료로 통행합니다.");
 			
 		}
 

@@ -69,7 +69,10 @@ public class CityManager extends JFrame{
 					"건물을 지을까요", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
 					option2, "1");
 			
-			if (result.equals("1")) {
+			if (result == null)
+				System.out.println("널");
+			
+			else if (result.equals("1")) {
 				c.setMoney(c.getMoney() - 15);
 				city.setStatus(3);
 			}

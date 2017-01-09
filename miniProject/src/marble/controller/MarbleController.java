@@ -21,7 +21,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JLabel selectedCountry;
 	private ImageIcon diceImage[] ;
 	private JButton btn1;
-	private JLabel planeMsg;
+	private JLabel planeMsg, sellMsg, olympicMsg;
 	private JLabel[] Jlist;
 	private Cities[] ct = new Cities[24];
 	private int dice1, dice2, dice, location = 0;
@@ -31,8 +31,8 @@ public class MarbleController extends JFrame implements MouseListener{
 	
 	public MarbleController() { 
 		
-		goldkey = new GoldKey();
 		cityManager = new CityManager();
+		goldkey = new GoldKey();
 		
 		c = new Charcter("1번", 2000, 0);
 
@@ -108,7 +108,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	public void setPanelBoard(JPanel panelBoard) {
 		this.panelBoard = panelBoard;
 	}
-	
+
 	public void setUserInfo(JLabel user1Money) {
 		this.user1Money = user1Money;
 		goldkey.setUserInfo(user1Money);
@@ -122,6 +122,24 @@ public class MarbleController extends JFrame implements MouseListener{
 		planeMsg.setOpaque(true);
 		planeMsg.setBackground(new Color(225, 225, 225));
 		planeMsg.setVisible(false);
+	}
+	
+	public void setSellMsg(JLabel sellMsg) {
+		this.sellMsg = sellMsg;
+		sellMsg.setSize(400, 150);
+		sellMsg.setLocation(panelBoard.getSize().width/2 - 400/2 , panelBoard.getSize().height/2 - 150);
+		sellMsg.setOpaque(true);
+		sellMsg.setBackground(new Color(225, 225, 225));
+		sellMsg.setVisible(false);
+	}
+	
+	public void setOlympicMsgMsg(JLabel olympicMsg) {
+		this.olympicMsg = olympicMsg;
+		olympicMsg.setSize(400, 150);
+		olympicMsg.setLocation(panelBoard.getSize().width/2 - 400/2 , panelBoard.getSize().height/2 - 150);
+		olympicMsg.setOpaque(true);
+		olympicMsg.setBackground(new Color(225, 225, 225));
+		olympicMsg.setVisible(false);
 	}
 	
 	public void setJlist(JLabel[] Jlist) {
@@ -318,12 +336,12 @@ public class MarbleController extends JFrame implements MouseListener{
 		
 		switch (location) {
 		case 0 :
-			System.out.println("월급 ");
 			salary();
 			break;
 		case 3 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1,
+					planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation())
 					!=previousLocation)
 					func();
@@ -333,20 +351,21 @@ public class MarbleController extends JFrame implements MouseListener{
 			break;
 		case 9 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1,
+					planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation())
 					!=previousLocation)
 					func();
 			break;
 		case 12 :
-			System.out.println("★");
+			goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
 			break;
 		case 15 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1,
+					planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation())
 				!=previousLocation) {
-				System.out.println("func()");
 				func();
 			}
 			break;
@@ -358,7 +377,8 @@ public class MarbleController extends JFrame implements MouseListener{
 			break;
 		case 21 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1,
+					planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation())
 					!=previousLocation)
 					func();
@@ -406,7 +426,8 @@ public class MarbleController extends JFrame implements MouseListener{
 	}
 	
 	public void selection(JLabel selectedCountry) {
-		if (planeMsg.isVisible())
+		
+		if (planeMsg.isVisible()) {
 			for (int i=1 ; i<Jlist.length ; i++)
 				if (Jlist[i] == selectedCountry) {
 					moveHorse(location = i);
@@ -414,12 +435,146 @@ public class MarbleController extends JFrame implements MouseListener{
 					btn1.setEnabled(true);
 					break;
 				}
+		}
+		else if (sellMsg.isVisible()) {
+			
+			int cityStatus=0, result;
+			int cost = 0;
+			Object[] option = {"예", "아니오"};
+			String compName = null;
+			
+			for (int i=1 ; i<ct.length ; i++)
+				
+				if (Jlist[i] == selectedCountry) {
+					
+					try{
+						cityStatus = ct[i].getStatus();
+					} catch (NullPointerException e) {
+						JOptionPane.showMessageDialog(this,
+								"선택 불가");
+						goldkey.sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
+						break;
+					}
+					
+					if (cityStatus == 0) {
+						JOptionPane.showMessageDialog(this,
+								selectedCountry.getText()
+								+ " 은(는) 소유한 도시가 아닙니다.");
+						goldkey.sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
+						break;
+					}
+					
+					else if (cityStatus == 1)
+						cost = ct[i].getGrandCost();
+					
+					else if (cityStatus == 2)
+						cost = 10;
+					
+					else if (cityStatus == 3)
+						cost = 25;
+					
+					else if (cityStatus == 4)
+						cost = 45;
+					
+					else {
+						JOptionPane.showMessageDialog(this,
+								"랜드마크는 매각할 수 없습니다.");
+						goldkey.sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
+						break;
+					}
+					
+					result = JOptionPane.showOptionDialog(this,
+							selectedCountry.getText()
+							+ " 을(를) 매각하시겠습니까?", "도시 매각",
+							JOptionPane.YES_NO_OPTION,
+							JOptionPane.QUESTION_MESSAGE, 
+							null, option, option[1]);
+					
+					if (result==0) {
+					
+						JOptionPane.showMessageDialog(this,
+								selectedCountry.getText()
+								+ "의 건물 " + (cityStatus-1)
+								+ "채를 매각합니다.\n+"
+								+ cost + "원");
+						c.setMoney(c.getMoney() + cost);
+						user1Money.setText(c.getMoney()+"");
+						ct[i].setStatus(0);
+						
+						for(Component pan : panelBoard.getComponents()) {
+							
+							for (int j=1 ; j<=3 ; j++) {
+								compName = pan.getName();
+								if (compName!=null) {
+									if (compName.equals("Jlist"+i+""+j)) {
+										((JComponent) pan).setOpaque(false);
+										System.out.println(compName + " 매각");
+									}
+								}
+							}
+						}
+						
+						sellMsg.setVisible(false);
+						btn1.setEnabled(true);
+						listEnableTrue(ct, Jlist);
+						break;
+					}
+				}
+		}
+		
+		else {
+			
+			for (int i=1 ; i<Jlist.length ; i++)
+				
+				if (Jlist[i] == selectedCountry) {
+					
+					if (ct[i].getStatus()==0) {
+						JOptionPane.showMessageDialog(this,
+								"본인 소유가 아니므로 올림픽 개최가 불가능한 도시입니다.");
+						goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
+						break;
+					}
+					
+					olympicMsg.setVisible(false);
+					JOptionPane.showMessageDialog(this,
+							ct[i].getName()
+							+ " 올림픽 개최!\n통행료가 "
+									+ computeFee(ct[i])*2
+									+ "원 인상되었습니다.");
+					btn1.setEnabled(true);
+					listEnableTrue(ct, Jlist);
+					break;
+				}
+		}
+	}
+	
+	public void listEnableTrue(Cities[] ct, JLabel[] Jlist) {
+		for (int i=0 ; i<ct.length ; i++) {
+			if (i%3!=0)
+				continue;
+			Jlist[i].setEnabled(false);
+		}
+	}
+	
+	public int computeFee(Cities city) {
+		
+		int cityStatus = city.getStatus();
+		int fee = city.getGrandCost();
+		
+		if (cityStatus == 2)
+			fee += 10;
+		else if (cityStatus == 3)
+			fee += 25;
+		else if (cityStatus == 4)
+			fee += 45;
+		
+		return fee;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		selection((JLabel)(e.getSource()));
+		selection((JLabel)(e.getSource()));		
 	}
 	
 	@Override
