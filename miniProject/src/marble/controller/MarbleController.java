@@ -17,7 +17,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JPanel p = new JPanel();
 	private JPanel panelBoard;
 	private JLabel user1Money;
-	private JLabel car, carinfo, diceLabel;
+	private JLabel car, carinfo, diceLabel, cityLabel;
 	private JLabel diceLabelImage1, diceLabelImage2;
 	private JLabel selectedCountry;
 	private ImageIcon diceImage[] ;
@@ -229,6 +229,9 @@ public class MarbleController extends JFrame implements MouseListener{
 
 		moveHorse(location);
 		
+		if(location < previousLocation){
+			salary();
+		}
 		/*
 		diceLabelImage1.setIcon(diceImage[dice1-1]);
 		diceLabelImage2.setIcon(diceImage[dice2-1]);
@@ -608,49 +611,52 @@ public class MarbleController extends JFrame implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		JLabel cityLabel = (JLabel)(e.getSource());
+		cityLabel = (JLabel)(e.getSource());
 		int grand = 0, owner, status = 0;
 		String sOwner = "", sFee = "";
 		for(int i = 0; i <= ct.length; i++){
-			if(ct[i] != null && ct[i].getName().equals(cityLabel.getText())){
-				grand = ct[i].getGrandCost();
-				if((ct[i].getOwner()) == 0){
-					sOwner = "없음";
-				} else {
-					sOwner = String.valueOf(ct[i].getOwner());
+			if(ct[i] != null){
+				if(ct[i].getName().equals(cityLabel.getText())){
+					grand = ct[i].getGrandCost();
+					if((ct[i].getOwner()) == 0){
+						sOwner = "없음";
+					} else {
+						sOwner = String.valueOf(ct[i].getOwner());
+					}
+					
+					if(ct[i].getOwner() == 0 && ct[i].getStatus() == 0){
+						sFee = "없음";
+					} else if(ct[i].getStatus() == 0) {
+						sFee =  String.valueOf(grand * 2);
+					} else if(ct[i].getStatus() == 1) {
+						sFee =  String.valueOf((grand+10) * 2);
+					} else if(ct[i].getStatus() == 2) {
+						sFee =  String.valueOf((grand+25) * 2);
+					} else {
+						sFee =  String.valueOf((grand+45) * 2);
+					}
+					status = ct[i].getStatus();
+					
+					cityInfoLabel.setSize(100, 80);
+					cityInfoLabel.setText("<html>  "+cityLabel.getText() + "<br> 토지가격 : " + grand + "<br> 소유주 : " + sOwner +  "<br> 통행료 : " + sFee + "</html>");
+					if(cityLabel.getLocation().x < 625 && cityLabel.getLocation().y ==0){
+						cityInfoLabel.setLocation(cityLabel.getLocation().x, 
+						cityLabel.getLocation().y + 110);
+					} else if (cityLabel.getLocation().x == 750 && cityLabel.getLocation().y <=385){
+						cityInfoLabel.setLocation(cityLabel.getLocation().x-110, 
+						cityLabel.getLocation().y);
+					} else if (cityLabel.getLocation().x <= 750 && cityLabel.getLocation().y ==450){
+						cityInfoLabel.setLocation(cityLabel.getLocation().x, 
+						cityLabel.getLocation().y-90);
+					} else if (cityLabel.getLocation().x == 0 && cityLabel.getLocation().y <=450){
+						cityInfoLabel.setLocation(cityLabel.getLocation().x + 160, 
+						cityLabel.getLocation().y);
+					}
+					
+					cityInfoLabel.setVisible(true);
 				}
-				
-				if(ct[i].getOwner() == 0 && ct[i].getStatus() == 0){
-					sFee = "없음";
-				} else if(ct[i].getStatus() == 0) {
-					sFee =  String.valueOf(grand * 2);
-				} else if(ct[i].getStatus() == 1) {
-					sFee =  String.valueOf((grand+10) * 2);
-				} else if(ct[i].getStatus() == 2) {
-					sFee =  String.valueOf((grand+25) * 2);
-				} else {
-					sFee =  String.valueOf((grand+45) * 2);
-				}
-				status = ct[i].getStatus();
-				
-				cityInfoLabel.setSize(100, 80);
-				cityInfoLabel.setText("<html>  "+cityLabel.getText() + "<br> 토지가격 : " + grand + "<br> 소유주 : " + sOwner +  "<br> 통행료 : " + sFee + "</html>");
-				if(cityLabel.getLocation().x < 625 && cityLabel.getLocation().y ==0){
-					cityInfoLabel.setLocation(cityLabel.getLocation().x, 
-					cityLabel.getLocation().y + 110);
-				} else if (cityLabel.getLocation().x == 750 && cityLabel.getLocation().y <=385){
-					cityInfoLabel.setLocation(cityLabel.getLocation().x-110, 
-					cityLabel.getLocation().y);
-				} else if (cityLabel.getLocation().x <= 750 && cityLabel.getLocation().y ==450){
-					cityInfoLabel.setLocation(cityLabel.getLocation().x, 
-					cityLabel.getLocation().y-90);
-				} else if (cityLabel.getLocation().x == 0 && cityLabel.getLocation().y <=450){
-					cityInfoLabel.setLocation(cityLabel.getLocation().x + 160, 
-					cityLabel.getLocation().y);
-				}
-				
-				cityInfoLabel.setVisible(true);
 			}
+			
 		}
 		
 	}
