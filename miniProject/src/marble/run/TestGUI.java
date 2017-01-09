@@ -5,10 +5,11 @@ import marble.view.*;
 public class TestGUI {
 
 	public static void main(String[] args) {
-		new MainFrame();
+		MainFrame m = new MainFrame();
+		m.getCardLayout().show(m.getContentPane(), "game");
 		//new PageLogIn();
 		//new PageJoin();
-		//new PageGame();
+		//new PageGame(new MainFrame());
 	}
 
 }
