@@ -8,7 +8,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import marble.model.Charcter;
-
+import marble.controller.*;
 public class PageLogIn extends JPanel {
 	
 	private Charcter c;
@@ -16,7 +16,8 @@ public class PageLogIn extends JPanel {
 	private JTextField tfID, tfPWD;
 	private JButton buttonLogin, buttonJoin;
 	private JPanel panel1, panel2;
-
+	private MainFrame m;
+	
 	public PageLogIn(MainFrame m) {
 	
 		this.setSize(new Dimension(1200, 800));
@@ -66,20 +67,18 @@ public class PageLogIn extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				int answer = 0;
-				
-				answer = new marble.model.Member().Login(tfID.getText(), tfPWD.getText());
+				PageGame gamePanel = (PageGame)m.getPan3();
+				ClientBackground client= new ClientBackground();
+				answer = client.login(m);
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
 					c = new Charcter(tfID.getText(), 400, 0);
-					PageGame gamePanel = (PageGame)m.getPan3();
+					
 					gamePanel.getUser1Info().setText("<html>ID : "+c.getName()+"<br>자산 :");
 					gamePanel.getUser1Money().setText(""+c.getMoney());
 					m.getCardLayout().show(m.getContentPane(), "game");
-					gamePanel.Chat();
-					gamePanel.getClient().setGui(gamePanel);
-					gamePanel.getClient().setNickname(c.getName());
-					gamePanel.getClient().connet();
+										
 					break;
 				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
@@ -105,7 +104,7 @@ public class PageLogIn extends JPanel {
 		this.add(buttonLogin);
 		this.add(buttonJoin);
 		
-		this.setVisible(true);
+	
 	}
 
 }

@@ -4,14 +4,31 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-
+import marble.controller.*;
 
 public class PageJoin extends JPanel {
 	private JLabel titleBL, titleL, loginL, idL, pwdL1, pwdL2;
 	private JTextField tfID, tfPWD1, tfPWD2;
 	private JButton buttonCancel, buttonJoin;
+	private int result;
 	boolean focusId = false;
-
+	
+	public int loginResult(String name, String pwd){
+		int result =1;
+		
+		
+		return result;
+		
+	}
+	public JTextField getTfID(){
+		return this.tfID;}
+	public JTextField getTfPWD1(){
+		return this.tfPWD1;
+	}
+	public JTextField getTfPWD2(){
+		return this.tfPWD2;
+	}
+	
 	public PageJoin(MainFrame m) {
 		
 		this.setSize(new Dimension(1200, 800));
@@ -63,21 +80,16 @@ public class PageJoin extends JPanel {
 		buttonJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int answer = 0;
-				answer = new marble.model.Member().createMember(tfID.getText(), tfPWD1.getText(), tfPWD2.getText());
-				switch (answer) {
-				case 1:
-					JOptionPane.showMessageDialog(tfID.getParent(), "동일한 아이디가 존재합니다.");
-					break;
+				result = new ClientBackground().recording(m);
+				switch (result) {
 				case 0:
+					JOptionPane.showMessageDialog(tfID.getParent(), "잘못된 입력이 존재합니다.");
+					break;
+				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
 					m.getCardLayout().show(m.getContentPane(), "Login");
 					break;
-				case 2:
-					JOptionPane.showMessageDialog(tfID.getParent(), "password가 확인문구와 일치하지 않습니다.");
-					break;
-				default : 	JOptionPane.showMessageDialog(tfID.getParent(), "입력하지 않은 공란이 존재합니다.");
-						break;
+				
 				}
 			}
 		});
@@ -102,5 +114,15 @@ public class PageJoin extends JPanel {
 		this.add(buttonJoin);
 		this.add(buttonCancel);
 		
+		
+		}
+	public int getResult() {
+		return result;
 	}
-}
+	public void setResult(int result) {
+		this.result = result;
+	}
+		
+		
+	}
+
