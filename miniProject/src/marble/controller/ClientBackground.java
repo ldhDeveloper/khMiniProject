@@ -22,8 +22,8 @@ public class ClientBackground {
 	public int recording(MainFrame m) {
 		int result = 0;
 		PageJoin record = new PageJoin(m);
-
-		if (record.getTfPWD1().equals(record.getTfPWD2())) {
+		System.out.println(record.getTfID());
+		if (record.getTfPWD1().getText().equals(record.getTfPWD2().getText())) {
 			try {
 				socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 				System.out.println("서버 연결됨.");
