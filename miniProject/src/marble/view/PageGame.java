@@ -32,6 +32,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private JButton btn1, buttonStart, buttonFinish;
 	private JLabel[] Jlist = new JLabel[24];
 	private JLabel car;
+	private JLabel cityInfoLabel = new JLabel("");
 	private JLabel planeMsg = new JLabel("이동할 도시를 선택해주세요 ", JLabel.CENTER);
 	private JLabel sellMsg = new JLabel("황금열쇠 : 도시 매각 \n매각할 도시를 선택해주세요 ", JLabel.CENTER);;
 	private JLabel olympicMsg = new JLabel("황금열쇠 : 올림픽 \n올림픽을 개최할 도시를 선택해주세요 ", JLabel.CENTER);;
@@ -55,6 +56,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		controller.setCar(car);
 		controller.setPanelBoard(panelBoard);
 		controller.setUserInfo(user1Money);
+		controller.setCityInfoLabel(cityInfoLabel);
 		controller.setPlaneMsg(planeMsg);
 		controller.setSellMsg(sellMsg);
 		controller.setOlympicMsgMsg(olympicMsg);
@@ -137,6 +139,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		panelBoard.add(planeMsg, 0);
 		panelBoard.add(sellMsg);
 		panelBoard.add(olympicMsg);
+		panelBoard.add(cityInfoLabel, 0);
 		
 		this.add(panelBoard);
 	}
