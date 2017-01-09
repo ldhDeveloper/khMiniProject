@@ -38,11 +38,9 @@ public class ServerBackground {
 			System.out.println("서버 대기중...");
 			switch(dis.readUTF()){
 			case "회원가입 실행" :	Record record = new Record(socket);
-			Thread t1 = new Thread(record);
-			
-				record.start(); if(dis.readInt()==1)record.stop();  break;
+					record.start(); if(dis.readInt()==1)record.stop();  break;
 			case "로그인 실행" :	LogConfirm confirm = new LogConfirm(socket);
-				confirm.start(); if(dis.readInt()==0)confirm.stop(); 
+					confirm.start(); if(dis.readInt()==0)confirm.stop(); 
 			while(true){
 			System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
 			Receiver receiver = new Receiver(socket);
