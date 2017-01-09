@@ -50,10 +50,9 @@ public class ClientBackground {
 	}
 
 	public int login(MainFrame m) {
-		int result = 0;
+		int result = 1;
 		try {
 			PageJoin record = new PageJoin(m);
-
 			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			System.out.println("서버 연결됨.");
 			out = new DataOutputStream(socket.getOutputStream());
