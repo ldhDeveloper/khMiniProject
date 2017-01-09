@@ -609,8 +609,9 @@ public class MarbleController extends JFrame implements MouseListener{
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		JLabel cityLabel = (JLabel)(e.getSource());
-		for (int i=1 ; i<Jlist.length ; i++) {
-			cityInfoLabel.setText(Jlist[i].getText());
+		for (int i=1 ; i<ct.length ; i++) {
+			if (ct[i].getName()==cityLabel.getText())
+			cityInfoLabel.setText(ct[i].getName());
 			cityInfoLabel.setLocation(cityLabel.getLocation().x+10, 
 					cityLabel.getLocation().y+20);
 			cityInfoLabel.setVisible(true);
