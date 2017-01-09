@@ -6,6 +6,7 @@ import javax.swing.*;
 
 import marble.model.Charcter;
 import marble.model.Cities;
+import marble.view.PageGame;
 
 import java.util.*;
 
@@ -569,6 +570,17 @@ public class MarbleController extends JFrame implements MouseListener{
 			fee += 45;
 		
 		return fee;
+	}
+	
+	public void exitMarble() {
+		Object[] option = {"종료", "취소"};
+		if ((JOptionPane.showOptionDialog(this,
+				"종료 하시겠습니까?",
+				"종료", 
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE, 
+				null, option, option[1])) == 0)
+			dispose();
 	}
 	
 	@Override

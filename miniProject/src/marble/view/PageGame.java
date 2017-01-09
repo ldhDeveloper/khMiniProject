@@ -289,6 +289,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		buttonFinish.setBounds(20, 640, 180, 40);
 		buttonFinish.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		buttonFinish.setBackground(new Color(193, 193, 193));
+		buttonFinish.addActionListener(this);
 		
 		
 		panelInfo = new JPanel();
@@ -709,6 +710,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			if (chatField.getText().equals("입력"))
 				chatField.setText("");
 		}
+		
+		else if (e.getSource()==buttonFinish)
+			controller.exitMarble();
+		
 		else
 			controller.rollDice(gameInfo);
 	}
