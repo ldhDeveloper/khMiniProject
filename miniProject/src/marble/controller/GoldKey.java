@@ -159,7 +159,7 @@ public class GoldKey extends JFrame{
 				cityStatus = ct[i].getStatus();
 				if (cityStatus>1 && cityStatus<5) {
 					num++;
-					sum += (ct[i].getStatus() - 1) * 50000;
+					sum += (ct[i].getStatus() - 1) * 5;
 				}
 			}
 
@@ -222,8 +222,8 @@ public class GoldKey extends JFrame{
 
 		public void winLotto(Charcter c) {
 			// TODO Auto-generated method stub
-			JOptionPane.showMessageDialog(this, "황금열쇠 : 로또 \n300000원 get");
-			c.setMoney(c.getMoney() + 300000);
+			JOptionPane.showMessageDialog(this, "황금열쇠 : 로또 \n100원 get");
+			c.setMoney(c.getMoney() + 100);
 			user1Money.setText(c.getMoney()+"");
 			
 		}

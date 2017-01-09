@@ -35,7 +35,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		cityManager = new CityManager();
 		goldkey = new GoldKey();
 		
-		c = new Charcter("1번", 2000, 0);
+		c = new Charcter("1번", 400, 0);
 
 		cityInit();
 		
@@ -398,8 +398,8 @@ public class MarbleController extends JFrame implements MouseListener{
 	}
 	
 	public void salary() {
-		JOptionPane.showMessageDialog(this, "월급을 받습니다 (+10원)");
-		c.setMoney(c.getMoney()+10);
+		JOptionPane.showMessageDialog(this, "월급을 받습니다 (+30원)");
+		c.setMoney(c.getMoney()+30);
 		
 		/*
 		user1Info.setText("<html>아이디: " + c.getName()
@@ -625,11 +625,11 @@ public class MarbleController extends JFrame implements MouseListener{
 				} else if(ct[i].getStatus() == 0) {
 					sFee =  String.valueOf(grand * 2);
 				} else if(ct[i].getStatus() == 1) {
-					sFee =  String.valueOf((grand+5) * 2);
+					sFee =  String.valueOf((grand+10) * 2);
 				} else if(ct[i].getStatus() == 2) {
-					sFee =  String.valueOf((grand+15) * 2);
+					sFee =  String.valueOf((grand+25) * 2);
 				} else {
-					sFee =  String.valueOf((grand+30) * 2);
+					sFee =  String.valueOf((grand+45) * 2);
 				}
 				status = ct[i].getStatus();
 				
