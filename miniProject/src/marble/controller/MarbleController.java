@@ -314,6 +314,8 @@ public class MarbleController extends JFrame implements MouseListener{
 
 	public void func() {
 		
+		previousLocation = location;
+		
 		switch (location) {
 		case 0 :
 			System.out.println("월급 ");
@@ -321,27 +323,32 @@ public class MarbleController extends JFrame implements MouseListener{
 			break;
 		case 3 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
-			location = c.getLocation();
-			func();
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			if ((location = c.getLocation())
+					!=previousLocation)
+					func();
 			break;
 		case 6:
 			goldkey.gotoAirport(btn1, planeMsg); 
 			break;
 		case 9 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
-			location = c.getLocation();
-			func();
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			if ((location = c.getLocation())
+					!=previousLocation)
+					func();
 			break;
 		case 12 :
 			System.out.println("★");
 			break;
 		case 15 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
-			location = c.getLocation();
-			func();
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			if ((location = c.getLocation())
+				!=previousLocation) {
+				System.out.println("func()");
+				func();
+			}
 			break;
 		case 18 :
 			System.out.println("무인도 ");
@@ -351,9 +358,10 @@ public class MarbleController extends JFrame implements MouseListener{
 			break;
 		case 21 :
 			goldkey.setFlag(true);
-			goldkey.goldKeyEvent(Jlist, car, c, btn1, planeMsg);
-			location = c.getLocation();
-			func();
+			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg);
+			if ((location = c.getLocation())
+					!=previousLocation)
+					func();
 			break;
 		}
 	}
@@ -382,7 +390,6 @@ public class MarbleController extends JFrame implements MouseListener{
 		if (cityStatus==5) {
 			Jlist[location].setOpaque(true);
 			Jlist[location].setBackground(Color.blue);
-			Jlist[location].setText("랜드마크 ");
 		}
 		
 		else

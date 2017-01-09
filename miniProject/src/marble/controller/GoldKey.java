@@ -20,7 +20,7 @@ public class GoldKey extends JFrame{
 		this.flag = flag;
 	}
 	
-		public void goldKeyEvent(JLabel[] Jlist, JLabel car, Charcter c,
+		public void goldKeyEvent(Cities[] ct, JLabel[] Jlist, JLabel car, Charcter c,
 				JButton btn1, JLabel planeMsg){
 			keyNum = (int) (Math.random() * 10 + 1);
 					
@@ -41,7 +41,7 @@ public class GoldKey extends JFrame{
 				gotoStart(car, c, Jlist);
 				break;
 			case 6:
-				buildingRepair();
+				buildingRepair(ct, c, Jlist);
 				break;
 			case 7:
 				getNoFee();
@@ -89,8 +89,27 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void buildingRepair() {
+		public void buildingRepair(Cities[] ct, Charcter c, JLabel[] Jlist) {
 			// TODO Auto-generated method stub
+			
+			int sum = 0;
+			int num = 0;
+			int cityStatus;
+			
+			for (int i=1 ; i<ct.length && i%3!=0 ; i++) {
+				cityStatus = ct[i].getStatus();
+				if (cityStatus>1 && cityStatus<5) {
+					num++;
+					sum += (ct[i].getStatus() - 1) * 50000;
+				}
+			}
+
+			JOptionPane.showMessageDialog(this, "황금열쇠 : 건물 수리 \n"
+					+  "건물 " + num + "채 수리비 "
+					+ sum + "원");
+
+			c.setMoney(c.getMoney() - sum);
+			user1Money.setText(c.getMoney()+"");
 			
 		}
 
