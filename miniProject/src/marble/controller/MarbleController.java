@@ -538,7 +538,11 @@ public class MarbleController extends JFrame implements MouseListener{
 		
 		else if (olympicMsg.isVisible()) {
 			
-			for (int i=1 ; i<Jlist.length ; i++)
+			for (int i=1 ; i<Jlist.length ; i++){
+				for(int j = 0 ; j<Jlist.length ; j++){
+					Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+					
+				}
 				
 				if (Jlist[i] == selectedCountry) {
 					
@@ -548,7 +552,7 @@ public class MarbleController extends JFrame implements MouseListener{
 						goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
 						break;
 					}
-					
+
 					olympicMsg.setVisible(false);
 					selectedCountry.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
 					JOptionPane.showMessageDialog(this,
@@ -556,10 +560,13 @@ public class MarbleController extends JFrame implements MouseListener{
 							+ " 올림픽 개최!\n통행료가 "
 									+ computeFee(ct[i])
 									+ "원 인상되었습니다.");
+					
 					btn1.setEnabled(true);
 					listEnableTrue(ct, Jlist);
+					
 					break;
 				}
+			}
 		}
 	}
 	
