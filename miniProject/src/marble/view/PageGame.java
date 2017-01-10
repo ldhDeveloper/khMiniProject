@@ -690,12 +690,14 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	}
 	
 	public void carInit() {
-		car = new JLabel("A");
+		car = new JLabel("1");
 		car.setOpaque(true);
-		car.setBackground(Color.RED);
+		car.setHorizontalAlignment(car.CENTER);
+		car.setForeground(Color.white);
+		car.setBackground(new Color(238, 99, 99));
 		car.setSize(15,15);
 		car.setLocation(100,68);
-		car.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		car.setBorder(BorderFactory.createLineBorder(Color.white, 1));
 	}
 	
 	public void diceInit() {

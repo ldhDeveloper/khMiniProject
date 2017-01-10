@@ -50,11 +50,14 @@ public class MarbleController extends JFrame implements MouseListener{
 		p.setLayout(null);
 		
 		car = new JLabel("A");
+	
 		car.setOpaque(true);
-		car.setBackground(Color.RED);
+		car.setHorizontalAlignment(car.CENTER);
+		car.setForeground(Color.white);
+		car.setBackground(new Color(238, 99, 99));
 		car.setSize(15,15);
 		car.setLocation(100,68);
-		car.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		car.setBorder(BorderFactory.createLineBorder(Color.white, 1));
 		
 		carinfo = new JLabel("이름 : " + c.getName() +
 				" 자금 : " + c.getMoney(), JLabel.CENTER);
