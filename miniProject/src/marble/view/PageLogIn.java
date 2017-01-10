@@ -12,8 +12,9 @@ import javax.swing.event.*;
 import marble.model.Charcter;
 import marble.run.TestGUI;
 import marble.controller.*;
+
 public class PageLogIn extends JPanel {
-	
+
 	private Charcter c;
 	private JLabel titleBL, titleL, loginL, idL, pwdL;
 	private JTextField tfID, tfPWD;
@@ -21,10 +22,11 @@ public class PageLogIn extends JPanel {
 	private JPanel panel1, panel2;
 	private MainFrame m;
 	private ClientBackground client;
+
 	public PageLogIn(MainFrame m) {
-	
+
 		this.setSize(new Dimension(1200, 800));
-		
+
 		this.setLayout(null);
 
 		titleBL = new JLabel("부루마블");
@@ -69,25 +71,27 @@ public class PageLogIn extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int answer =0;
-				client = getClient(); 
-				PageGame gamePanel = (PageGame)m.getPan3();
+				int answer = 0;
+				client = getClient();
+				PageGame gamePanel = (PageGame) m.getPan3();
 				try {
-					client.loginTry(tfID.getText()+" "+tfPWD.getText());
-					
+					client.loginTry(tfID.getText() + " " + tfPWD.getText());
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				answer = client.getButtonResult();
 				switch (answer) {
 				case 0:
+					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
+					break;
+
+				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
 					c = new Charcter(tfID.getText(), 4000000, 0);
-					gamePanel.getUser1Info().setText("<html>ID : "+c.getName()+"<br>자산 :");
-					gamePanel.getUser1Money().setText(""+c.getMoney());
-					break;
-				case 1:
-					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
+					gamePanel.getUser1Info().setText("<html>ID : " + c.getName() + "<br>자산 :");
+					gamePanel.getUser1Money().setText("" + c.getMoney());
 					break;
 				}
 			}
@@ -95,12 +99,12 @@ public class PageLogIn extends JPanel {
 		buttonJoin.setBounds(40, 40, 175, 40);
 		buttonJoin.setLocation(520, 520);
 		buttonJoin.setBackground(new Color(30, 144, 255));
-		buttonJoin.addActionListener(new ActionListener(){
+		buttonJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				m.getCardLayout().show(m.getContentPane(), "Join");
-				}
-			});
+			}
+		});
 		this.add(titleBL);
 		this.add(titleL);
 		this.add(idL);
@@ -109,19 +113,19 @@ public class PageLogIn extends JPanel {
 		this.add(tfPWD);
 		this.add(buttonLogin);
 		this.add(buttonJoin);
-		
-	
+
 	}
+
 	public ClientBackground getClient() {
 		return client;
 	}
+
 	public void setClient(ClientBackground client) {
 		this.client = client;
 	}
-	public JTextField getTfID(){
+
+	public JTextField getTfID() {
 		return this.tfID;
 	}
-	
 
 }
-
