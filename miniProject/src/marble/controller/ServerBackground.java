@@ -46,11 +46,10 @@ public class ServerBackground {
 		try {
 			serverSocket = new ServerSocket(5000);
 			socket = serverSocket.accept();
-
+			DataInputStream dis = new DataInputStream(socket.getInputStream());
+			System.out.println("서버 대기중...");
+			System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
 			while (true) {
-				DataInputStream dis = new DataInputStream(socket.getInputStream());
-				System.out.println("서버 대기중...");
-				System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
 				Receiver receiver = new Receiver(socket);
 				receiver.start();
 			}
