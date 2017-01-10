@@ -17,7 +17,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	private JPanel p = new JPanel();
 	private JPanel panelBoard;
 	private JLabel user1Money;
-	private JLabel car, carinfo, diceLabel, cityLabel;
+	private JLabel car, carinfo, diceLabel;
 	private JLabel diceLabelImage1, diceLabelImage2;
 	private JLabel selectedCountry;
 	private ImageIcon diceImage[] ;
@@ -341,7 +341,7 @@ public class MarbleController extends JFrame implements MouseListener{
 			else
 				System.out.println("랜드마크 방문 보상 ");
 		}
-		
+		setTooltip();
 	}
 
 	public void func() {
@@ -595,6 +595,51 @@ public class MarbleController extends JFrame implements MouseListener{
 				null, option, option[1])) == 0)
 			dispose();
 	}
+	public void makeTooltip(){
+		for(int i =0; i < Jlist.length; i++){
+			Jlist[i].createToolTip();
+		}
+	}
+
+	
+	
+	public void setTooltip(){
+		int grand = 0, owner, status = 0;
+		String sOwner = "", sFee = "";
+		for(int i =0; i < Jlist.length; i++){
+			for(int j = 0; j < ct.length; j++){
+				if(ct[j] != null){
+					if(ct[j].getName().equals(Jlist[i].getText())){
+						grand = ct[j].getGrandCost();
+						if((ct[j].getOwner()) == 0){
+							sOwner = "없음";
+						} else {
+							sOwner = String.valueOf(ct[j].getOwner());
+						}
+						
+						if(ct[j].getOwner() == 0 && ct[j].getStatus() == 0){
+							sFee = "없음";
+						} else if(ct[j].getStatus() == 0) {
+							sFee =  String.valueOf(grand * 2);
+						} else if(ct[j].getStatus() == 1) {
+							sFee =  String.valueOf((grand+10) * 2);
+						} else if(ct[j].getStatus() == 2) {
+							sFee =  String.valueOf((grand+25) * 2);
+						} else {
+							sFee =  String.valueOf((grand+45) * 2);
+						}
+						status = ct[j].getStatus();
+						
+						Jlist[i].setToolTipText("<html>  "+Jlist[i].getText() + "<br> 토지가격 : " + grand + "<br> 소유주 : " + sOwner +  "<br> 통행료 : " + sFee + "</html>");
+					}
+				}
+				
+			}
+			
+		}
+		
+		
+	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -611,7 +656,7 @@ public class MarbleController extends JFrame implements MouseListener{
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		cityLabel = (JLabel)(e.getSource());
+		/*cityLabel = (JLabel)(e.getSource());
 		int grand = 0, owner, status = 0;
 		String sOwner = "", sFee = "";
 		for(int i = 0; i <= ct.length; i++){
@@ -657,12 +702,12 @@ public class MarbleController extends JFrame implements MouseListener{
 				}
 			}
 			
-		}
+		}*/
 		
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		cityInfoLabel.setVisible(false);
+		//cityInfoLabel.setVisible(false);
 	}
 }
