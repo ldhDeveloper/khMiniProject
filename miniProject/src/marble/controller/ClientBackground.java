@@ -15,62 +15,51 @@ public class ClientBackground {
 	private MainFrame m;
 	private PageLogIn p;
 	private String msg;
-	
-
+	private int buttonResult;
 	public void setGui(PageGame gui) {
 		this.gui = gui;
 	}
 
-	public void recordTry(String log) throws IOException{
+	public void recordTry(String log) throws IOException {
 		out.writeByte(0010);
 		out.writeUTF(log);
 	}
-	public int recordResult() throws IOException{
-		int result = 0;
-		Byte bResult = in.readByte();
-		switch(bResult){
-		case 1: result =0; break;
-		case 2: result =1; break;
-		}
-		return result;
-	}
-	public void loginTry(String log) throws IOException{
+
+	public void loginTry(String log) throws IOException {
 		out.writeByte(0020);
 		out.writeUTF(log);
 	}
-	public int loginResult() throws IOException{
-		int result = 0;
-		Byte bResult = in.readByte();
-		switch(bResult){
-		case 1: result =0; break;
-		case 2: result =1; break;
-		}
-		return result;
-		
-	}
 	
-	public ClientBackground() throws UnknownHostException, IOException{
+
+	public ClientBackground() throws UnknownHostException, IOException {
 		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 		out = new DataOutputStream(socket.getOutputStream());
 		in = new DataInputStream(socket.getInputStream());
-		
+
 	}
+
 	public void connet() {
 		try {
 			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			System.out.println("서버 연결됨.");
-			m=new MainFrame();
+			setM(new MainFrame());
 			m.represent();
-			while(true){
-				byte result =in.readByte();
-				switch(result){
-				case 0011 :  break;
-				case 0021 : break;
-				case 0031 : 
-			while (in != null) {
-				msg = in.readUTF();
-				gui.appendMsg(msg);
-			}
+			while (true) {
+				byte result = in.readByte();
+				switch (result) {
+				case 0011: 
+					setButtonResult(0); 
+					break;
+				case 0021:
+					setButtonResult(1);
+					break;
+				case 0031: 	
+					m.getCardLayout().show(m.getContentPane(), "game");
+					System.out.println("입장성공");
+					while (in != null) {
+						msg = in.readUTF();
+						gui.appendMsg(msg);
+					}
 				}
 			}
 		} catch (UnknownHostException e) {
@@ -91,5 +80,20 @@ public class ClientBackground {
 		}
 	}
 
-}
+	public MainFrame getM() {
+		return m;
+	}
 
+	public void setM(MainFrame m) {
+		this.m = m;
+	}
+
+	public int getButtonResult() {
+		return buttonResult;
+	}
+
+	public void setButtonResult(int buttonResult) {
+		this.buttonResult = buttonResult;
+	}
+
+}

@@ -2,9 +2,12 @@ package marble.view;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 import javax.swing.event.*;
 import marble.controller.*;
+
 
 public class PageJoin extends JPanel {
 	private JLabel titleBL, titleL, loginL, idL, pwdL1, pwdL2;
@@ -12,6 +15,7 @@ public class PageJoin extends JPanel {
 	private JButton buttonCancel, buttonJoin;
 	private int result;
 	boolean focusId = false;
+	private ClientBackground client;
 	
 	public int loginResult(String name, String pwd){
 		int result =1;
@@ -79,17 +83,28 @@ public class PageJoin extends JPanel {
 		buttonJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//result = new ClientBackground().recording(m);
-				switch (result) {
-				case 0:
-					JOptionPane.showMessageDialog(tfID.getParent(), "잘못된 입력이 존재합니다.");
-					break;
-				case 1:
-					JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
-					m.getCardLayout().show(m.getContentPane(), "Login");
-					break;
-				
+				client=getClient();
+				if(tfPWD1.getText().equals(tfPWD2.getText()))
+				try {
+					client.recordTry(tfID.getText());
+					result=client.getButtonResult();
+					switch (result) {
+					case 0:
+						JOptionPane.showMessageDialog(tfID.getParent(), "잘못된 입력이 존재합니다.");
+						break;
+					case 1:
+						JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
+						m.getCardLayout().show(m.getContentPane(), "Login");
+						break;
+					}
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
+				else
+					JOptionPane.showMessageDialog(tfID.getParent(), "비밀번호와 확인문자가 일치하지 않습니다..");
+				
+				
 			}
 		});
 		buttonCancel.setBounds(40, 40, 175, 30);
@@ -120,6 +135,12 @@ public class PageJoin extends JPanel {
 	}
 	public void setResult(int result) {
 		this.result = result;
+	}
+	public ClientBackground getClient() {
+		return client;
+	}
+	public void setClient(ClientBackground client) {
+		this.client = client;
 	}
 		
 		

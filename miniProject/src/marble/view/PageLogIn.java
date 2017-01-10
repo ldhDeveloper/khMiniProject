@@ -20,7 +20,7 @@ public class PageLogIn extends JPanel {
 	private JButton buttonLogin, buttonJoin;
 	private JPanel panel1, panel2;
 	private MainFrame m;
-	private TestGUI test;
+	private ClientBackground client;
 	public PageLogIn(MainFrame m) {
 	
 		this.setSize(new Dimension(1200, 800));
@@ -69,26 +69,22 @@ public class PageLogIn extends JPanel {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int answer = 0;
+				int answer =0;
+				client = getClient(); 
 				PageGame gamePanel = (PageGame)m.getPan3();
 				try {
-					ClientBackground client= new ClientBackground();
-				} catch (UnknownHostException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					client.loginTry(tfID.getText()+" "+tfPWD.getText());
+					
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
-					c = new Charcter(tfID.getText(), 400, 0);
+					c = new Charcter(tfID.getText(), 4000000, 0);
 					gamePanel.getUser1Info().setText("<html>ID : "+c.getName()+"<br>자산 :");
 					gamePanel.getUser1Money().setText(""+c.getMoney());
-					m.getCardLayout().show(m.getContentPane(), "game");
-										
 					break;
 				case 1:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
@@ -116,5 +112,16 @@ public class PageLogIn extends JPanel {
 		
 	
 	}
+	public ClientBackground getClient() {
+		return client;
+	}
+	public void setClient(ClientBackground client) {
+		this.client = client;
+	}
+	public JTextField getTfID(){
+		return this.tfID;
+	}
+	
 
 }
+
