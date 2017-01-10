@@ -163,7 +163,6 @@ public class ServerBackground {
 		public void run() {
 
 			try {
-				int order = 1;
 				IDkey = "unknown";
 				System.out.println(IDkey);
 				addGuest(IDkey, out);
