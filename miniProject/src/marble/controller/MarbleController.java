@@ -593,7 +593,7 @@ public class MarbleController extends JFrame implements MouseListener{
 				JOptionPane.YES_NO_OPTION,
 				JOptionPane.QUESTION_MESSAGE, 
 				null, option, option[1])) == 0)
-			dispose();
+			System.exit(0);
 	}
 	public void makeTooltip(){
 		for(int i =0; i < Jlist.length; i++){
