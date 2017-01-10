@@ -42,7 +42,6 @@ public class ClientBackground {
 		try {
 			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			System.out.println("서버 연결됨.");
-			setM(new MainFrame());
 			m.represent();
 			while (true) {
 				byte result = in.readByte();

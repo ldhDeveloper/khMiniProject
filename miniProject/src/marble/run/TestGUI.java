@@ -9,8 +9,12 @@ public class TestGUI {
 	public static void main(String[] args) {
 		try {
 			ClientBackground client = new ClientBackground();
-			((PageJoin)client.getM().getPan1()).setClient(client);
-			((PageLogIn)client.getM().getPan2()).setClient(client);
+			MainFrame m = new MainFrame();
+			client.setM(m);
+			PageLogIn pl = (PageLogIn)m.getPan1();
+			PageJoin pj = (PageJoin)m.getPan2();
+			pl.setClient(client);
+			pl.setClient(client);
 			client.connet();
 			
 		} catch (IOException e) {
