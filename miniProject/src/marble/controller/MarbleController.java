@@ -50,14 +50,11 @@ public class MarbleController extends JFrame implements MouseListener{
 		p.setLayout(null);
 		
 		car = new JLabel("A");
-	
 		car.setOpaque(true);
-		car.setHorizontalAlignment(car.CENTER);
-		car.setForeground(Color.white);
-		car.setBackground(new Color(238, 99, 99));
+		car.setBackground(Color.RED);
 		car.setSize(15,15);
 		car.setLocation(100,68);
-		car.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		car.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
 		carinfo = new JLabel("이름 : " + c.getName() +
 				" 자금 : " + c.getMoney(), JLabel.CENTER);
@@ -553,10 +550,11 @@ public class MarbleController extends JFrame implements MouseListener{
 					}
 					
 					olympicMsg.setVisible(false);
+					selectedCountry.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
 					JOptionPane.showMessageDialog(this,
 							ct[i].getName()
 							+ " 올림픽 개최!\n통행료가 "
-									+ computeFee(ct[i])*2
+									+ computeFee(ct[i])
 									+ "원 인상되었습니다.");
 					btn1.setEnabled(true);
 					listEnableTrue(ct, Jlist);
