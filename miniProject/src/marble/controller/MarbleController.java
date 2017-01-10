@@ -507,8 +507,7 @@ public class MarbleController extends JFrame implements MouseListener {
 
 			for (int i = 1; i < Jlist.length; i++) {
 				for (int j = 0; j < Jlist.length; j++) {
-					Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
-
+					Jlist[j].setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
 				}
 
 				if (Jlist[i] == selectedCountry) {
@@ -525,7 +524,7 @@ public class MarbleController extends JFrame implements MouseListener {
 					JOptionPane.showMessageDialog(this,
 							ct[i].getName() + " 올림픽 개최!\n통행료가 " + computeFee(ct[i]) + "원 인상되었습니다.");
 					ct[i].setFee(ct[i].getFee()*2);
-
+					
 					btn1.setEnabled(true);
 					listEnableTrue(ct, Jlist);
 
