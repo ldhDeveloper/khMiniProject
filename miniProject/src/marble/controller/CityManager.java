@@ -152,16 +152,7 @@ public class CityManager extends JFrame{
 	}
 
 	public int FeeCity(Cities city) {
-		if (city.getStatus() == 1)
-			return (city.getGrandCost() + 10) * 2;
-		else if (city.getStatus() == 2)
-			return (city.getGrandCost() + 10 + 15) * 2;
-		else if (city.getStatus() == 3)
-			return (city.getGrandCost() + 10 + 15 + 20) * 2;
-		else if (city.getStatus() == 4)
-			return (city.getGrandCost() + 10 + 15 + 20 + 20) * 2;
-		else
-			return 0;
+			return city.getFee();
 	}
 	
 }
