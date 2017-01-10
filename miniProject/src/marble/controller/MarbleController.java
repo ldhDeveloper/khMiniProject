@@ -507,7 +507,7 @@ public class MarbleController extends JFrame implements MouseListener {
 
 			for (int i = 1; i < Jlist.length; i++) {
 				for (int j = 0; j < Jlist.length; j++) {
-					Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+					Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
 
 				}
 
