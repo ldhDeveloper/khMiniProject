@@ -3,6 +3,8 @@ package marble.view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.UnknownHostException;
 
 import javax.swing.*;
 import javax.swing.event.*;
@@ -68,8 +70,16 @@ public class PageLogIn extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				int answer = 0;
 				PageGame gamePanel = (PageGame)m.getPan3();
-				ClientBackground client= new ClientBackground();
-				answer = client.login(m);
+				try {
+					ClientBackground client= new ClientBackground();
+				} catch (UnknownHostException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");

@@ -21,7 +21,6 @@ private	JPanel pan3 = new PageGame(this);
 		this.getContentPane().add("Login", pan1);
 		this.getContentPane().add("Join", pan2);
 	    this.getContentPane().add("game", pan3);
-		this.setVisible(true);
 		
 	}
 	public void changePanel(){
@@ -50,5 +49,9 @@ private	JPanel pan3 = new PageGame(this);
 
 	public JPanel getPan3(){
 		return this.pan3;
+	}
+	public void represent(){
+	
+		this.setVisible(true);
 	}
 }

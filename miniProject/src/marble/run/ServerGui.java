@@ -32,7 +32,7 @@ public class ServerGui extends JFrame implements ActionListener {
         setTitle("서버 구동중");
  
         server.setGui(this);
-        server.setting();
+        server.start();
     }
  
     public static void main(String[] args) throws IOException {

@@ -15,8 +15,7 @@ public class PageJoin extends JPanel {
 	
 	public int loginResult(String name, String pwd){
 		int result =1;
-		
-		
+				
 		return result;
 		
 	}
@@ -80,7 +79,7 @@ public class PageJoin extends JPanel {
 		buttonJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				result = new ClientBackground().recording(m);
+				//result = new ClientBackground().recording(m);
 				switch (result) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "잘못된 입력이 존재합니다.");
@@ -125,4 +124,5 @@ public class PageJoin extends JPanel {
 		
 		
 	}
+
 
