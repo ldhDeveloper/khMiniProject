@@ -549,6 +549,7 @@ public class MarbleController extends JFrame implements MouseListener{
 					if (ct[i].getStatus()==0) {
 						JOptionPane.showMessageDialog(this,
 								"본인 소유가 아니므로 올림픽 개최가 불가능한 도시입니다.");
+						
 						goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
 						break;
 					}
