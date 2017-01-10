@@ -504,12 +504,11 @@ public class MarbleController extends JFrame implements MouseListener {
 		}
 
 		else if (olympicMsg.isVisible()) {
-
+			for (int i = 0; i < Jlist.length; i++) {
+				Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
+			}
 			for (int i = 1; i < Jlist.length; i++) {
-				for (int j = 0; j < Jlist.length; j++) {
-					Jlist[j].setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
-				}
-
+				
 				if (Jlist[i] == selectedCountry) {
 					
 					if (ct[i].getStatus() == 0) {
