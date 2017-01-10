@@ -30,6 +30,7 @@ public class ServerBackground {
 	}
 	public ServerBackground(){
 		clientsMap= new HashMap<String, DataOutputStream>();
+		guest = new HashMap<String, DataOutputStream>();
 		Collections.synchronizedMap(guest);
 		Collections.synchronizedMap(clientsMap);
 		
@@ -128,6 +129,9 @@ public class ServerBackground {
 		public void run() {
 						
 			try {
+				int order =1;
+				IDkey = "unknown";
+				System.out.println(IDkey);
 				addGuest(IDkey, out);
 				while(true){
 				String log = "";	

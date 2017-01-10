@@ -38,7 +38,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private JLabel olympicMsg = new JLabel("황금열쇠 : 올림픽 \n올림픽을 개최할 도시를 선택해주세요 ", JLabel.CENTER);;
 	private Cities[] ct = new Cities[24];
 	private MarbleController controller;
-	private ClientBackground client = new ClientBackground();
+	private ClientBackground client;
 	private static String nickName;
 	
 	public PageGame(MainFrame m){

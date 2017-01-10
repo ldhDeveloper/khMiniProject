@@ -10,6 +10,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 
 import marble.model.Charcter;
+import marble.run.TestGUI;
 import marble.controller.*;
 public class PageLogIn extends JPanel {
 	
@@ -19,7 +20,7 @@ public class PageLogIn extends JPanel {
 	private JButton buttonLogin, buttonJoin;
 	private JPanel panel1, panel2;
 	private MainFrame m;
-	
+	private TestGUI test;
 	public PageLogIn(MainFrame m) {
 	
 		this.setSize(new Dimension(1200, 800));
