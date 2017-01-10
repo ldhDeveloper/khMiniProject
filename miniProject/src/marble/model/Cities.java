@@ -8,17 +8,18 @@ public class Cities implements Serializable{
 	private int status;
 	private int owner;
 	private int grandCost;
-	
+	private int fee;
 	
 	public Cities(){}
 	
 	public Cities(String name, int status,
-			int owner, int grandCost) {
+			int owner, int grandCost, int fee) {
 		super();
 		this.name = name;
 		this.status = status;
 		this.owner = owner;
 		this.grandCost = grandCost;
+		this.fee = fee;
 	}
 	public int getStatus() {
 		return status;
@@ -43,6 +44,14 @@ public class Cities implements Serializable{
 	}
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getFee() {
+		return fee;
+	}
+
+	public void setFee(int fee) {
+		this.fee = fee;
 	}
 	
 }

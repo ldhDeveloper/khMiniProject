@@ -195,22 +195,22 @@ public class MarbleController extends JFrame implements MouseListener{
 	}
 	
 	public void cityInit() {
-		ct[1] = new Cities("리스본", 0, 0, 20);
-		ct[2] = new Cities("방콕", 0, 0, 20);
-		ct[4] = new Cities("도쿄", 0, 0, 15);
-		ct[5] = new Cities("베이징", 0, 0, 20);
-		ct[7] = new Cities("뉴델리", 0, 0, 25);
-		ct[8] = new Cities("두바이", 0, 0, 30);
-		ct[10] = new Cities("캔버라", 0, 0, 35);
-		ct[11] = new Cities("카이로", 0, 0, 40);
-		ct[13] = new Cities("상파울로", 0, 0, 45);
-		ct[14] = new Cities("아테네", 0, 0, 45);
-		ct[16] = new Cities("코펜하겐", 0, 0, 45);
-		ct[17] = new Cities("베를린", 0, 0, 45);
-		ct[19] = new Cities("런던", 0, 0, 45);
-		ct[20] = new Cities("파리", 0, 0, 45);
-		ct[22] = new Cities("뉴욕", 0, 0, 45);
-		ct[23] = new Cities("서울", 0, 0, 45);
+		ct[1] = new Cities("리스본", 0, 0, 20, 0);
+		ct[2] = new Cities("방콕", 0, 0, 20, 0);
+		ct[4] = new Cities("도쿄", 0, 0, 15, 0);
+		ct[5] = new Cities("베이징", 0, 0, 20, 0);
+		ct[7] = new Cities("뉴델리", 0, 0, 25, 0);
+		ct[8] = new Cities("두바이", 0, 0, 30, 0);
+		ct[10] = new Cities("캔버라", 0, 0, 35, 0);
+		ct[11] = new Cities("카이로", 0, 0, 40, 0);
+		ct[13] = new Cities("상파울로", 0, 0, 45, 0);
+		ct[14] = new Cities("아테네", 0, 0, 45, 0);
+		ct[16] = new Cities("코펜하겐", 0, 0, 45, 0);
+		ct[17] = new Cities("베를린", 0, 0, 45, 0);
+		ct[19] = new Cities("런던", 0, 0, 45, 0);
+		ct[20] = new Cities("파리", 0, 0, 45, 0);
+		ct[22] = new Cities("뉴욕", 0, 0, 45, 0);
+		ct[23] = new Cities("서울", 0, 0, 45, 0);
 	}
 	
 	public void rollDice(JTextArea gameInfo) {
@@ -423,7 +423,7 @@ public class MarbleController extends JFrame implements MouseListener{
 		
 		if (cityStatus==5) {
 			Jlist[location].setOpaque(true);
-			Jlist[location].setBackground(Color.blue);
+			Jlist[location].setBackground(new Color(238, 99, 99, 80));
 		}
 		
 		else
@@ -433,7 +433,7 @@ public class MarbleController extends JFrame implements MouseListener{
 					name = pan.getName();
 					if (name!=null) {
 						if (name.equals("Jlist"+location+""+i))
-							pan.setBackground(Color.blue);
+							pan.setBackground(new Color(238, 99, 99));
 					}
 				}
 			}
@@ -604,7 +604,7 @@ public class MarbleController extends JFrame implements MouseListener{
 	
 	
 	public void setTooltip(){
-		int grand = 0, owner, status = 0;
+		int grand = 0, owner, status = 0, fee=0;
 		String sOwner = "", sFee = "";
 		for(int i =0; i < Jlist.length; i++){
 			for(int j = 0; j < ct.length; j++){
@@ -617,18 +617,14 @@ public class MarbleController extends JFrame implements MouseListener{
 							sOwner = String.valueOf(ct[j].getOwner());
 						}
 						
-						if(ct[j].getOwner() == 0 && ct[j].getStatus() == 0){
+						fee = ct[j].getFee();
+						if(fee == 0){
 							sFee = "없음";
-						} else if(ct[j].getStatus() == 0) {
-							sFee =  String.valueOf(grand * 2);
-						} else if(ct[j].getStatus() == 1) {
-							sFee =  String.valueOf((grand+10) * 2);
-						} else if(ct[j].getStatus() == 2) {
-							sFee =  String.valueOf((grand+25) * 2);
 						} else {
-							sFee =  String.valueOf((grand+45) * 2);
+							sFee = String.valueOf(fee);
 						}
 						status = ct[j].getStatus();
+						
 						
 						Jlist[i].setToolTipText("<html>  "+Jlist[i].getText() + "<br> 토지가격 : " + grand + "<br> 소유주 : " + sOwner +  "<br> 통행료 : " + sFee + "</html>");
 					}

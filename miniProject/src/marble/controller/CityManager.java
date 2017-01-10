@@ -23,6 +23,7 @@ public class CityManager extends JFrame{
 			city.setOwner(c.getcNo());
 			c.setMoney(c.getMoney() - city.getGrandCost());
 			city.setStatus(1);
+			city.setFee(city.getGrandCost() * 2);
 		}
 		/*
 		user1Info.setText("<html>아이디: " + c.getName()
@@ -50,16 +51,19 @@ public class CityManager extends JFrame{
 			if (result.equals("1")) { // 다이얼로그에서 1을 선택 (한채 짓기)
 				c.setMoney(c.getMoney() - 10); // 첫번째 건물 비용(10)
 				city.setStatus(2); // 건물 1채인 상태로 변경
+				city.setFee((city.getGrandCost() + 10) * 2);
 			}
 			
 			else if (result.equals("2")) {
 				c.setMoney(c.getMoney() - 10 - 15);
 				city.setStatus(3);
+				city.setFee((city.getGrandCost() + 10 + 15) * 2);
 			}
 			
 			else {
 				c.setMoney(c.getMoney() - 10 - 15 - 20);
 				city.setStatus(4);
+				city.setFee((city.getGrandCost() + 10 + 15 + 20) * 2);
 			}
 		}
 		
@@ -75,11 +79,13 @@ public class CityManager extends JFrame{
 			else if (result.equals("1")) {
 				c.setMoney(c.getMoney() - 15);
 				city.setStatus(3);
+				city.setFee((city.getGrandCost() + 10 + 15) * 2);
 			}
 			
 			else {
 				c.setMoney(c.getMoney() - 15 - 20);
 				city.setStatus(4);
+				city.setFee((city.getGrandCost() + 10 + 15 + 20) * 2);
 			}
 		}
 		
@@ -90,6 +96,7 @@ public class CityManager extends JFrame{
 			if (result.equals("예")) {
 				c.setMoney(c.getMoney() - 20); // 세번째 건물 비용(20)
 				city.setStatus(4);
+				city.setFee((city.getGrandCost() + 10 + 15 + 20) * 2);
 				result = "1";
 			}
 			else result = "";
@@ -120,6 +127,7 @@ public class CityManager extends JFrame{
 			city.setOwner(c.getcNo());
 			c.setMoney(c.getMoney() - 20);
 			city.setStatus(5);
+			city.setFee((city.getGrandCost() + 10 + 15 + 20 + 20) * 2);
 		}
 		
 		else {

@@ -66,7 +66,7 @@ public class GoldKey extends JFrame{
 			// TODO Auto-generated method stub
 			
 			if (sellable(ct) == false) {
-				JOptionPane.showMessageDialog(this, "황금열쇠 : 도시 매각 \n"
+				JOptionPane.showMessageDialog(this, "황금열쇠 : 올림픽 \n"
 						+ "소유한 도시가 없기 때문에 올림픽 개최를 할 수 없습니다.");
 				return;
 			}
@@ -129,7 +129,7 @@ public class GoldKey extends JFrame{
 			// TODO Auto-generated method stub
 
 			if (flag==true) {
-				planeMsg.setText("황금열쇠 :\n이동할 도시를 선택해주세요 ");
+				planeMsg.setText("황금열쇠 : 항공권 \n이동할 도시를 선택해주세요 ");
 				flag = false;
 			}
 			
