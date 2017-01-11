@@ -30,12 +30,12 @@ public class ClientBackground {
 	}
 
 	public void recordTry(String log) throws IOException {
-		out.writeByte(0010);
+		out.writeByte(10);
 		out.writeUTF(log);
 	}
 
 	public void loginTry(String log) throws IOException {
-		out.writeByte(0020);
+		out.writeByte(20);
 		out.writeUTF(log);
 	}
 
@@ -72,7 +72,7 @@ public class ClientBackground {
 					setButtonResult(1);
 					break;
 				case (byte) 31:
-					out.writeByte(0030);
+					out.writeByte(30);
 					int order = 0; // 게임 페이지에 기록될 순번과 이름
 					String queue = "";
 					try {

@@ -292,7 +292,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				client.sendSignial((byte)40);
-			
+				try {
+					Thread.sleep(3000l);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 				
 			}});

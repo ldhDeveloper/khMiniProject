@@ -23,8 +23,8 @@ public class TestGUI {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-	
+		
+		
 		/*MainFrame m = new MainFrame();
 		m.getCardLayout().show(m.getContentPane(), "game");
 		m.represent();*/

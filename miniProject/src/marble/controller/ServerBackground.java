@@ -34,7 +34,7 @@ public class ServerBackground {
 	}
 
 	public ServerBackground() {
-
+		gamer = new ArrayList<Thread>();
 		guest = new HashMap<String, DataOutputStream>();
 		Collections.synchronizedMap(guest);
 
@@ -43,7 +43,7 @@ public class ServerBackground {
 	public void connectionSignal() throws IOException {
 		serverSocket = null;
 		socket = null;
-		gamer = new ArrayList<Thread>();
+		
 		try {
 			serverSocket = new ServerSocket(5000);
 			while (true) {
@@ -87,9 +87,6 @@ public class ServerBackground {
 		}
 	}
 
-	public void controlGameQueue() {
-
-	}
 
 	class Receiver extends Thread {
 		private Socket socket;
@@ -197,46 +194,43 @@ public class ServerBackground {
 					String log = "";
 					choice = in.readByte();
 					switch (choice) {
-					case 0010:
+					case (byte)10:
 						log = in.readUTF();
 						recordConfirm(log);
 						break;
-					case 0020:
+					case (byte)20:
 						log = in.readUTF();
 						logConfirm(log);
 						break;
-					case 0030:
+					case (byte)30:
 						gamer.add(receiver);
 						out.writeUTF(gamer.size() + " " + IDkey);
 						break;
-					case 0040:
+					case (byte)40:
 						count++;
 						if (count < gamer.size())
 							break;
 						else
 							sendMessage("게임을 시작합니다.");
 						break game;
-
 					}
+				}
+					System.out.println("action");
 					Receiver sequence[] = new Receiver[gamer.size()];
 					for(int i =0; i<gamer.size();i++){
 						sequence[i] = (Receiver)gamer.get(i);
 					}
-						
-					
-					
-					while (true) {
+				while (true) {String result ="";
 						for (int k = 0; k < gamer.size(); k++) {
 							for(Receiver e : sequence){
-								
-								e.out.writeByte(100);
+							e.out.writeByte(100);
 							}
 							sequence[k].out.writeByte(110);
-							
+							 result = sequence[k].in.readUTF(in);
 							}
 						}
 
-					}
+					
 
 				
 
