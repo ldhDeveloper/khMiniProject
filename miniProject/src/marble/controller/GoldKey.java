@@ -24,8 +24,8 @@ public class GoldKey extends JFrame{
 				JLabel car, Charcter c, JButton btn1,
 				JLabel planeMsg, JLabel sellMsg, JLabel olympicMsg){
 			
-			//keyNum = (int) (Math.random() * 10 + 1);
-			keyNum = 4;
+			keyNum = (int) (Math.random() * 10 + 1);
+			
 			switch(keyNum){
 			case 1: 
 				toIsland(Jlist, car, c); 
