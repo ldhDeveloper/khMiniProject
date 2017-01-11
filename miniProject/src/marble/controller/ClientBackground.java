@@ -56,9 +56,9 @@ public class ClientBackground {
 			m.represent();
 
 			PrintWriter pw = new PrintWriter(out);
-
-		enter:	while (true) { // 서버와 신호에 따른 결과값 중계
-
+				boolean flag = true;
+			while (flag) { // 서버와 신호에 따른 결과값 중계
+					System.out.println("중복");
 				result = in.readByte();
 				System.out.println((result != 30) ? ("result : " + result) : "");
 
@@ -106,14 +106,16 @@ public class ClientBackground {
 					setGui((PageGame) (m.getPan3()));
 					m.getCardLayout().show(m.getContentPane(), "game");
 					System.out.println("입장성공");
-					 break enter;
-				
+					flag = false;
 				}
 			}
 			while(true){
-				byte turn =0;
+				System.out.println("시작");
+				byte turn =0;//현재 값 읽기 불가 오류발생
 				turn = in.readByte();
+				System.out.println(turn);
 				switch(turn){//순서에 의한 주사위 버튼의 사용조건 설정
+				
 			case 100:
 				pageGame.getBtn1().setEnabled(false);
 				break;
@@ -121,7 +123,7 @@ public class ClientBackground {
 				pageGame.getBtn1().setEnabled(true);
 				break;
 				}
-						
+				System.out.println("실패");		
 				
 			}
 			
@@ -136,6 +138,7 @@ public class ClientBackground {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (EOFException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

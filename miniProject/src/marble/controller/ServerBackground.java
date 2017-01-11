@@ -215,18 +215,19 @@ public class ServerBackground {
 						break game;
 					}
 				}
-					System.out.println("action");
+					System.out.println("action");//확인용
 					Receiver sequence[] = new Receiver[gamer.size()];
 					for(int i =0; i<gamer.size();i++){
 						sequence[i] = (Receiver)gamer.get(i);
 					}
-				while (true) {String result ="";
-						for (int k = 0; k < gamer.size(); k++) {
+					System.out.println("oper");
+				while (true) {
+					for (int k = 0; k < gamer.size(); k++) {
 							for(Receiver e : sequence){
 							e.out.writeByte(100);
-							}
-							sequence[k].out.writeByte(110);
-							 result = sequence[k].in.readUTF(in);
+							}sequence[k].out.writeByte(110);
+							int re =0;
+							re=sequence[k].in.readInt();//for문 정지용
 							}
 						}
 
