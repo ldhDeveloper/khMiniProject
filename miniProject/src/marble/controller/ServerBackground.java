@@ -30,6 +30,7 @@ public class ServerBackground {
 	private String IDkey;
 	private Member member;
 	private String rutf;
+	private String msgFromClient;
 	private Receiver receiver;
 	public final void setGui(ServerGui gui) {
 		this.gui = gui;
@@ -224,6 +225,11 @@ public class ServerBackground {
 				IDkey = "unknown";
 				addGuest(IDkey, out);
 				
+				BufferedReader br = 
+						new BufferedReader(
+								new InputStreamReader(
+										in));
+				
 				while (true) {
 					System.out.println("while");
 					String log = "";
@@ -242,15 +248,15 @@ public class ServerBackground {
 						gamer.put(IDkey, receiver);
 						out.writeUTF(gamer.size()+" "+IDkey);
 						while (true) {
-							if ((rutf = in.readUTF()) == null)
-								break;
-							msg = IDkey + " : " + rutf;
-							System.out.println(msg);
-							sendMessage(msg);
-							gui.appendMsg(msg);
+							if ((msgFromClient = br.readLine())!= null) {
+								msg = IDkey + " : " + msgFromClient;
+								System.out.println(msg);
+								sendMessage(msg+"\n");
+								gui.appendMsg(msg+"\n");
 						}
 					}
 				}
+			}
 			} catch (BindException e) {
 				System.out.println("BindException 발생!");
 				//removeClient(IDkey);
