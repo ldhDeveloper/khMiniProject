@@ -18,9 +18,15 @@ public class ClientBackground {
 	private String msg;
 	private int buttonResult = 8;
 	private byte result = 30;
+	private String ChatMsg;
+	private String name;
 	
 	public void setGui(PageGame gui) {
 		this.gui = gui;
+	}
+
+	public PageGame getGui() {
+		return gui;
 	}
 
 	public void recordTry(String log) throws IOException {
@@ -63,18 +69,26 @@ public class ClientBackground {
 				
 				switch (result) {
 				case (byte)11: 
+					System.out.println("해당 회원정보 존재하지 X");
 					setButtonResult(0); 
 					break;
 				case (byte)21:
 					System.out.println(result);
 					setButtonResult(1);
 					break;
-				case 0031: 	
+				case 31: 	
+					setGui((PageGame)(m.getPan3()));
+					out.writeByte(0030);
 					m.getCardLayout().show(m.getContentPane(), "game");
 					System.out.println("입장성공");
-					while (in != null) {
+					while (true) {
 						msg = in.readUTF();
 						gui.appendMsg(msg);
+						if ((ChatMsg = gui.getChatMsg()) != null && 
+								ChatMsg != "") {
+							gui.appendMsg(ChatMsg);
+							out.writeUTF(ChatMsg);
+						}
 					}
 				}
 			}
@@ -89,9 +103,9 @@ public class ClientBackground {
 
 	}
 
-	public void sendMessage(String msg2) {
+	public void sendMessage(String msg) {
 		try {
-			out.writeUTF(msg2);
+			out.writeUTF(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -112,5 +126,16 @@ public class ClientBackground {
 	public void setButtonResult(int buttonResult) {
 		this.buttonResult = buttonResult;
 	}
+	
+	public void getName(String name) {
+		this.name = name;
+	}
+	
+	public DataInputStream getIn() {
+		return in;
+	}
 
+	public DataOutputStream getOut() {
+		return out;
+	}
 }

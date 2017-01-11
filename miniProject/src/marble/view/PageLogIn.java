@@ -77,7 +77,7 @@ public class PageLogIn extends JPanel {
 				try {
 					client.loginTry(tfID.getText() + " " + tfPWD.getText());
 					Thread.sleep(3000);
-					answer = client.getButtonResult();
+					System.out.println(answer = client.getButtonResult());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -95,7 +95,7 @@ public class PageLogIn extends JPanel {
 					c = new Charcter(tfID.getText(), 4000000, 0);
 					gamePanel.getUser1Info().setText("<html>ID : " + c.getName() + "<br>자산 :");
 					gamePanel.getUser1Money().setText("" + c.getMoney());
-					m.getCardLayout().show(m.getContentPane(), "game");
+					
 					break;
 				}
 			}
