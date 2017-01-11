@@ -89,6 +89,7 @@ public class ServerBackground {
 			key = it.next();
 			try {
 				clientsMap.get(key).writeUTF(msg);
+				clientsMap.get(key).flush();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -125,7 +126,7 @@ public class ServerBackground {
 				
 				info = (HashMap<String,Member>) ois.readObject();
 				System.out.println("파일로부터 읽음");
-				//System.out.println(info);
+				System.out.println(info);
 				
 				if(!info.containsKey(person)) {
 					String [] contain = person.split(" ");
@@ -179,32 +180,26 @@ public class ServerBackground {
 		
 		
 		public void logConfirm(String name) {
+			System.out.println("logConfirm, 아이디 비번 : " + name);
 			try (ObjectInputStream ois =
 					new ObjectInputStream(
 							new FileInputStream(
 									"minute.dat"))) {
+				
 				info = (HashMap) ois.readObject();
-				name = in.readUTF();
 				String[] teared = name.split(" ");
+				
 				if (info.containsKey(teared[0])) {
 					if (((Member) info.get(teared[0])).getPassword().equals(teared[1])) {
-						out.writeByte(0031);
+						out.writeByte(31);
 						IDkey = teared[0];
 					}
-				} else
-					out.writeByte(0011);
-
-			} catch (Exception e) {
-
-			} finally {
-				try {
-					in.close();
-					out.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				} else {
+					out.writeByte(11);
+					System.out.println("해당 회원정보 존재하지 X");
 				}
-			}
+
+			} catch (Exception e) {}
 		}
 
 		public void run() {
@@ -225,8 +220,7 @@ public class ServerBackground {
 						break;
 					case 0020:
 						log = in.readUTF();
-						String[] confirm = log.split(" ");  
-						logConfirm(confirm[0]);
+						logConfirm(log);
 						break;
 					case 0030:
 						addClient(IDkey, out);
