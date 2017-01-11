@@ -731,7 +731,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			getController().exitMarble();
 		
 		else
-			client.sendSignial((byte)12);
+			controller.rollDice(gameInfo);
 			
 			
 				

@@ -121,11 +121,7 @@ public class ClientBackground {
 				pageGame.getBtn1().setEnabled(true);
 				break;
 				}
-				
-				int action =0;
-				action =in.readInt();
-				pageGame.getController().rollDice(pageGame.getGameInfo(), action);
-				
+						
 				
 			}
 			

@@ -228,20 +228,17 @@ public class ServerBackground {
 					while (true) {
 						for (int k = 0; k < gamer.size(); k++) {
 							for(Receiver e : sequence){
+								
 								e.out.writeByte(100);
 							}
 							sequence[k].out.writeByte(110);
-							action = sequence[k].in.readByte();
-							switch (action) {
-							case (byte) 12:
-								sequence[k].out.writeInt(dicesValue());
-								 break;
+							
 							}
 						}
 
 					}
 
-				}
+				
 
 				/*
 				 * while (true) { if ((msgFromClient = br.readLine())!= null) {
@@ -257,15 +254,6 @@ public class ServerBackground {
 			}
 		}
 
-		public int dicesValue() {
-			int dice = 0;
-			int dice2 = 0;
-			int dicesSum = 0;
-			dice = (int) (Math.random() * 6) + 1;
-			dice2 = (int) (Math.random() * 6) + 1;
-			dicesSum = dice + dice2;
-			return dicesSum;
-		}
 
 		public Socket getSocket() {
 			return socket;

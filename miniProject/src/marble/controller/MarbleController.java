@@ -207,8 +207,11 @@ public class MarbleController extends JFrame implements MouseListener {
 		ct[23] = new Cities("서울", 0, 0, 45, 0);
 	}
 
-	public void rollDice(JTextArea gameInfo, int dice) {
-
+	public void rollDice(JTextArea gameInfo) {
+		dice1= (int)Math.random()*6+1;
+		dice2= (int)Math.random()*6+1;
+		
+		dice= dice1+dice2;
 		
 
 		gameInfo.setText(dice + "칸 이동! ");
@@ -228,6 +231,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		 * diceLabelImage1.setIcon(diceImage[dice1-1]);
 		 * diceLabelImage2.setIcon(diceImage[dice2-1]);
 		 */
+		
 	}
 
 	public void moveHorse(int location) {
