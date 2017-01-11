@@ -27,6 +27,7 @@ public class ServerBackground {
 	private Map<String, DataOutputStream> guest;
 	private String IDkey;
 	private Member member;
+	private String rutf;
 	public final void setGui(ServerGui gui) {
 		this.gui = gui;
 	}
@@ -73,7 +74,7 @@ public class ServerBackground {
 	}
 
 	public void addGuest(String nick, DataOutputStream out) throws IOException {
-		sendMessage(nick + "입장");
+		System.out.println(nick + " 입장");
 		guest.put(nick, out);
 	}
 
@@ -83,6 +84,7 @@ public class ServerBackground {
 	}
 
 	public void sendMessage(String msg) {
+		System.out.println("sendMessage");
 		Iterator<String> it = clientsMap.keySet().iterator();
 		String key = "";
 		while (it.hasNext()) {
@@ -193,20 +195,22 @@ public class ServerBackground {
 					if (((Member) info.get(teared[0])).getPassword().equals(teared[1])) {
 						out.writeByte(31);
 						IDkey = teared[0];
+						System.out.println("로그인 값 비교 완료");
 					}
 				} else {
 					out.writeByte(11);
 					System.out.println("해당 회원정보 존재하지 X");
 				}
 
-			} catch (Exception e) {}
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}
 
 		public void run() {
 
 			try {
 				IDkey = "unknown";
-				System.out.println(IDkey);
 				addGuest(IDkey, out);
 				
 				while (true) {
@@ -224,8 +228,10 @@ public class ServerBackground {
 						break;
 					case 0030:
 						addClient(IDkey, out);
-						while (in != null) {
-							msg = in.readUTF();
+						while (true) {
+							if ((rutf = in.readUTF()) == null)
+								break;
+							msg = IDkey + " : " + rutf;
 							System.out.println(msg);
 							sendMessage(msg);
 							gui.appendMsg(msg);
