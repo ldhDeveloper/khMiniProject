@@ -76,12 +76,15 @@ public class PageLogIn extends JPanel {
 				PageGame gamePanel = (PageGame) m.getPan3();
 				try {
 					client.loginTry(tfID.getText() + " " + tfPWD.getText());
-
+					Thread.sleep(3000);
+					answer = client.getButtonResult();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				answer = client.getButtonResult();
 				switch (answer) {
 				case 0:
 					JOptionPane.showMessageDialog(tfID.getParent(), "회원 정보가 일치하지 않습니다.");
@@ -92,6 +95,7 @@ public class PageLogIn extends JPanel {
 					c = new Charcter(tfID.getText(), 4000000, 0);
 					gamePanel.getUser1Info().setText("<html>ID : " + c.getName() + "<br>자산 :");
 					gamePanel.getUser1Money().setText("" + c.getMoney());
+					m.getCardLayout().show(m.getContentPane(), "game");
 					break;
 				}
 			}
@@ -105,6 +109,7 @@ public class PageLogIn extends JPanel {
 				m.getCardLayout().show(m.getContentPane(), "Join");
 			}
 		});
+		
 		this.add(titleBL);
 		this.add(titleL);
 		this.add(idL);
