@@ -240,7 +240,7 @@ public class ServerBackground {
 					case 0030:
 						addClient(IDkey, out);
 						gamer.put(IDkey, receiver);
-						
+						out.writeUTF(gamer.size()+" "+IDkey);
 						while (true) {
 							if ((rutf = in.readUTF()) == null)
 								break;

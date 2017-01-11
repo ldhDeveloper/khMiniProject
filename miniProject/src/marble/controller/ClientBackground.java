@@ -20,7 +20,7 @@ public class ClientBackground {
 	private byte result = 30;
 	private String ChatMsg;
 	private String name;
-	
+
 	public void setGui(PageGame gui) {
 		this.gui = gui;
 	}
@@ -38,7 +38,6 @@ public class ClientBackground {
 		out.writeByte(0020);
 		out.writeUTF(log);
 	}
-	
 
 	public ClientBackground() throws UnknownHostException, IOException {
 		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
@@ -52,40 +51,63 @@ public class ClientBackground {
 			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			if (socket.isConnected())
 				System.out.println("서버 연결됨. (" + socket + ")");
-			
+
 			m.represent();
-			
+
 			/*
-			while(true) {
-				System.out.println("전송할 메세지 : ");
-				String message = new Scanner(System.in).nextLine();
-				out.writeUTF(message);
-				out.flush();
-			*/
+			 * while(true) { System.out.println("전송할 메세지 : "); String message =
+			 * new Scanner(System.in).nextLine(); out.writeUTF(message);
+			 * out.flush();
+			 */
 			while (true) {
-				
+
 				result = in.readByte();
-				System.out.println((result!=30)?("result : " + result):"");
-				
+				System.out.println((result != 30) ? ("result : " + result) : "");
+
 				switch (result) {
-				case (byte)11: 
+				case (byte) 11:
 					System.out.println("해당 회원정보 존재하지 X");
-					setButtonResult(0); 
+					setButtonResult(0);
 					break;
-				case (byte)21:
+				case (byte) 21:
 					System.out.println(result);
 					setButtonResult(1);
 					break;
-				case 31: 	
-					setGui((PageGame)(m.getPan3()));
+				case 31:
+					int order = 0; // 게임 페이지에 기록될 순번과 이름
+					String queue = "";
+					queue = in.readUTF();
+					String[] orderAndName = queue.split(" ");
+					order = Integer.parseInt(orderAndName[0]);
+
+					switch (order) {
+					case 1:
+						((PageGame)m.getPan3()).getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame)m.getPan3()).getUser1Money().setText("400000");
+						break;
+					case 2:
+						((PageGame)m.getPan3()).getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame)m.getPan3()).getUser2Money().setText("400000");
+						break;
+					case 3:
+						((PageGame)m.getPan3()).getUser3Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame)m.getPan3()).getUser3Money().setText("400000");
+						break;
+					case 4:
+						((PageGame)m.getPan3()).getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame)m.getPan3()).getUser4Money().setText("400000");
+						break;
+
+					}
+
+					setGui((PageGame) (m.getPan3()));
 					out.writeByte(0030);
 					m.getCardLayout().show(m.getContentPane(), "game");
 					System.out.println("입장성공");
 					while (true) {
 						msg = in.readUTF();
-						gui.appendMsg(msg);
-						if ((ChatMsg = gui.getChatMsg()) != null && 
-								ChatMsg != "") {
+						
+						if ((ChatMsg = gui.getChatMsg()) != null && ChatMsg != "") {
 							gui.appendMsg(ChatMsg);
 							out.writeUTF(ChatMsg);
 						}
@@ -126,11 +148,11 @@ public class ClientBackground {
 	public void setButtonResult(int buttonResult) {
 		this.buttonResult = buttonResult;
 	}
-	
+
 	public void getName(String name) {
 		this.name = name;
 	}
-	
+
 	public DataInputStream getIn() {
 		return in;
 	}
