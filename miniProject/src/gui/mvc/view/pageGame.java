@@ -83,6 +83,7 @@ public class pageGame extends JPanel {
 		Jlist[3].setBounds(405, 0, 90, 100);
 		Jlist[3].setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		
+		
 		Jlist[4] = new JLabel("도쿄");
 		Jlist[4].setHorizontalAlignment(Jlist[4].CENTER);
 		Jlist[4].setBounds(500, 0, 120, 100);
