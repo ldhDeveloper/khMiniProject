@@ -30,7 +30,8 @@ public class MarbleController extends JFrame implements MouseListener {
 	private GoldKey goldkey;
 	private CityManager cityManager;
 	private PageGame pg;
-	
+	private int lastolympic;
+
 	
 
 	public MarbleController() {
@@ -197,7 +198,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		ct[10] = new Cities("캔버라", 0, 0, 35, 0);
 		ct[11] = new Cities("카이로", 0, 0, 40, 0);
 		ct[13] = new Cities("상파울로", 0, 0, 45, 0);
-		ct[14] = new Cities("아테네", 0, 0, 45, 0);
+		ct[14] = new Cities("아테네", 0, 0, 45,0);
 		ct[16] = new Cities("코펜하겐", 0, 0, 45, 0);
 		ct[17] = new Cities("베를린", 0, 0, 45, 0);
 		ct[19] = new Cities("런던", 0, 0, 45, 0);
@@ -334,6 +335,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		}
 		setTooltip();
 		pg.repaint();
+		listEnableTrue(ct, Jlist);
 	}
 
 	public void func() {
@@ -383,6 +385,7 @@ public class MarbleController extends JFrame implements MouseListener {
 			break;
 		}
 		pg.repaint();
+		listEnableTrue(ct, Jlist);
 	}
 
 	public void salary() {
@@ -508,12 +511,14 @@ public class MarbleController extends JFrame implements MouseListener {
 				}
 		}
 		
-		
-	
 
 		else if (olympicMsg.isVisible()) {
 			if(beforeOlympic != null)
 				beforeOlympic.setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
+			
+			if(ct[lastolympic] != null) {
+			ct[lastolympic].setFee(ct[lastolympic].getFee()-computeFee(ct[lastolympic]));
+			}
 			
 			for (int i = 1; i < Jlist.length; i++) {
 				
@@ -523,19 +528,21 @@ public class MarbleController extends JFrame implements MouseListener {
 						JOptionPane.showMessageDialog(this, "본인 소유가 아니므로 올림픽 개최가 불가능한 도시입니다.");
 						
 						goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
+						listEnableTrue(ct, Jlist);
 						break;
-					}
+					}					
 					
 					olympicMsg.setVisible(false);
 					beforeOlympic = selectOlympic(selectedCountry);
 					JOptionPane.showMessageDialog(this,
 							ct[i].getName() + " 올림픽 개최!\n통행료가 " + computeFee(ct[i]) + "원 인상되었습니다.");
-					ct[i].setFee(ct[i].getFee()*2);
-					
+					ct[i].setFee(ct[i].getFee()+computeFee(ct[i]));
+					lastolympic=i;
 					btn1.setEnabled(true);
 					listEnableTrue(ct, Jlist);
 
 					break;
+					
 				}
 			}
 		}
@@ -547,11 +554,11 @@ public class MarbleController extends JFrame implements MouseListener {
 	}
 	
 
-	public void listEnableTrue(Cities[] ct, JLabel[] Jlist) {
+	public  void listEnableTrue(Cities[] ct, JLabel[] Jlist) {
 		for (int i = 0; i < ct.length; i++) {
 			if (i % 3 != 0)
 				continue;
-			Jlist[i].setEnabled(false);
+			Jlist[i].setEnabled(true);
 		}
 	}
 

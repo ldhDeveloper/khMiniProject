@@ -367,10 +367,13 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c2b3.setOpaque(true);
 		c2b3.setName("Jlist23");
 	
-		Jlist[3] = new JLabel("황금열쇠");
+		Jlist[3] = new JLabel();
 		Jlist[3].setHorizontalAlignment(Jlist[3].CENTER);
 		Jlist[3].setBounds(405, 0, 90, 100);
 		Jlist[3].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		ImageIcon key90x100 = new ImageIcon("key90x100.png");
+		JLabel key1 = new JLabel(key90x100);
+		key1.setBounds(405, 0, 90, 100);
 		
 		Jlist[4] = new JLabel("도쿄");
 		Jlist[4].setHorizontalAlignment(Jlist[4].CENTER);
@@ -412,10 +415,13 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c4b3.setOpaque(true);
 		c4b3.setName("Jlist53");
 		
-		Jlist[6] = new JLabel("세계여행");
+		Jlist[6] = new JLabel();
 		Jlist[6].setHorizontalAlignment(Jlist[6].CENTER);
 		Jlist[6].setBounds(750, 0, 150, 100);
 		Jlist[6].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		ImageIcon p = new ImageIcon("plane.png");
+		JLabel plane = new JLabel(p);
+		plane.setBounds(750, 0, 150, 100);
 		
 		
 		Jlist[7] = new JLabel("뉴델리");
@@ -458,10 +464,13 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c6b3.setOpaque(true);
 		c6b3.setName("Jlist83");
 		
-		Jlist[9] = new JLabel("황금열쇠");
+		Jlist[9] = new JLabel();
 		Jlist[9].setHorizontalAlignment(Jlist[9].CENTER);
 		Jlist[9].setBounds(750, 235, 150, 80);
 		Jlist[9].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		ImageIcon key150x80 = new ImageIcon("key150x80.png");
+		JLabel key2 = new JLabel(key150x80);
+		key2.setBounds(750, 235, 150, 80);
 		
 		Jlist[10] = new JLabel("캔버라");
 		Jlist[10].setHorizontalAlignment(Jlist[10].CENTER);
@@ -503,10 +512,13 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c8b3.setOpaque(true);
 		c8b3.setName("Jlist113");
 		
-		Jlist[12] = new JLabel("올림픽");
+		Jlist[12] = new JLabel();
 		Jlist[12].setHorizontalAlignment(Jlist[12].CENTER);
 		Jlist[12].setBounds(750, 450, 150, 100);
 		Jlist[12].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		ImageIcon o = new ImageIcon("olympic.png");
+		JLabel olympic = new JLabel(o);
+		olympic.setBounds(750, 450, 150, 100);
 		
 		Jlist[13] = new JLabel("상파울로");
 		Jlist[13].setHorizontalAlignment(Jlist[13].CENTER);
@@ -548,10 +560,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c10b3.setOpaque(true);
 		c10b3.setName("Jlist143");
 		
-		Jlist[15] = new JLabel("황금열쇠");
+		Jlist[15] = new JLabel();
 		Jlist[15].setHorizontalAlignment(Jlist[15].CENTER);
 		Jlist[15].setBounds(405, 450, 90, 100);
 		Jlist[15].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		JLabel key3 = new JLabel(key90x100);
+		key3.setBounds(405, 450, 90, 100);
 		
 		Jlist[16] = new JLabel("코펜하겐");
 		Jlist[16].setHorizontalAlignment(Jlist[16].CENTER);
@@ -593,10 +607,15 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c12b3.setOpaque(true);
 		c12b3.setName("Jlist173");
 		
-		Jlist[18] = new JLabel("무인도");
+		Jlist[18] = new JLabel();
 		Jlist[18].setHorizontalAlignment(Jlist[18].CENTER);
 		Jlist[18].setBounds(0, 450, 150, 100);
 		Jlist[18].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		Jlist[18].setForeground(Color.white);
+		ImageIcon ip = new ImageIcon("island.png");
+		JLabel island = new JLabel(ip);
+		island.setBounds(0, 450, 150, 100);
+		
 		
 		Jlist[19] = new JLabel("런던");
 		Jlist[19].setHorizontalAlignment(Jlist[19].CENTER);
@@ -638,10 +657,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c14b3.setOpaque(true);
 		c14b3.setName("Jlist203");
 		
-		Jlist[21] = new JLabel("황금열쇠");
+		Jlist[21] = new JLabel();
 		Jlist[21].setHorizontalAlignment(Jlist[21].CENTER);
 		Jlist[21].setBounds(0, 235, 150, 80);
 		Jlist[21].setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		JLabel key4 = new JLabel(key150x80);
+		key4.setBounds(0, 235, 150, 80);
 		
 		Jlist[22] = new JLabel("뉴욕");
 		Jlist[22].setHorizontalAlignment(Jlist[22].CENTER);
@@ -686,6 +707,13 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		for(int i =0; i<Jlist.length;i++){
 			panelBoard.add(Jlist[i]);
 		}
+		panelBoard.add(key1);
+		panelBoard.add(key2);
+		panelBoard.add(key3);
+		panelBoard.add(key4);
+		panelBoard.add(plane);
+		panelBoard.add(olympic);
+		panelBoard.add(island);
 		
 		controller.addJlistEvent(Jlist);
 	}
