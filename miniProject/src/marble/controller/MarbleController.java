@@ -314,20 +314,20 @@ public class MarbleController extends JFrame implements MouseListener {
 					building(location, cityStatus, 2);
 			}
 
-			else if (cityStatus == 3) {
+			else if (cityStatus == 3) {//2채인 상태
 
-				cityStatus = ct[location].getStatus();
+				//cityStatus = ct[location].getStatus();
 
 				if (r.equals("1"))
 					building(location, cityStatus, 1);
 			}
 
-			else if (cityStatus == 4) {
+			else if (cityStatus == 4) {//건물 3채인 상태
 
-				cityStatus = ct[location].getStatus();
+				//cityStatus = ct[location].getStatus(); 주석처리하면 랜드마크 색 표시가 안됨
 
 				if (r.equals("0"))
-					building(location, cityStatus, 0);
+					building(location, cityStatus, 1);
 			}
 
 			else
@@ -502,7 +502,7 @@ public class MarbleController extends JFrame implements MouseListener {
 								}
 							}
 						}
-
+						beforeOlympic = deselectOlympic(selectedCountry);
 						sellMsg.setVisible(false);
 						btn1.setEnabled(true);
 						listEnableTrue(ct, Jlist);
@@ -538,6 +538,7 @@ public class MarbleController extends JFrame implements MouseListener {
 							ct[i].getName() + " 올림픽 개최!\n통행료가 " + computeFee(ct[i]) + "원 인상되었습니다.");
 					ct[i].setFee(ct[i].getFee()+computeFee(ct[i]));
 					lastolympic=i;
+					
 					btn1.setEnabled(true);
 					listEnableTrue(ct, Jlist);
 
@@ -549,11 +550,14 @@ public class MarbleController extends JFrame implements MouseListener {
 	}
 	
 	public JLabel selectOlympic(JLabel selectedCountry){
-		selectedCountry.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
+		selectedCountry.setBorder(BorderFactory.createLineBorder(Color.yellow, 2));
+		return selectedCountry;
+	}
+	public JLabel deselectOlympic(JLabel selectedCountry){
+		selectedCountry.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		return selectedCountry;
 	}
 	
-
 	public  void listEnableTrue(Cities[] ct, JLabel[] Jlist) {
 		for (int i = 0; i < ct.length; i++) {
 			if (i % 3 != 0)
