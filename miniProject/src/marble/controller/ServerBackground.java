@@ -1,6 +1,7 @@
 package marble.controller;
 
 import java.io.*;
+import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Collections;
@@ -11,7 +12,6 @@ import java.util.Map;
 import marble.model.Member;
 import marble.run.ServerGui;
 import marble.view.*;
-import java.util.*;
 
 //입장부터 네트워크화
 public class ServerBackground {
@@ -19,7 +19,7 @@ public class ServerBackground {
 	private ServerSocket serverSocket;
 	private Socket socket;
 	private ServerGui gui;
-	byte choice;
+	private byte choice;
 	private String msg;
 	private Map<String, Member> info;
 	private Member[] players;
@@ -27,8 +27,6 @@ public class ServerBackground {
 	private Map<String, DataOutputStream> guest;
 	private String IDkey;
 	private Member member;
-	private Vector guestList = new Vector();
-
 	public final void setGui(ServerGui gui) {
 		this.gui = gui;
 	}
@@ -36,54 +34,37 @@ public class ServerBackground {
 	public ServerBackground() {
 		clientsMap = new HashMap<String, DataOutputStream>();
 		guest = new HashMap<String, DataOutputStream>();
-
 		Collections.synchronizedMap(guest);
 		Collections.synchronizedMap(clientsMap);
 
 	}
 
-	public void connectionSignal() throws IOException {// 서버소켓연결실행
-
+	public void start() throws IOException {
 		serverSocket = null;
-
+		socket = null;
+		
 		try {
-
 			serverSocket = new ServerSocket(5000);
-			gui.appendMsg("서버 구동완료 " + "\n");
-
-			connection();
-
+			while (true) {
+				socket = serverSocket.accept();
+				DataInputStream dis = new DataInputStream(socket.getInputStream());
+				System.out.println("서버 대기중...");
+				System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
+				Receiver receiver = new Receiver(socket);
+				receiver.start();
+			}
 		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 
-	public void connection() { // 스트림 연결과 벡터에 스레드 담기 그 후 서버 가동
-		Thread th = new Thread(new Runnable() {
-			@Override
-			public void run() {
-
-				while (true) {
-					try {
-						gui.appendMsg("게스트입장 대기중\n");
-						socket = serverSocket.accept();
-						gui.appendMsg("게스트 접속\n");
-						Receiver receiver = new Receiver(socket, guestList);
-						guestList.add(receiver);// 해당 백터에 사용자 객체 추가
-						receiver.start();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			}
-		});
-		th.start();
-
-	}
-
-	public static void main(String[] args) throws IOException {
-		ServerBackground serverBackground = new ServerBackground();
-		serverBackground.connectionSignal();
+	public static void main(String[] args) {
+		try {
+			ServerBackground serverBackground = new ServerBackground();
+			serverBackground.start();
+		} catch (Exception e) {
+			System.out.println("Exception");
+		}
 	}
 
 	public void addClient(String nick, DataOutputStream out) throws IOException {
@@ -118,65 +99,71 @@ public class ServerBackground {
 		private Socket socket;
 		private DataInputStream in;
 		private DataOutputStream out;
-		private Vector guestList;
 
-		public Receiver(Socket socket, Vector guest) {
+		public Receiver(Socket socket) {
 			this.socket = socket;
-			this.guestList = guest;
-			networkBinding();
-
-		}
-
-		public void networkBinding() {// 스트림연결
 			try {
-				in = new DataInputStream(socket.getInputStream());
 				out = new DataOutputStream(socket.getOutputStream());
-
+				in = new DataInputStream(socket.getInputStream());
+				System.out.println("Receiver 생성자");
 			} catch (Exception e) {
-				System.out.println("스트림 셋팅 에러");
 			}
 		}
 
-		public void recordConfirm(String person) {// 파일에 회원정보 기록
-			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("minute.dat"))) {
-				info = (HashMap) ois.readObject();
-				if (!info.containsKey(person)) {
-					try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("minute.dat"))) {
-						String[] contain = person.split(" ");
-						member = new Member(contain[0], contain[1]);
-						info.put(contain[0], member);
-						oos.writeObject(info);
-						oos.flush();
-						out.writeByte(21);
-					} catch (Exception e2) {
+		public void recordConfirm(String person){
+			System.out.println("recordConfirm, person : " + person);
+			try (ObjectInputStream ois =
+					new ObjectInputStream(
+							new FileInputStream(
+									"minute.dat"))) {
+				info = (HashMap<String,Member>) ois.readObject();
+				System.out.println("파일로부터 읽음");
+				//System.out.println(info);
+				
+				try(ObjectOutputStream oos = 
+						new ObjectOutputStream(
+								new FileOutputStream(
+										"minute.dat"))) {				
+					if(!info.containsKey(person)) {
+							String [] contain = person.split(" ");
+							member = new Member(contain[0], contain[1]);
+							info.put(contain[0], member);
+							oos.writeObject(info);
+							oos.flush();
+							out.writeByte(21);
+							System.out.println("중복된 아이디 X ()21");
+					} else {
+						System.out.println("중복된 아이디 (11)");
+						out.writeByte(11);
 					}
-				} else
-					out.writeByte(11);
-			} catch (Exception e) {
-				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("minute.dat"))) {
-					String[] contain = person.split(" ");
-					member = new Member(contain[0], contain[1]);
-					info.put(contain[0], member);
-					oos.writeObject(info);
-					oos.flush();
-					out.writeByte(21);
-				} catch (Exception e3) {
+					
+				} catch(IOException e2) {
+					System.out.println("e2");
 				}
+			} catch(EOFException e) { // 아무것도 없을 때
+				System.out.println("minute.dat에 데이터가 없습니다");
+			} catch (Exception e) {
+				System.out.println(e);
 			}
-		}
-
-		public void logConfirm(String name) {// 파일의 회원 정보 로그인시 확인
-			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("minute.dat"))) {
+				
+		} 
+		
+		
+		public void logConfirm(String name) {
+			try (ObjectInputStream ois =
+					new ObjectInputStream(
+							new FileInputStream(
+									"minute.dat"))) {
 				info = (HashMap) ois.readObject();
 				name = in.readUTF();
 				String[] teared = name.split(" ");
 				if (info.containsKey(teared[0])) {
 					if (((Member) info.get(teared[0])).getPassword().equals(teared[1])) {
-						out.writeByte(31);
+						out.writeByte(0031);
 						IDkey = teared[0];
 					}
 				} else
-					out.writeByte(11);
+					out.writeByte(0011);
 
 			} catch (Exception e) {
 
@@ -191,42 +178,44 @@ public class ServerBackground {
 			}
 		}
 
-		@Override
 		public void run() {
 
 			try {
-
+				IDkey = "unknown";
+				System.out.println(IDkey);
+				addGuest(IDkey, out);
+				
 				while (true) {
-					byte choice = in.readByte();
-					
+					System.out.println("while");
 					String log = "";
-
+					choice = in.readByte(); 
 					switch (choice) {
-					case 10: gui.appendMsg("guest의 회원가입 시도");
+					case 0010:
 						log = in.readUTF();
-						gui.appendMsg(log);
 						recordConfirm(log);
 						break;
-					case 20: gui.appendMsg("guest의 로그인 시도");
+					case 0020:
 						log = in.readUTF();
-						String[] confirm = log.split(" ");
+						String[] confirm = log.split(" ");  
 						logConfirm(confirm[0]);
 						break;
-					case 30: gui.appendMsg(msg);
+					case 0030:
 						addClient(IDkey, out);
 						while (in != null) {
-
 							msg = in.readUTF();
+							System.out.println(msg);
 							sendMessage(msg);
 							gui.appendMsg(msg);
 						}
 					}
 
 				}
+			} catch (BindException e) {
+				System.out.println("BindException 발생!");
+				//removeClient(IDkey);
 			} catch (IOException e) {
-				removeClient(IDkey);
+				//removeClient(IDkey);
 			}
 		}
 	}
-
 }
