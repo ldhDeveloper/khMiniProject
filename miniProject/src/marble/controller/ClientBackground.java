@@ -53,15 +53,13 @@ public class ClientBackground {
 				System.out.println("서버 연결됨. (" + socket + ")");
 
 			m.represent();
-			
+
 			PrintWriter pw = new PrintWriter(out);
-			
-			while (true) {
+
+			while (true) { // 서버와 신호에 따른 결과값 중계
 
 				result = in.readByte();
 				System.out.println((result != 30) ? ("result : " + result) : "");
-				
-				
 
 				switch (result) {
 				case (byte) 11:
@@ -88,40 +86,39 @@ public class ClientBackground {
 
 					switch (order) {
 					case 1:
-						((PageGame)m.getPan3()).getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame)m.getPan3()).getUser1Money().setText("400000");
+						((PageGame) m.getPan3()).getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame) m.getPan3()).getUser1Money().setText("400000");
 						break;
 					case 2:
-						((PageGame)m.getPan3()).getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame)m.getPan3()).getUser2Money().setText("400000");
+						((PageGame) m.getPan3()).getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame) m.getPan3()).getUser2Money().setText("400000");
 						break;
 					case 3:
-						((PageGame)m.getPan3()).getUser3Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame)m.getPan3()).getUser3Money().setText("400000");
+						((PageGame) m.getPan3()).getUser3Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame) m.getPan3()).getUser3Money().setText("400000");
 						break;
 					case 4:
-						((PageGame)m.getPan3()).getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame)m.getPan3()).getUser4Money().setText("400000");
+						((PageGame) m.getPan3()).getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						((PageGame) m.getPan3()).getUser4Money().setText("400000");
 						break;
 					}
 
 					setGui((PageGame) (m.getPan3()));
-				
+										
 					m.getCardLayout().show(m.getContentPane(), "game");
 					System.out.println("입장성공");
-				
+				case 5:
+					break;
 					
 					
-					/*	while (true) {
-						msg = in.readUTF();
-						gui.appendMsg(msg+"\n");
-						System.out.println(msg);
-						if ((ChatMsg = gui.getChatMsg()) != null && 
-								ChatMsg != "") {
-							pw.println(ChatMsg);
-							//out.writeUTF(ChatMsg);
-						}
-					}*/
+					
+					
+					/*
+					 * while (true) { msg = in.readUTF();
+					 * gui.appendMsg(msg+"\n"); System.out.println(msg); if
+					 * ((ChatMsg = gui.getChatMsg()) != null && ChatMsg != "") {
+					 * pw.println(ChatMsg); //out.writeUTF(ChatMsg); } }
+					 */
 				}
 			}
 		} catch (UnknownHostException e) {
@@ -134,7 +131,8 @@ public class ClientBackground {
 		}
 
 	}
-	public void sendSignial(byte sign){
+
+	public void sendSignial(byte sign) {
 		try {
 			out.writeByte(40);
 		} catch (IOException e) {
@@ -142,6 +140,7 @@ public class ClientBackground {
 			e.printStackTrace();
 		}
 	}
+
 	public void sendMessage(String msg) {
 		try {
 			out.writeUTF(msg);

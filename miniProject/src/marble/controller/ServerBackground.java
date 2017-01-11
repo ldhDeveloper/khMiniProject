@@ -4,11 +4,7 @@ import java.io.*;
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import marble.model.Member;
 import marble.run.ServerGui;
@@ -26,12 +22,13 @@ public class ServerBackground {
 	private Member[] players;
 	private Map<String, DataOutputStream> clientsMap;
 	private Map<String, DataOutputStream> guest;
-	private Map<String, Receiver> gamer;
+	private ArrayList<Thread> gamer;
 	private String IDkey;
 	private Member member;
 	private String rutf;
 	private String msgFromClient;
 	private Receiver receiver;
+
 	public final void setGui(ServerGui gui) {
 		this.gui = gui;
 	}
@@ -47,7 +44,7 @@ public class ServerBackground {
 	public void connectionSignal() throws IOException {
 		serverSocket = null;
 		socket = null;
-		gamer = new HashMap<String, Receiver>();
+		gamer = new ArrayList<Thread>();
 		try {
 			serverSocket = new ServerSocket(5000);
 			while (true) {
@@ -101,13 +98,11 @@ public class ServerBackground {
 			}
 		}
 	}
-	public void controlGameQueue(){
-		Set order = gamer.keySet();
-		Iterator iter = order.iterator();
-			
-			
-		
+
+	public void controlGameQueue() {
+
 	}
+
 	class Receiver extends Thread {
 		private Socket socket;
 		private DataInputStream in;
@@ -123,25 +118,19 @@ public class ServerBackground {
 			}
 		}
 
-		public void recordConfirm(String person){
-			
+		public void recordConfirm(String person) {
+
 			System.out.println("recordConfirm, person : " + person);
-			
-			try (ObjectInputStream ois =
-					new ObjectInputStream(
-							new FileInputStream(
-									"minute.dat"));
-				ObjectOutputStream oos = 
-						new ObjectOutputStream(
-								new FileOutputStream(
-										"minute.dat"))) {
-				
-				info = (HashMap<String,Member>) ois.readObject();
+
+			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("minute.dat"));
+					ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("minute.dat"))) {
+
+				info = (HashMap<String, Member>) ois.readObject();
 				System.out.println("파일로부터 읽음");
 				System.out.println(info);
-				
-				if(!info.containsKey(person)) {
-					String [] contain = person.split(" ");
+
+				if (!info.containsKey(person)) {
+					String[] contain = person.split(" ");
 					member = new Member(contain[0], contain[1]);
 					info.put(contain[0], member);
 					oos.writeObject(info);
@@ -152,15 +141,12 @@ public class ServerBackground {
 					System.out.println("중복된 아이디 (11)");
 					out.writeByte(11);
 				}
-				
-			} catch(EOFException e) { // 아무것도 없을 때
-				
-				try (ObjectOutputStream oos = 
-						new ObjectOutputStream(
-								new FileOutputStream(
-										"minute.dat"))) {
+
+			} catch (EOFException e) { // 아무것도 없을 때
+
+				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("minute.dat"))) {
 					System.out.println("minute.dat에 데이터가 없습니다");
-					String [] contain = person.split(" ");
+					String[] contain = person.split(" ");
 					member = new Member(contain[0], contain[1]);
 					info = new HashMap<String, Member>();
 					info.put(contain[0], member);
@@ -172,10 +158,8 @@ public class ServerBackground {
 					System.out.println(e2);
 				}
 			} catch (FileNotFoundException e) {
-				
-				try (FileOutputStream fos = 
-							new FileOutputStream(
-									"minute.dat")) {
+
+				try (FileOutputStream fos = new FileOutputStream("minute.dat")) {
 				} catch (IOException e2) {
 					System.out.println("IOException");
 					// TODO Auto-generated catch block
@@ -187,20 +171,16 @@ public class ServerBackground {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-				
-		} 
-		
-		
+
+		}
+
 		public void logConfirm(String name) {
 			System.out.println("logConfirm, 아이디 비번 : " + name);
-			try (ObjectInputStream ois =
-					new ObjectInputStream(
-							new FileInputStream(
-									"minute.dat"))) {
-				
+			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("minute.dat"))) {
+
 				info = (HashMap) ois.readObject();
 				String[] teared = name.split(" ");
-				
+
 				if (info.containsKey(teared[0])) {
 					if (((Member) info.get(teared[0])).getPassword().equals(teared[1])) {
 						out.writeByte(31);
@@ -222,16 +202,13 @@ public class ServerBackground {
 			try {
 				IDkey = "unknown";
 				addGuest(IDkey, out);
-				
-				BufferedReader br = 
-						new BufferedReader(
-								new InputStreamReader(
-										in));
-				
-				while (true) {//버튼에 따른 처리 byte 40 : 게임 시작
+
+				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+
+				game: while (true) {// 버튼에 따른 처리 byte 40 : 게임 시작
 					System.out.println("while");
 					String log = "";
-					choice = in.readByte(); 
+					choice = in.readByte();
 					switch (choice) {
 					case 0010:
 						log = in.readUTF();
@@ -243,30 +220,44 @@ public class ServerBackground {
 						break;
 					case 0030:
 						addClient(IDkey, out);
-						gamer.put(IDkey, receiver);
-						out.writeUTF(gamer.size()+" "+IDkey);
+						gamer.add(receiver);
+						out.writeUTF(gamer.size() + " " + IDkey);
 						break;
-					case 0040 :
+					case 0040:
 						while(true){
+							for(int k = 0; k<gamer.size(); k++)	{
+															
+							for (int i = 0; i < gamer.size(); i++){
+								if (gamer.size() == 1) 
+									break game;
+								try {
+									gamer.get(i).wait();
+								} catch (InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}							
+							}
+							gamer.get(k).notify();
 							
+							}
 							
 						}
-						
-						/*while (true) {
-							if ((msgFromClient = br.readLine())!= null) {
-								msg = IDkey + " : " + msgFromClient;
-								System.out.println(msg);
-								sendMessage(msg+"\n");
-								gui.appendMsg(msg+"\n");
-						}
-					}*/
+
+					}
+
 				}
-			}
+
+				/*
+				 * while (true) { if ((msgFromClient = br.readLine())!= null) {
+				 * msg = IDkey + " : " + msgFromClient; System.out.println(msg);
+				 * sendMessage(msg+"\n"); gui.appendMsg(msg+"\n"); } }
+				 */
+
 			} catch (BindException e) {
 				System.out.println("BindException 발생!");
-				//removeClient(IDkey);
+				// removeClient(IDkey);
 			} catch (IOException e) {
-				//removeClient(IDkey);
+				// removeClient(IDkey);
 			}
 		}
 
