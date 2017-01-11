@@ -382,6 +382,7 @@ public class MarbleController extends JFrame implements MouseListener {
 				func();
 			break;
 		}
+		pg.repaint();
 	}
 
 	public void salary() {
