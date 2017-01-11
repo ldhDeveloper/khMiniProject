@@ -3,6 +3,7 @@ package marble.controller;
 import java.io.*;
 
 import java.net.*;
+import java.util.Scanner;
 
 import marble.view.*;
 
@@ -15,23 +16,23 @@ public class ClientBackground {
 	private MainFrame m;
 	private PageLogIn p;
 	private String msg;
-	private int buttonResult;
-
+	private int buttonResult = 8;
+	private byte result = 30;
+	
 	public void setGui(PageGame gui) {
 		this.gui = gui;
 	}
 
 	public void recordTry(String log) throws IOException {
-		out.writeByte(10);
-		out.flush();
+		out.writeByte(0010);
 		out.writeUTF(log);
-		out.flush();
 	}
 
 	public void loginTry(String log) throws IOException {
-		out.writeByte(20);
+		out.writeByte(0020);
 		out.writeUTF(log);
 	}
+	
 
 	public ClientBackground() throws UnknownHostException, IOException {
 		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
@@ -41,41 +42,51 @@ public class ClientBackground {
 	}
 
 	public void connet() {
-		
-			System.out.println("서버 연결됨.");
-			sendMessage(" A guest entered!");
+		try {
+			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
+			if (socket.isConnected())
+				System.out.println("서버 연결됨. (" + socket + ")");
+			
 			m.represent();
-			Thread th = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					try {
-						while (true) {
-							byte result = in.readByte();
-							switch (result) {
-							case 11: System.out.println("결과 받고");
-								setButtonResult(0);
-								break;
-							case 21:  System.out.println("결과 받고");
-								setButtonResult(1);
-								break;
-							case 31:
-								m.getCardLayout().show(m.getContentPane(), "game");
-								System.out.println("입장성공");
-								while (in != null) {
-									msg = in.readUTF();
-									gui.appendMsg(msg);
-								}
-							}
-						}
-					} catch (IOException e) {
-						e.printStackTrace();
+			
+			/*
+			while(true) {
+				System.out.println("전송할 메세지 : ");
+				String message = new Scanner(System.in).nextLine();
+				out.writeUTF(message);
+				out.flush();
+			*/
+			while (true) {
+				
+				result = in.readByte();
+				System.out.println((result!=30)?("result : " + result):"");
+				
+				switch (result) {
+				case (byte)11: 
+					setButtonResult(0); 
+					break;
+				case (byte)21:
+					System.out.println(result);
+					setButtonResult(1);
+					break;
+				case 0031: 	
+					m.getCardLayout().show(m.getContentPane(), "game");
+					System.out.println("입장성공");
+					while (in != null) {
+						msg = in.readUTF();
+						gui.appendMsg(msg);
 					}
-
 				}
-			});
-			th.start();
-		
+			}
+		} catch (UnknownHostException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (EOFException e) {
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void sendMessage(String msg2) {

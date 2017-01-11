@@ -10,6 +10,7 @@ import marble.controller.*;
 
 
 public class PageJoin extends JPanel {
+	
 	private JLabel titleBL, titleL, loginL, idL, pwdL1, pwdL2;
 	private JTextField tfID, tfPWD1, tfPWD2;
 	private JButton buttonCancel, buttonJoin;
@@ -17,18 +18,23 @@ public class PageJoin extends JPanel {
 	boolean focusId = false;
 	private ClientBackground client;
 	
-	public int loginResult(String name, String pwd){
+	public int loginResult(String name, String pwd) {
+		System.out.println("loginResult");
 		int result =1;
 				
 		return result;
 		
 	}
-	public JTextField getTfID(){
-		return this.tfID;}
-	public JTextField getTfPWD1(){
+	
+	public JTextField getTfID() {
+		return this.tfID;
+	}
+	
+	public JTextField getTfPWD1() {
 		return this.tfPWD1;
 	}
-	public JTextField getTfPWD2(){
+	
+	public JTextField getTfPWD2() {
 		return this.tfPWD2;
 	}
 	
@@ -83,26 +89,35 @@ public class PageJoin extends JPanel {
 		buttonJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				client=getClient();
-				if(tfPWD1.getText().equals(tfPWD2.getText()))
-				try {
-					String record = tfID.getText()+tfPWD1.getText();
-					System.out.println(record);
-					client.recordTry(record);
-					result=client.getButtonResult();
-					switch (result) {
-					case 0:
-						JOptionPane.showMessageDialog(tfID.getParent(), "잘못된 입력이 존재합니다.");
-						break;
-					case 1:
-						JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
-						m.getCardLayout().show(m.getContentPane(), "Login");
-						break;
+				client = getClient();
+				
+				if (tfPWD1.getText().equals(tfPWD2.getText()))
+					try {
+						
+						client.recordTry(tfID.getText() + " " + tfPWD1.getText());
+						
+						try {
+							Thread.sleep(3000);
+						} catch (InterruptedException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						result = client.getButtonResult();
+						
+						switch (result) {
+						case 0:
+							JOptionPane.showMessageDialog(tfID.getParent(), "잘못된 입력이 존재합니다.");
+							break;
+						case 1:
+							System.out.println("회원가입 성공");
+							JOptionPane.showMessageDialog(tfID.getParent(), "회원 가입 성공");
+							m.getCardLayout().show(m.getContentPane(), "Login");
+							break;
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
 				else
 					JOptionPane.showMessageDialog(tfID.getParent(), "비밀번호와 확인문자가 일치하지 않습니다..");
 				
@@ -119,6 +134,7 @@ public class PageJoin extends JPanel {
 			}
 			
 		});
+		
 		this.add(titleBL);
 		this.add(titleL);
 		this.add(idL);
