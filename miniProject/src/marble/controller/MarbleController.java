@@ -493,7 +493,9 @@ public class MarbleController extends JFrame implements MouseListener {
 								compName = pan.getName();
 								if (compName != null) {
 									if (compName.equals("Jlist" + i + "" + j)) {
-										((JComponent) pan).setOpaque(false);
+										//((JComponent) pan).setOpaque(false);
+										//((JComponent) pan).setOpaque(true);
+										((JComponent) pan).setBackground(new Color(238,238,238));
 										System.out.println(compName + " 매각");
 									}
 								}
