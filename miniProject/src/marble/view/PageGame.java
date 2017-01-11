@@ -14,7 +14,7 @@ import javax.swing.border.EmptyBorder;
 import marble.model.Cities;
 import marble.controller.ClientBackground;
 import marble.controller.MarbleController;
-
+import java.io.*;
 public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 	private JPanel panelBoard, panelChat, panelInfo;
@@ -292,12 +292,8 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				client.sendSignial((byte)40);
-				try {
-					Thread.sleep(3000l);
-				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
+				buttonStart.setEnabled(false);
+				
 				
 				
 			}});
@@ -737,9 +733,16 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		
 		else
 			controller.rollDice(gameInfo);
+			getBtn1().setEnabled(false);
 			PageGame distribution = (PageGame)(client.getM().getPan3());
 			MarbleController gift = distribution.getController();
-			
+			try{
+			client.getOos().writeObject(distribution);
+			client.getOos().writeObject(gift);}
+			catch(IOException ioe){
+				ioe.printStackTrace();
+				
+			}
 				
 	}
 	

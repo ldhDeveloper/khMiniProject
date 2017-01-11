@@ -20,6 +20,8 @@ public class ClientBackground {
 	private byte result = 30;
 	private String ChatMsg;
 	private String name;
+	private ObjectInputStream ois;
+	private ObjectOutputStream oos;
 
 	public void setGui(PageGame gui) {
 		this.gui = gui;
@@ -43,6 +45,8 @@ public class ClientBackground {
 		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 		out = new DataOutputStream(socket.getOutputStream());
 		in = new DataInputStream(socket.getInputStream());
+		setOis(new ObjectInputStream(socket.getInputStream()));
+		setOos(new ObjectOutputStream(socket.getOutputStream()));
 
 	}
 
@@ -56,9 +60,9 @@ public class ClientBackground {
 			m.represent();
 
 			PrintWriter pw = new PrintWriter(out);
-				boolean flag = true;
+			boolean flag = true;
 			while (flag) { // 서버와 신호에 따른 결과값 중계
-					System.out.println("중복");
+				System.out.println("중복");
 				result = in.readByte();
 				System.out.println((result != 30) ? ("result : " + result) : "");
 
@@ -109,37 +113,42 @@ public class ClientBackground {
 					flag = false;
 				}
 			}
-			while(true){
+			while (true) {
 				System.out.println("시작");
-				byte turn =0;//현재 값 읽기 불가 오류발생
+				byte turn = 0;// 현재 값 읽기 불가 오류발생
 				turn = in.readByte();
 				System.out.println(turn);
-				switch(turn){//순서에 의한 주사위 버튼의 사용조건 설정
-				
-			case 100:
-				pageGame.getBtn1().setEnabled(false);
-				break;
-			case 110:
-				pageGame.getBtn1().setEnabled(true);
-				break;
-				}
-				System.out.println("실패");		
-				
-			}
-			
+				switch (turn) {// 순서에 의한 주사위 버튼의 사용조건 설정
 
-		/*
-		 * while (true) { msg = in.readUTF(); gui.appendMsg(msg+"\n");
-		 * System.out.println(msg); if ((ChatMsg = gui.getChatMsg()) !=
-		 * null && ChatMsg != "") { pw.println(ChatMsg);
-		 * //out.writeUTF(ChatMsg); } }
-		 */
+				case 100: //현재 객체값 읽어들이는 순서도만 적용 세부내용 구체화 필요
+					pageGame.getBtn1().setEnabled(false);
+					pageGame = (PageGame) ois.readObject();
+					setGui(pageGame);
+					pageGame.setController((MarbleController) ois.readObject());
+					break;
+				case 110:
+					pageGame.getBtn1().setEnabled(true);
+					break;
+				}
+				System.out.println("실패");
+
+			}
+
+			/*
+			 * while (true) { msg = in.readUTF(); gui.appendMsg(msg+"\n");
+			 * System.out.println(msg); if ((ChatMsg = gui.getChatMsg()) != null
+			 * && ChatMsg != "") { pw.println(ChatMsg); //out.writeUTF(ChatMsg);
+			 * } }
+			 */
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (EOFException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -189,5 +198,21 @@ public class ClientBackground {
 
 	public DataOutputStream getOut() {
 		return out;
+	}
+
+	public ObjectInputStream getOis() {
+		return ois;
+	}
+
+	public void setOis(ObjectInputStream ois) {
+		this.ois = ois;
+	}
+
+	public ObjectOutputStream getOos() {
+		return oos;
+	}
+
+	public void setOos(ObjectOutputStream oos) {
+		this.oos = oos;
 	}
 }

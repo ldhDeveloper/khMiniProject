@@ -92,12 +92,19 @@ public class ServerBackground {
 		private Socket socket;
 		private DataInputStream in;
 		private DataOutputStream out;
-
+		private ObjectInputStream ois;
+		private ObjectOutputStream oos;
+		private Object pageGame;
+		private Object marble;
 		public Receiver(Socket socket) {
 			this.setSocket(socket);
 			try {
 				out = new DataOutputStream(socket.getOutputStream());
 				in = new DataInputStream(socket.getInputStream());
+				ois = new ObjectInputStream(socket.getInputStream());
+				oos = new ObjectOutputStream(socket.getOutputStream());
+				pageGame = new Object();
+				marble = new Object();
 				System.out.println("Receiver 생성자");
 			} catch (Exception e) {
 			}
@@ -223,8 +230,15 @@ public class ServerBackground {
 					System.out.println("oper");
 				while (true) {
 					for (int k = 0; k < gamer.size(); k++) {
+						try{
+						pageGame = ois.readObject();//페이지 게임의 객체정보받기
+						marble = ois.readObject();//마블컨트롤러의 객체정보받기
+						}catch(ClassNotFoundException cnfe){}
 							for(Receiver e : sequence){
-							e.out.writeByte(100);
+								e.out.writeByte(100);
+								e.oos.writeObject(pageGame);
+								e.oos.writeObject(marble);
+							
 							}sequence[k].out.writeByte(110);
 							int re =0;
 							re=sequence[k].in.readInt();//for문 정지용
