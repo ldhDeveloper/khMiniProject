@@ -39,7 +39,7 @@ public class ServerBackground {
 
 	}
 
-	public void start() throws IOException {
+	public void connectionSignal() throws IOException {
 		serverSocket = null;
 		socket = null;
 		
@@ -61,7 +61,7 @@ public class ServerBackground {
 	public static void main(String[] args) {
 		try {
 			ServerBackground serverBackground = new ServerBackground();
-			serverBackground.start();
+			serverBackground.connectionSignal();
 		} catch (Exception e) {
 			System.out.println("Exception");
 		}
@@ -111,39 +111,68 @@ public class ServerBackground {
 		}
 
 		public void recordConfirm(String person){
+			
 			System.out.println("recordConfirm, person : " + person);
+			
 			try (ObjectInputStream ois =
 					new ObjectInputStream(
 							new FileInputStream(
-									"minute.dat"))) {
+									"minute.dat"));
+				ObjectOutputStream oos = 
+						new ObjectOutputStream(
+								new FileOutputStream(
+										"minute.dat"))) {
+				
 				info = (HashMap<String,Member>) ois.readObject();
 				System.out.println("파일로부터 읽음");
 				//System.out.println(info);
 				
-				try(ObjectOutputStream oos = 
+				if(!info.containsKey(person)) {
+					String [] contain = person.split(" ");
+					member = new Member(contain[0], contain[1]);
+					info.put(contain[0], member);
+					oos.writeObject(info);
+					oos.flush();
+					out.writeByte(21);
+					System.out.println("중복된 아이디 X ()21");
+				} else {
+					System.out.println("중복된 아이디 (11)");
+					out.writeByte(11);
+				}
+				
+			} catch(EOFException e) { // 아무것도 없을 때
+				
+				try (ObjectOutputStream oos = 
 						new ObjectOutputStream(
 								new FileOutputStream(
-										"minute.dat"))) {				
-					if(!info.containsKey(person)) {
-							String [] contain = person.split(" ");
-							member = new Member(contain[0], contain[1]);
-							info.put(contain[0], member);
-							oos.writeObject(info);
-							oos.flush();
-							out.writeByte(21);
-							System.out.println("중복된 아이디 X ()21");
-					} else {
-						System.out.println("중복된 아이디 (11)");
-						out.writeByte(11);
-					}
-					
-				} catch(IOException e2) {
-					System.out.println("e2");
+										"minute.dat"))) {
+					System.out.println("minute.dat에 데이터가 없습니다");
+					String [] contain = person.split(" ");
+					member = new Member(contain[0], contain[1]);
+					info = new HashMap<String, Member>();
+					info.put(contain[0], member);
+					oos.writeObject(info);
+					oos.flush();
+					out.writeByte(21);
+					System.out.println("중복된 아이디 X ()21");
+				} catch (Exception e2) {
+					System.out.println(e2);
 				}
-			} catch(EOFException e) { // 아무것도 없을 때
-				System.out.println("minute.dat에 데이터가 없습니다");
-			} catch (Exception e) {
-				System.out.println(e);
+			} catch (FileNotFoundException e) {
+				
+				try (FileOutputStream fos = 
+							new FileOutputStream(
+									"minute.dat")) {
+				} catch (IOException e2) {
+					System.out.println("IOException");
+					// TODO Auto-generated catch block
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 				
 		} 
