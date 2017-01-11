@@ -86,7 +86,7 @@ public class PageJoin extends JPanel {
 				client=getClient();
 				if(tfPWD1.getText().equals(tfPWD2.getText()))
 				try {
-					client.recordTry(tfID.getText());
+					client.recordTry(tfID.getText()+tfPWD1.getText());
 					result=client.getButtonResult();
 					switch (result) {
 					case 0:

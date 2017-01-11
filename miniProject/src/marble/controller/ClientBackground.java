@@ -16,20 +16,20 @@ public class ClientBackground {
 	private PageLogIn p;
 	private String msg;
 	private int buttonResult;
+
 	public void setGui(PageGame gui) {
 		this.gui = gui;
 	}
 
 	public void recordTry(String log) throws IOException {
-		out.writeByte(0010);
+		out.writeByte(10);
 		out.writeUTF(log);
 	}
 
 	public void loginTry(String log) throws IOException {
-		out.writeByte(0020);
+		out.writeByte(20);
 		out.writeUTF(log);
 	}
-	
 
 	public ClientBackground() throws UnknownHostException, IOException {
 		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
@@ -42,25 +42,38 @@ public class ClientBackground {
 		try {
 			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			System.out.println("서버 연결됨.");
+			sendMessage(" A guest entered!");
 			m.represent();
-			while (true) {
-				byte result = in.readByte();
-				switch (result) {
-				case 0011: 
-					setButtonResult(0); 
-					break;
-				case 0021:
-					setButtonResult(1);
-					break;
-				case 0031: 	
-					m.getCardLayout().show(m.getContentPane(), "game");
-					System.out.println("입장성공");
-					while (in != null) {
-						msg = in.readUTF();
-						gui.appendMsg(msg);
+			Thread th = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						while (true) {
+							byte result = in.readByte();
+							switch (result) {
+							case 11:
+								setButtonResult(0);
+								break;
+							case 21:
+								setButtonResult(1);
+								break;
+							case 31:
+								m.getCardLayout().show(m.getContentPane(), "game");
+								System.out.println("입장성공");
+								while (in != null) {
+									msg = in.readUTF();
+									gui.appendMsg(msg);
+								}
+							}
+						}
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
+
 				}
-			}
+			});
+			th.start();
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,7 +81,6 @@ public class ClientBackground {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 	}
 
 	public void sendMessage(String msg2) {
