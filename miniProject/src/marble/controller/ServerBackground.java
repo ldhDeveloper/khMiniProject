@@ -218,19 +218,24 @@ public class ServerBackground {
 						break game;
 
 					}
+					Receiver sequence[] = new Receiver[gamer.size()];
+					for(int i =0; i<gamer.size();i++){
+						sequence[i] = (Receiver)gamer.get(i);
+					}
+						
+					
+					
 					while (true) {
 						for (int k = 0; k < gamer.size(); k++) {
-							for (int i = 0; i < gamer.size(); i++) {
-								((Receiver) gamer.get(i)).out.writeByte(100);
+							for(Receiver e : sequence){
+								e.out.writeByte(100);
 							}
-							((Receiver) gamer.get(k)).out.writeByte(110);
-							action = ((Receiver) gamer.get(k)).in.readByte();
+							sequence[k].out.writeByte(110);
+							action = sequence[k].in.readByte();
 							switch (action) {
 							case (byte) 12:
-								for (int x = 0; x < gamer.size(); x++) {
-									((Receiver) gamer.get(k)).out.writeInt(dicesValue());
-
-								} break;
+								sequence[k].out.writeInt(dicesValue());
+								 break;
 							}
 						}
 
