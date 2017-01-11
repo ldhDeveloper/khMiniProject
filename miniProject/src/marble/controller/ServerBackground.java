@@ -101,13 +101,11 @@ public class ServerBackground {
 			}
 		}
 	}
-	public void controlGamer(){
+	public void controlGameQueue(){
 		Set order = gamer.keySet();
 		Iterator iter = order.iterator();
-		while(iter.hasNext()){
 			
-		}
-		
+			
 		
 	}
 	class Receiver extends Thread {
@@ -230,7 +228,7 @@ public class ServerBackground {
 								new InputStreamReader(
 										in));
 				
-				while (true) {
+				while (true) {//버튼에 따른 처리 byte 40 : 게임 시작
 					System.out.println("while");
 					String log = "";
 					choice = in.readByte(); 
@@ -247,14 +245,21 @@ public class ServerBackground {
 						addClient(IDkey, out);
 						gamer.put(IDkey, receiver);
 						out.writeUTF(gamer.size()+" "+IDkey);
-						while (true) {
+						break;
+					case 0040 :
+						while(true){
+							
+							
+						}
+						
+						/*while (true) {
 							if ((msgFromClient = br.readLine())!= null) {
 								msg = IDkey + " : " + msgFromClient;
 								System.out.println(msg);
 								sendMessage(msg+"\n");
 								gui.appendMsg(msg+"\n");
 						}
-					}
+					}*/
 				}
 			}
 			} catch (BindException e) {

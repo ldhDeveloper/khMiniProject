@@ -73,8 +73,15 @@ public class ClientBackground {
 					setButtonResult(1);
 					break;
 				case 31:
+					out.writeByte(0030);
 					int order = 0; // 게임 페이지에 기록될 순번과 이름
 					String queue = "";
+					try {
+						Thread.sleep(200l);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					queue = in.readUTF();
 					String[] orderAndName = queue.split(" ");
 					order = Integer.parseInt(orderAndName[0]);
@@ -99,10 +106,13 @@ public class ClientBackground {
 					}
 
 					setGui((PageGame) (m.getPan3()));
-					out.writeByte(0030);
+				
 					m.getCardLayout().show(m.getContentPane(), "game");
 					System.out.println("입장성공");
-					while (true) {
+				
+					
+					
+					/*	while (true) {
 						msg = in.readUTF();
 						gui.appendMsg(msg+"\n");
 						System.out.println(msg);
@@ -111,7 +121,7 @@ public class ClientBackground {
 							pw.println(ChatMsg);
 							//out.writeUTF(ChatMsg);
 						}
-					}
+					}*/
 				}
 			}
 		} catch (UnknownHostException e) {
@@ -124,7 +134,14 @@ public class ClientBackground {
 		}
 
 	}
-
+	public void sendSignial(byte sign){
+		try {
+			out.writeByte(40);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	public void sendMessage(String msg) {
 		try {
 			out.writeUTF(msg);

@@ -290,8 +290,9 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		buttonStart.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				client.sendSignial((byte)40);
+				btn1.setEnabled(true);
 				
-				client.sendMessage("게임 시작!!!");
 				
 			}});
 		
@@ -713,6 +714,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		btn1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		btn1.addActionListener(this);
 		btn1.setName("btn1");
+		btn1.setEnabled(false);
 	}
 
 	@Override
