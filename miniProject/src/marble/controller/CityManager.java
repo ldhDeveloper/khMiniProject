@@ -133,7 +133,6 @@ public class CityManager extends JFrame{
 		else {
 			result = "";
 		}
-		
 		return result;
 	}
 

@@ -29,6 +29,8 @@ public class MarbleController extends JFrame implements MouseListener {
 	private int previousLocation, xPoint = 100, yPoint = 68;
 	private GoldKey goldkey;
 	private CityManager cityManager;
+	private PageGame pg;
+	
 	
 
 	public MarbleController() {
@@ -331,6 +333,7 @@ public class MarbleController extends JFrame implements MouseListener {
 				System.out.println("랜드마크 방문 보상 ");
 		}
 		setTooltip();
+		pg.repaint();
 	}
 
 	public void func() {
@@ -670,4 +673,16 @@ public class MarbleController extends JFrame implements MouseListener {
 	public void mouseExited(MouseEvent e) {
 		// cityInfoLabel.setVisible(false);
 	}
+
+	public PageGame getPg() {
+		return pg;
+	}
+
+	public void setPg(PageGame pg) {
+		this.pg = pg;
+	}
+
+	
+	
+	
 }

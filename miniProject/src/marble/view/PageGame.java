@@ -62,6 +62,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		controller.setOlympicMsgMsg(olympicMsg);
 		controller.setJlist(Jlist);
 		controller.makeTooltip();
+		controller.setPg(this);
 		/*
         Scanner scanner = new Scanner(System.in);
 	    System.out.print("당신의 닉네임부터 설정하세요 : ");
