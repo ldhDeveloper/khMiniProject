@@ -84,7 +84,7 @@ public class ClientBackground {
 					String[] orderAndName = queue.split(" ");
 					order = Integer.parseInt(orderAndName[0]);
 
-					switch (order) {
+					switch (order) {//아이디 위치 플레이 순서 배정
 					case 1:
 						((PageGame) m.getPan3()).getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						((PageGame) m.getPan3()).getUser1Money().setText("400000");
@@ -107,9 +107,9 @@ public class ClientBackground {
 										
 					m.getCardLayout().show(m.getContentPane(), "game");
 					System.out.println("입장성공");
-				case 5:
+				case 100 : ((PageGame)m.getPan3()).getBtn1().setEnabled(false);
 					break;
-					
+				case 110 : ((PageGame)m.getPan3()).getBtn1().setEnabled(true); break;
 					
 					
 					
@@ -134,7 +134,7 @@ public class ClientBackground {
 
 	public void sendSignial(byte sign) {
 		try {
-			out.writeByte(40);
+			out.writeByte(sign);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

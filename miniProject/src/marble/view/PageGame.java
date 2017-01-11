@@ -51,7 +51,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		Chat();
 		Info();
 
-		controller.setBtn1(btn1);
+		controller.setBtn1(getBtn1());
 		controller.setCar(car);
 		controller.setPanelBoard(panelBoard);
 		controller.setUserInfo(user1Money);
@@ -137,7 +137,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		panelBoard.add(c16b2);
 		panelBoard.add(c16b3);
 		panelBoard.add(car);
-		panelBoard.add(btn1);
+		panelBoard.add(getBtn1());
 		panelBoard.add(planeMsg, 0);
 		panelBoard.add(sellMsg);
 		panelBoard.add(olympicMsg);
@@ -292,7 +292,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				client.sendSignial((byte)40);
-				btn1.setEnabled(true);
+				getBtn1().setEnabled(true);
 				
 				
 			}});
@@ -709,13 +709,13 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	}
 	
 	public void diceInit() {
-		btn1 = new JButton("주사위 버튼");
-		btn1.setLocation(300, 300);
-		btn1.setSize(100, 50);
-		btn1.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-		btn1.addActionListener(this);
-		btn1.setName("btn1");
-		btn1.setEnabled(false);
+		setBtn1(new JButton("주사위 버튼"));
+		getBtn1().setLocation(300, 300);
+		getBtn1().setSize(100, 50);
+		getBtn1().setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		getBtn1().addActionListener(this);
+		getBtn1().setName("btn1");
+		getBtn1().setEnabled(false);
 	}
 
 	@Override
@@ -731,6 +731,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		
 		else
 			controller.rollDice(gameInfo);
+				
 	}
 	
 	@Override
@@ -796,6 +797,14 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	
 	public String getChatMsg() {
 		return chatField.getText();
+	}
+
+	public JButton getBtn1() {
+		return btn1;
+	}
+
+	public void setBtn1(JButton btn1) {
+		this.btn1 = btn1;
 	}
 	
 }

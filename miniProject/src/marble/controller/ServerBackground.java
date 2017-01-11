@@ -20,7 +20,7 @@ public class ServerBackground {
 	private String msg;
 	private Map<String, Member> info;
 	private Member[] players;
-	private Map<String, DataOutputStream> clientsMap;
+
 	private Map<String, DataOutputStream> guest;
 	private ArrayList<Thread> gamer;
 	private String IDkey;
@@ -34,10 +34,9 @@ public class ServerBackground {
 	}
 
 	public ServerBackground() {
-		clientsMap = new HashMap<String, DataOutputStream>();
+
 		guest = new HashMap<String, DataOutputStream>();
 		Collections.synchronizedMap(guest);
-		Collections.synchronizedMap(clientsMap);
 
 	}
 
@@ -69,33 +68,22 @@ public class ServerBackground {
 		}
 	}
 
-	public void addClient(String nick, DataOutputStream out) throws IOException {
-		sendMessage(nick + "님이 접속하셨습니다.\n");
-		clientsMap.put(nick, out);
-	}
-
 	public void addGuest(String nick, DataOutputStream out) throws IOException {
 		System.out.println(nick + " 입장");
 		guest.put(nick, out);
 	}
 
-	public void removeClient(String nick) {
-		sendMessage(nick + "님이 나가셨습니다.\n");
-		clientsMap.remove(nick);
-	}
-
 	public void sendMessage(String msg) {
 		System.out.println("sendMessage");
-		Iterator<String> it = clientsMap.keySet().iterator();
-		String key = "";
-		while (it.hasNext()) {
-			key = it.next();
+		for (int i = 0; i < gamer.size(); i++) {
 			try {
-				clientsMap.get(key).writeUTF(msg);
-				clientsMap.get(key).flush();
+				((Receiver) gamer.get(i)).out.writeUTF(msg);
+				((Receiver) gamer.get(i)).out.flush();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
 		}
 	}
 
@@ -202,47 +190,37 @@ public class ServerBackground {
 			try {
 				IDkey = "unknown";
 				addGuest(IDkey, out);
-
+				int count = 0;
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-
-				game: while (true) {// 버튼에 따른 처리 byte 40 : 게임 시작
+				 while (true) {// 버튼에 따른 처리 byte 40 : 게임 시작
 					System.out.println("while");
 					String log = "";
 					choice = in.readByte();
 					switch (choice) {
-					case 0010:
+					case 10:
 						log = in.readUTF();
 						recordConfirm(log);
 						break;
-					case 0020:
+					case 11:
 						log = in.readUTF();
 						logConfirm(log);
 						break;
-					case 0030:
-						addClient(IDkey, out);
+					case 12:
 						gamer.add(receiver);
 						out.writeUTF(gamer.size() + " " + IDkey);
 						break;
-					case 0040:
-						while(true){
-							for(int k = 0; k<gamer.size(); k++)	{
-															
+					case 13:
+						count++;
+						if (count < gamer.size())
+							break;
+						else
+							sendMessage("게임을 시작합니다.");
+					case 0050:
+						for (int k = 0; k < gamer.size(); k++) {
 							for (int i = 0; i < gamer.size(); i++){
-								if (gamer.size() == 1) 
-									break game;
-								try {
-									gamer.get(i).wait();
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}							
-							}
-							gamer.get(k).notify();
-							
-							}
-							
+								((Receiver) gamer.get(i)).out.writeByte(100);}
+							((Receiver)gamer.get(k)).out.writeByte(110);	
 						}
-
 					}
 
 				}
