@@ -189,30 +189,29 @@ public class MarbleController extends JFrame implements MouseListener {
 	}
 
 	public void cityInit() {
-		ct[1] = new Cities("리스본", 0, 0, 20, 0);
-		ct[2] = new Cities("방콕", 0, 0, 20, 0);
-		ct[4] = new Cities("도쿄", 0, 0, 15, 0);
-		ct[5] = new Cities("베이징", 0, 0, 20, 0);
-		ct[7] = new Cities("뉴델리", 0, 0, 25, 0);
-		ct[8] = new Cities("두바이", 0, 0, 30, 0);
-		ct[10] = new Cities("캔버라", 0, 0, 35, 0);
-		ct[11] = new Cities("카이로", 0, 0, 40, 0);
-		ct[13] = new Cities("상파울로", 0, 0, 45, 0);
-		ct[14] = new Cities("아테네", 0, 0, 45,0);
-		ct[16] = new Cities("코펜하겐", 0, 0, 45, 0);
-		ct[17] = new Cities("베를린", 0, 0, 45, 0);
-		ct[19] = new Cities("런던", 0, 0, 45, 0);
-		ct[20] = new Cities("파리", 0, 0, 45, 0);
-		ct[22] = new Cities("뉴욕", 0, 0, 45, 0);
-		ct[23] = new Cities("서울", 0, 0, 45, 0);
+		ct[1] = new Cities("리스본", 0, 0, 20, 0, false);
+		ct[2] = new Cities("방콕", 0, 0, 20, 0, false);
+		ct[4] = new Cities("도쿄", 0, 0, 15, 0, false);
+		ct[5] = new Cities("베이징", 0, 0, 20, 0, false);
+		ct[7] = new Cities("뉴델리", 0, 0, 25, 0, false);
+		ct[8] = new Cities("두바이", 0, 0, 30, 0, false);
+		ct[10] = new Cities("캔버라", 0, 0, 35, 0, false);
+		ct[11] = new Cities("카이로", 0, 0, 40, 0, false);
+		ct[13] = new Cities("상파울로", 0, 0, 45, 0, false);
+		ct[14] = new Cities("아테네", 0, 0, 45,0, false);
+		ct[16] = new Cities("코펜하겐", 0, 0, 45, 0, false);
+		ct[17] = new Cities("베를린", 0, 0, 45, 0, false);
+		ct[19] = new Cities("런던", 0, 0, 45, 0, false);
+		ct[20] = new Cities("파리", 0, 0, 45, 0, false);
+		ct[22] = new Cities("뉴욕", 0, 0, 45, 0, false);
+		ct[23] = new Cities("서울", 0, 0, 45, 0, false);
 	}
 
 	public void rollDice(JTextArea gameInfo) {
-		dice1= (int)Math.random()*6+1;
-		dice2= (int)Math.random()*6+1;
-		
-		dice= dice1+dice2;
-		
+
+		dice1 = new Random().nextInt(6) + 1;
+		dice2 = new Random().nextInt(6) + 1;
+		dice = dice1 + dice2;
 
 		gameInfo.setText(dice + "칸 이동! ");
 
@@ -231,7 +230,6 @@ public class MarbleController extends JFrame implements MouseListener {
 		 * diceLabelImage1.setIcon(diceImage[dice1-1]);
 		 * diceLabelImage2.setIcon(diceImage[dice2-1]);
 		 */
-		
 	}
 
 	public void moveHorse(int location) {
@@ -283,8 +281,7 @@ public class MarbleController extends JFrame implements MouseListener {
 				cityAction(location);
 			}
 
-			else if (result == JOptionPane.CLOSED_OPTION)
-				;
+			else if (result == JOptionPane.CLOSED_OPTION);
 		}
 
 		else {
@@ -318,16 +315,12 @@ public class MarbleController extends JFrame implements MouseListener {
 
 			else if (cityStatus == 3) {//2채인 상태
 
-				//cityStatus = ct[location].getStatus();
-
 				if (r.equals("1"))
-					building(location, cityStatus, 1);
+					building(location, cityStatus, 2);
 			}
 
 			else if (cityStatus == 4) {//건물 3채인 상태
-
-				//cityStatus = ct[location].getStatus(); 주석처리하면 랜드마크 색 표시가 안됨
-
+				cityStatus = ct[location].getStatus();// 주석처리하면 랜드마크 색 표시가 안됨
 				if (r.equals("0"))
 					building(location, cityStatus, 1);
 			}
@@ -419,8 +412,10 @@ public class MarbleController extends JFrame implements MouseListener {
 			for (Component pan : panelBoard.getComponents()) {
 
 				for (int i = cityStatus; i <= lastBuilding; i++) {
+					
 					name = pan.getName();
 					if (name != null) {
+						
 						if (name.equals("Jlist" + location + "" + i))
 							pan.setBackground(new Color(238, 99, 99));
 					}
@@ -499,7 +494,7 @@ public class MarbleController extends JFrame implements MouseListener {
 								if (compName != null) {
 									if (compName.equals("Jlist" + i + "" + j)) {
 										((JComponent) pan).setOpaque(false);
-										System.out.println(compName + " 매각");
+										System.out.println(compName+" "+ct[i].getName() + " 매각");
 									}
 								}
 							}
@@ -513,7 +508,6 @@ public class MarbleController extends JFrame implements MouseListener {
 				}
 		}
 		
-
 		else if (olympicMsg.isVisible()) {
 			if(beforeOlympic != null)
 				beforeOlympic.setBorder(BorderFactory.createLineBorder(Color.black, 1)); 

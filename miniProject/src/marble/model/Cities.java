@@ -9,17 +9,18 @@ public class Cities implements Serializable{
 	private int owner;
 	private int grandCost;
 	private int fee;
-	
+	private boolean olympic;
 	public Cities(){}
 	
 	public Cities(String name, int status,
-			int owner, int grandCost, int fee) {
+			int owner, int grandCost, int fee, boolean olympic) {
 		super();
 		this.name = name;
 		this.status = status;
 		this.owner = owner;
 		this.grandCost = grandCost;
 		this.fee = fee;
+		this.olympic = olympic;
 	}
 	public int getStatus() {
 		return status;
@@ -52,6 +53,13 @@ public class Cities implements Serializable{
 
 	public void setFee(int fee) {
 		this.fee = fee;
+	}
+	public boolean getOlympic() {
+		return olympic;
+	}
+
+	public void setOlympic(boolean olympic) {
+		this.olympic = olympic;
 	}
 	
 }

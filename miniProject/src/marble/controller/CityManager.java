@@ -24,6 +24,7 @@ public class CityManager extends JFrame{
 			c.setMoney(c.getMoney() - city.getGrandCost());
 			city.setStatus(1);
 			city.setFee(city.getGrandCost() * 2);
+			System.out.println(city.getName()+"구매");
 		}
 		/*
 		user1Info.setText("<html>아이디: " + c.getName()
@@ -67,7 +68,7 @@ public class CityManager extends JFrame{
 			}
 		}
 		
-		else if (cityStatus == 2) {
+		else if (cityStatus == 2) {//건물 1채인 경우
 			
 			result = (String) JOptionPane.showInputDialog(this,
 					"건물을 지을까요", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
@@ -89,7 +90,7 @@ public class CityManager extends JFrame{
 			}
 		}
 		
-		else if (cityStatus == 3) {
+		else if (cityStatus == 3) {//건물 2채인 경우
 			result = (String) JOptionPane.showInputDialog(this,
 					"건물을 지을까요", "빌딩 건설", JOptionPane.PLAIN_MESSAGE, null,
 					option3, "예");
@@ -102,7 +103,7 @@ public class CityManager extends JFrame{
 			else result = "";
 		}
 		
-		else if (cityStatus == 4) {
+		else if (cityStatus == 4) {//건물 3채인 경우
 			result = buildLand(city, c);
 		}
 
