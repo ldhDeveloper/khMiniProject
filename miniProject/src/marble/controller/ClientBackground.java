@@ -23,7 +23,9 @@ public class ClientBackground {
 
 	public void recordTry(String log) throws IOException {
 		out.writeByte(10);
+		out.flush();
 		out.writeUTF(log);
+		out.flush();
 	}
 
 	public void loginTry(String log) throws IOException {
@@ -39,8 +41,7 @@ public class ClientBackground {
 	}
 
 	public void connet() {
-		try {
-			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
+		
 			System.out.println("서버 연결됨.");
 			sendMessage(" A guest entered!");
 			m.represent();
@@ -52,10 +53,10 @@ public class ClientBackground {
 						while (true) {
 							byte result = in.readByte();
 							switch (result) {
-							case 11:
+							case 11: System.out.println("결과 받고");
 								setButtonResult(0);
 								break;
-							case 21:
+							case 21:  System.out.println("결과 받고");
 								setButtonResult(1);
 								break;
 							case 31:
@@ -74,13 +75,7 @@ public class ClientBackground {
 				}
 			});
 			th.start();
-		} catch (UnknownHostException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	}
 
 	public void sendMessage(String msg2) {
