@@ -47,6 +47,7 @@ public class ClientBackground {
 	}
 
 	public void connet() {
+		PageGame pageGame = ((PageGame) m.getPan3());
 		try {
 			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			if (socket.isConnected())
@@ -56,7 +57,7 @@ public class ClientBackground {
 
 			PrintWriter pw = new PrintWriter(out);
 
-			while (true) { // 서버와 신호에 따른 결과값 중계
+		enter:	while (true) { // 서버와 신호에 따른 결과값 중계
 
 				result = in.readByte();
 				System.out.println((result != 30) ? ("result : " + result) : "");
@@ -70,7 +71,7 @@ public class ClientBackground {
 					System.out.println(result);
 					setButtonResult(1);
 					break;
-				case 31:
+				case (byte) 31:
 					out.writeByte(0030);
 					int order = 0; // 게임 페이지에 기록될 순번과 이름
 					String queue = "";
@@ -84,43 +85,57 @@ public class ClientBackground {
 					String[] orderAndName = queue.split(" ");
 					order = Integer.parseInt(orderAndName[0]);
 
-					switch (order) {//아이디 위치 플레이 순서 배정
+					switch (order) {// 아이디 위치 플레이 순서 배정
 					case 1:
-						((PageGame) m.getPan3()).getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame) m.getPan3()).getUser1Money().setText("400000");
+						pageGame.getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						pageGame.getUser1Money().setText("400000");
 						break;
 					case 2:
-						((PageGame) m.getPan3()).getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame) m.getPan3()).getUser2Money().setText("400000");
+						pageGame.getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						pageGame.getUser2Money().setText("400000");
 						break;
 					case 3:
-						((PageGame) m.getPan3()).getUser3Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame) m.getPan3()).getUser3Money().setText("400000");
+						pageGame.getUser3Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						pageGame.getUser3Money().setText("400000");
 						break;
 					case 4:
-						((PageGame) m.getPan3()).getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
-						((PageGame) m.getPan3()).getUser4Money().setText("400000");
+						pageGame.getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
+						pageGame.getUser4Money().setText("400000");
 						break;
 					}
-
 					setGui((PageGame) (m.getPan3()));
-										
 					m.getCardLayout().show(m.getContentPane(), "game");
 					System.out.println("입장성공");
-				case 100 : ((PageGame)m.getPan3()).getBtn1().setEnabled(false);
-					break;
-				case 110 : ((PageGame)m.getPan3()).getBtn1().setEnabled(true); break;
-					
-					
-					
-					/*
-					 * while (true) { msg = in.readUTF();
-					 * gui.appendMsg(msg+"\n"); System.out.println(msg); if
-					 * ((ChatMsg = gui.getChatMsg()) != null && ChatMsg != "") {
-					 * pw.println(ChatMsg); //out.writeUTF(ChatMsg); } }
-					 */
+					 break enter;
+				
 				}
 			}
+			while(true){
+				byte turn =0;
+				turn = in.readByte();
+				switch(turn){//순서에 의한 주사위 버튼의 사용조건 설정
+			case 100:
+				pageGame.getBtn1().setEnabled(false);
+				break;
+			case 110:
+				pageGame.getBtn1().setEnabled(true);
+				break;
+				}
+				
+				int action =0;
+				action =in.readInt();
+				pageGame.getController().rollDice(pageGame.getGameInfo(), action);
+				
+				
+			}
+			
+
+		/*
+		 * while (true) { msg = in.readUTF(); gui.appendMsg(msg+"\n");
+		 * System.out.println(msg); if ((ChatMsg = gui.getChatMsg()) !=
+		 * null && ChatMsg != "") { pw.println(ChatMsg);
+		 * //out.writeUTF(ChatMsg); } }
+		 */
 		} catch (UnknownHostException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

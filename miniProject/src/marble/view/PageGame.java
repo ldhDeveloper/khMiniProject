@@ -51,17 +51,17 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		Chat();
 		Info();
 
-		controller.setBtn1(getBtn1());
-		controller.setCar(car);
-		controller.setPanelBoard(panelBoard);
-		controller.setUserInfo(user1Money);
-		controller.setCityInfoLabel(cityInfoLabel);
-		controller.setPlaneMsg(planeMsg);
-		controller.setSellMsg(sellMsg);
-		controller.setOlympicMsgMsg(olympicMsg);
-		controller.setJlist(Jlist);
-		controller.makeTooltip();
-		controller.setPg(this);
+		getController().setBtn1(getBtn1());
+		getController().setCar(car);
+		getController().setPanelBoard(panelBoard);
+		getController().setUserInfo(user1Money);
+		getController().setCityInfoLabel(cityInfoLabel);
+		getController().setPlaneMsg(planeMsg);
+		getController().setSellMsg(sellMsg);
+		getController().setOlympicMsgMsg(olympicMsg);
+		getController().setJlist(Jlist);
+		getController().makeTooltip();
+		getController().setPg(this);
 		
 		/*
         Scanner scanner = new Scanner(System.in);
@@ -81,7 +81,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		panelBoard.setLayout(null);
 		panelBoard.setBounds(20, 30, 900, 550);
 		//panelBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		controller = new MarbleController();
+		setController(new MarbleController());
 		
 		JlistInit();
 		
@@ -276,12 +276,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		infoLabel3.setBounds(20, 335, 100, 20);
 		
 		// 게임정보창
-		gameInfo = new JTextArea("게임안내창", 10, 5);
-		gameInfo.setBounds(20, 360, 180, 190);
-		gameInfo.setBorder(BorderFactory.createLineBorder(Color.GRAY));
-		gameInfo.setBorder(BorderFactory.createCompoundBorder
+		setGameInfo(new JTextArea("게임안내창", 10, 5));
+		getGameInfo().setBounds(20, 360, 180, 190);
+		getGameInfo().setBorder(BorderFactory.createLineBorder(Color.GRAY));
+		getGameInfo().setBorder(BorderFactory.createCompoundBorder
 				(BorderFactory.createLineBorder(Color.GRAY), BorderFactory.createEmptyBorder(5,5,5,5)));
-		gameInfo.setEditable(false);
+		getGameInfo().setEditable(false);
 		
 		// 버튼
 		buttonStart = new JButton("게임시작");
@@ -292,7 +292,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				client.sendSignial((byte)40);
-				getBtn1().setEnabled(true);
+			
 				
 				
 			}});
@@ -320,7 +320,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		panelInfo.add(user4Label);
 		panelInfo.add(user4Info);
 		panelInfo.add(infoLabel3);
-		panelInfo.add(gameInfo);
+		panelInfo.add(getGameInfo());
 		panelInfo.add(buttonStart);
 		panelInfo.add(buttonFinish);
 		
@@ -694,7 +694,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			panelBoard.add(Jlist[i]);
 		}
 		
-		controller.addJlistEvent(Jlist);
+		getController().addJlistEvent(Jlist);
 	}
 	
 	public void carInit() {
@@ -716,6 +716,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		getBtn1().addActionListener(this);
 		getBtn1().setName("btn1");
 		getBtn1().setEnabled(false);
+		
 	}
 
 	@Override
@@ -727,10 +728,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		}
 		
 		else if (e.getSource()==buttonFinish)
-			controller.exitMarble();
+			getController().exitMarble();
 		
 		else
-			controller.rollDice(gameInfo);
+			client.sendSignial((byte)12);
+			
+			
 				
 	}
 	
@@ -805,6 +808,22 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 	public void setBtn1(JButton btn1) {
 		this.btn1 = btn1;
+	}
+
+	public MarbleController getController() {
+		return controller;
+	}
+
+	public void setController(MarbleController controller) {
+		this.controller = controller;
+	}
+
+	public JTextArea getGameInfo() {
+		return gameInfo;
+	}
+
+	public void setGameInfo(JTextArea gameInfo) {
+		this.gameInfo = gameInfo;
 	}
 	
 }

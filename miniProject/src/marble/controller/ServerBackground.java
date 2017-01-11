@@ -186,41 +186,54 @@ public class ServerBackground {
 		}
 
 		public void run() {
-
+			byte action = 0;
 			try {
 				IDkey = "unknown";
 				addGuest(IDkey, out);
 				int count = 0;
 				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				 while (true) {// 버튼에 따른 처리 byte 40 : 게임 시작
+				game: while (true) {// 버튼에 따른 처리 게임 시작 이전까지
 					System.out.println("while");
 					String log = "";
 					choice = in.readByte();
 					switch (choice) {
-					case 10:
+					case 0010:
 						log = in.readUTF();
 						recordConfirm(log);
 						break;
-					case 11:
+					case 0020:
 						log = in.readUTF();
 						logConfirm(log);
 						break;
-					case 12:
+					case 0030:
 						gamer.add(receiver);
 						out.writeUTF(gamer.size() + " " + IDkey);
 						break;
-					case 13:
+					case 0040:
 						count++;
 						if (count < gamer.size())
 							break;
 						else
 							sendMessage("게임을 시작합니다.");
-					case 0050:
+						break game;
+
+					}
+					while (true) {
 						for (int k = 0; k < gamer.size(); k++) {
-							for (int i = 0; i < gamer.size(); i++){
-								((Receiver) gamer.get(i)).out.writeByte(100);}
-							((Receiver)gamer.get(k)).out.writeByte(110);	
+							for (int i = 0; i < gamer.size(); i++) {
+								((Receiver) gamer.get(i)).out.writeByte(100);
+							}
+							((Receiver) gamer.get(k)).out.writeByte(110);
+							action = ((Receiver) gamer.get(k)).in.readByte();
+							switch (action) {
+							case (byte) 12:
+								for (int x = 0; x < gamer.size(); x++) {
+									((Receiver) gamer.get(k)).out.writeInt(dicesValue());
+
+								} break;
+							}
 						}
+
 					}
 
 				}
@@ -237,6 +250,16 @@ public class ServerBackground {
 			} catch (IOException e) {
 				// removeClient(IDkey);
 			}
+		}
+
+		public int dicesValue() {
+			int dice = 0;
+			int dice2 = 0;
+			int dicesSum = 0;
+			dice = (int) (Math.random() * 6) + 1;
+			dice2 = (int) (Math.random() * 6) + 1;
+			dicesSum = dice + dice2;
+			return dicesSum;
 		}
 
 		public Socket getSocket() {

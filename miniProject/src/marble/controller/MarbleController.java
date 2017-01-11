@@ -207,11 +207,9 @@ public class MarbleController extends JFrame implements MouseListener {
 		ct[23] = new Cities("서울", 0, 0, 45, 0);
 	}
 
-	public void rollDice(JTextArea gameInfo) {
+	public void rollDice(JTextArea gameInfo, int dice) {
 
-		dice1 = new Random().nextInt(6) + 1;
-		dice2 = new Random().nextInt(6) + 1;
-		dice = dice1 + dice2;
+		
 
 		gameInfo.setText(dice + "칸 이동! ");
 
