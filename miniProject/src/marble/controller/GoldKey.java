@@ -24,8 +24,8 @@ public class GoldKey extends JFrame{
 				JLabel car, Charcter c, JButton btn1,
 				JLabel planeMsg, JLabel sellMsg, JLabel olympicMsg){
 			
-			keyNum = (int) (Math.random() * 10 + 1);
-			
+			//keyNum = (int) (Math.random() * 10 + 1);
+			keyNum = 4;
 			switch(keyNum){
 			case 1: 
 				toIsland(Jlist, car, c); 
@@ -190,9 +190,9 @@ public class GoldKey extends JFrame{
 			int location = c.getLocation() - 3;
 			JOptionPane.showMessageDialog(this, "3칸 뒤로 이동합니다.");
 			
-			if(location <= Jlist.length)
+			/*if(location <= Jlist.length)
 				location += Jlist.length;
-
+*/
 			c.setLocation(location);
 			
 			int xPoint = (int)Jlist[location].getLocation().getX() + 50;
