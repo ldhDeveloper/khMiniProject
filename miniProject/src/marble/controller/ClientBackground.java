@@ -53,16 +53,15 @@ public class ClientBackground {
 				System.out.println("서버 연결됨. (" + socket + ")");
 
 			m.represent();
-
-			/*
-			 * while(true) { System.out.println("전송할 메세지 : "); String message =
-			 * new Scanner(System.in).nextLine(); out.writeUTF(message);
-			 * out.flush();
-			 */
+			
+			PrintWriter pw = new PrintWriter(out);
+			
 			while (true) {
 
 				result = in.readByte();
 				System.out.println((result != 30) ? ("result : " + result) : "");
+				
+				
 
 				switch (result) {
 				case (byte) 11:
@@ -97,7 +96,6 @@ public class ClientBackground {
 						((PageGame)m.getPan3()).getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						((PageGame)m.getPan3()).getUser4Money().setText("400000");
 						break;
-
 					}
 
 					setGui((PageGame) (m.getPan3()));
@@ -106,10 +104,12 @@ public class ClientBackground {
 					System.out.println("입장성공");
 					while (true) {
 						msg = in.readUTF();
-						
-						if ((ChatMsg = gui.getChatMsg()) != null && ChatMsg != "") {
-							gui.appendMsg(ChatMsg);
-							out.writeUTF(ChatMsg);
+						gui.appendMsg(msg+"\n");
+						System.out.println(msg);
+						if ((ChatMsg = gui.getChatMsg()) != null && 
+								ChatMsg != "") {
+							pw.println(ChatMsg);
+							//out.writeUTF(ChatMsg);
 						}
 					}
 				}
