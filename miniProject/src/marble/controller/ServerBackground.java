@@ -140,7 +140,6 @@ public class ServerBackground {
 		public void recordConfirm(String person) {// 파일에 회원정보 기록
 			try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("minute.dat"))) {
 				info = (HashMap) ois.readObject();
-
 				if (!info.containsKey(person)) {
 					try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("minute.dat"))) {
 						String[] contain = person.split(" ");
@@ -148,11 +147,11 @@ public class ServerBackground {
 						info.put(contain[0], member);
 						oos.writeObject(info);
 						oos.flush();
-						out.writeByte(0021);
+						out.writeByte(21);
 					} catch (Exception e2) {
 					}
 				} else
-					out.writeByte(0011);
+					out.writeByte(11);
 			} catch (Exception e) {
 				try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("minute.dat"))) {
 					String[] contain = person.split(" ");
@@ -160,7 +159,7 @@ public class ServerBackground {
 					info.put(contain[0], member);
 					oos.writeObject(info);
 					oos.flush();
-					out.writeByte(0021);
+					out.writeByte(21);
 				} catch (Exception e3) {
 				}
 			}
@@ -173,11 +172,11 @@ public class ServerBackground {
 				String[] teared = name.split(" ");
 				if (info.containsKey(teared[0])) {
 					if (((Member) info.get(teared[0])).getPassword().equals(teared[1])) {
-						out.writeByte(0031);
+						out.writeByte(31);
 						IDkey = teared[0];
 					}
 				} else
-					out.writeByte(0011);
+					out.writeByte(11);
 
 			} catch (Exception e) {
 
@@ -199,19 +198,21 @@ public class ServerBackground {
 
 				while (true) {
 					byte choice = in.readByte();
+					
 					String log = "";
 
 					switch (choice) {
-					case 10:
+					case 10: gui.appendMsg("guest의 회원가입 시도");
 						log = in.readUTF();
+						gui.appendMsg(log);
 						recordConfirm(log);
 						break;
-					case 20:
+					case 20: gui.appendMsg("guest의 로그인 시도");
 						log = in.readUTF();
 						String[] confirm = log.split(" ");
 						logConfirm(confirm[0]);
 						break;
-					case 30:
+					case 30: gui.appendMsg(msg);
 						addClient(IDkey, out);
 						while (in != null) {
 

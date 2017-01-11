@@ -14,7 +14,7 @@ public class TestGUI {
 			PageLogIn pl = (PageLogIn)m.getPan1();
 			PageJoin pj = (PageJoin)m.getPan2();
 			pl.setClient(client);
-			pl.setClient(client);
+			pj.setClient(client);
 			client.connet();
 			
 		} catch (IOException e) {
