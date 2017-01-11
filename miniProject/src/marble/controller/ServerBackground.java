@@ -25,9 +25,11 @@ public class ServerBackground {
 	private Member[] players;
 	private Map<String, DataOutputStream> clientsMap;
 	private Map<String, DataOutputStream> guest;
+	private Map<String, Receiver> gamer;
 	private String IDkey;
 	private Member member;
 	private String rutf;
+	private Receiver receiver;
 	public final void setGui(ServerGui gui) {
 		this.gui = gui;
 	}
@@ -43,7 +45,7 @@ public class ServerBackground {
 	public void connectionSignal() throws IOException {
 		serverSocket = null;
 		socket = null;
-		
+		gamer = new HashMap<String, Receiver>();
 		try {
 			serverSocket = new ServerSocket(5000);
 			while (true) {
@@ -51,7 +53,7 @@ public class ServerBackground {
 				DataInputStream dis = new DataInputStream(socket.getInputStream());
 				System.out.println("서버 대기중...");
 				System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
-				Receiver receiver = new Receiver(socket);
+				receiver = new Receiver(socket);
 				receiver.start();
 			}
 		} catch (Exception e) {
@@ -104,7 +106,7 @@ public class ServerBackground {
 		private DataOutputStream out;
 
 		public Receiver(Socket socket) {
-			this.socket = socket;
+			this.setSocket(socket);
 			try {
 				out = new DataOutputStream(socket.getOutputStream());
 				in = new DataInputStream(socket.getInputStream());
@@ -228,6 +230,7 @@ public class ServerBackground {
 						break;
 					case 0030:
 						addClient(IDkey, out);
+						gamer.put(IDkey, receiver);
 						while (true) {
 							if ((rutf = in.readUTF()) == null)
 								break;
@@ -245,6 +248,14 @@ public class ServerBackground {
 			} catch (IOException e) {
 				//removeClient(IDkey);
 			}
+		}
+
+		public Socket getSocket() {
+			return socket;
+		}
+
+		public void setSocket(Socket socket) {
+			this.socket = socket;
 		}
 	}
 }

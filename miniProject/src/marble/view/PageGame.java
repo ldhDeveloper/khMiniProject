@@ -287,7 +287,13 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		buttonStart.setBounds(20, 590, 180, 40);
 		buttonStart.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		buttonStart.setBackground(new Color(255, 125, 64));
-		
+		buttonStart.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				client.sendMessage("게임 시작!!!");
+				
+			}});
 		
 		buttonFinish = new JButton("나가기");
 		buttonFinish.setBounds(20, 640, 180, 40);
