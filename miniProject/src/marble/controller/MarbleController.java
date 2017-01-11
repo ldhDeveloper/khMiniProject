@@ -19,7 +19,7 @@ public class MarbleController extends JFrame implements MouseListener {
 	private JLabel user1Money;
 	private JLabel car, carinfo, diceLabel;
 	private JLabel diceLabelImage1, diceLabelImage2;
-	private JLabel selectedCountry;
+	private JLabel selectedCountry, beforeOlympic = null;
 	private ImageIcon diceImage[];
 	private JButton btn1;
 	private JLabel cityInfoLabel, planeMsg, sellMsg, olympicMsg;
@@ -29,6 +29,7 @@ public class MarbleController extends JFrame implements MouseListener {
 	private int previousLocation, xPoint = 100, yPoint = 68;
 	private GoldKey goldkey;
 	private CityManager cityManager;
+	
 
 	public MarbleController() {
 
@@ -502,11 +503,14 @@ public class MarbleController extends JFrame implements MouseListener {
 					}
 				}
 		}
+		
+		
+	
 
 		else if (olympicMsg.isVisible()) {
-			for (int i = 0; i < Jlist.length; i++) {
-				Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
-			}
+			if(beforeOlympic != null)
+				beforeOlympic.setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
+			
 			for (int i = 1; i < Jlist.length; i++) {
 				
 				if (Jlist[i] == selectedCountry) {
@@ -519,7 +523,7 @@ public class MarbleController extends JFrame implements MouseListener {
 					}
 					
 					olympicMsg.setVisible(false);
-					selectedCountry.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
+					beforeOlympic = selectOlympic(selectedCountry);
 					JOptionPane.showMessageDialog(this,
 							ct[i].getName() + " 올림픽 개최!\n통행료가 " + computeFee(ct[i]) + "원 인상되었습니다.");
 					ct[i].setFee(ct[i].getFee()*2);
@@ -532,6 +536,12 @@ public class MarbleController extends JFrame implements MouseListener {
 			}
 		}
 	}
+	
+	public JLabel selectOlympic(JLabel selectedCountry){
+		selectedCountry.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
+		return selectedCountry;
+	}
+	
 
 	public void listEnableTrue(Cities[] ct, JLabel[] Jlist) {
 		for (int i = 0; i < ct.length; i++) {
