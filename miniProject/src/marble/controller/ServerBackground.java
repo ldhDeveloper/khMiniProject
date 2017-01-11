@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 import marble.model.Member;
 import marble.run.ServerGui;
@@ -99,7 +100,15 @@ public class ServerBackground {
 			}
 		}
 	}
-
+	public void controlGamer(){
+		Set order = gamer.keySet();
+		Iterator iter = order.iterator();
+		while(iter.hasNext()){
+			
+		}
+		
+		
+	}
 	class Receiver extends Thread {
 		private Socket socket;
 		private DataInputStream in;
@@ -231,6 +240,7 @@ public class ServerBackground {
 					case 0030:
 						addClient(IDkey, out);
 						gamer.put(IDkey, receiver);
+						
 						while (true) {
 							if ((rutf = in.readUTF()) == null)
 								break;
@@ -240,7 +250,6 @@ public class ServerBackground {
 							gui.appendMsg(msg);
 						}
 					}
-
 				}
 			} catch (BindException e) {
 				System.out.println("BindException 발생!");
