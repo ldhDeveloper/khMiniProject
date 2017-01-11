@@ -7,7 +7,7 @@ import marble.view.*;
 public class TestGUI {
 
 	public static void main(String[] args) {
-		try {
+		/*try {
 			ClientBackground client = new ClientBackground();
 			MainFrame m = new MainFrame();
 			client.setM(m);
@@ -20,13 +20,15 @@ public class TestGUI {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}/*
-		//new PageLogIn();
-		//new PageJoin();
-		//new PageGame();
+		}*/
+		/*
+		new PageLogIn();
+		new PageJoin();
+		new PageGame();
+		*/
 		MainFrame m = new MainFrame();
 		m.getCardLayout().show(m.getContentPane(), "game");
-		m.represent();*/
+		m.represent();
 	}
 
 }

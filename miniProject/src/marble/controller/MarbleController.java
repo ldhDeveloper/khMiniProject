@@ -504,27 +504,26 @@ public class MarbleController extends JFrame implements MouseListener {
 		}
 
 		else if (olympicMsg.isVisible()) {
-
+			for (int i = 0; i < Jlist.length; i++) {
+				Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1)); 
+			}
 			for (int i = 1; i < Jlist.length; i++) {
-				for (int j = 0; j < Jlist.length; j++) {
-					Jlist[i].setBorder(BorderFactory.createLineBorder(Color.black, 1));
-
-				}
-
+				
 				if (Jlist[i] == selectedCountry) {
-
+					
 					if (ct[i].getStatus() == 0) {
 						JOptionPane.showMessageDialog(this, "본인 소유가 아니므로 올림픽 개최가 불가능한 도시입니다.");
-
+						
 						goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
 						break;
 					}
-
+					
 					olympicMsg.setVisible(false);
 					selectedCountry.setBorder(BorderFactory.createLineBorder(Color.yellow, 1));
 					JOptionPane.showMessageDialog(this,
 							ct[i].getName() + " 올림픽 개최!\n통행료가 " + computeFee(ct[i]) + "원 인상되었습니다.");
-
+					ct[i].setFee(ct[i].getFee()*2);
+					
 					btn1.setEnabled(true);
 					listEnableTrue(ct, Jlist);
 
