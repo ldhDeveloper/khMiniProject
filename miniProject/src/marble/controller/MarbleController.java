@@ -255,8 +255,8 @@ public class MarbleController extends JFrame implements MouseListener {
 
 		dice1 = new Random().nextInt(6) + 1;
 		dice2 = new Random().nextInt(6) + 1;
-		dice = dice1 + dice2;
-
+		//dice = dice1 + dice2;
+		dice = 6;
 		
 		gameInfo.setText(gameInfo.getText()+"\n" + c.getcNo() + " 님 : " + dice + "칸 이동! ");
 
@@ -474,11 +474,16 @@ public class MarbleController extends JFrame implements MouseListener {
 	public Charcter OwnerSelect(Cities ct){
 		Charcter Owner=null;
 		System.out.println(ct.getOwner());
+		Charcter[] ch = pg.getCharcter();
 		switch(ct.getOwner()){
-		case 1 : Owner = pg.getC1(); break;
+		/*case 1 : Owner = pg.getC1(); break;
 		case 2 : Owner = pg.getC2(); break;
 		case 3 : Owner = pg.getC3(); break;
-		case 4 : Owner = pg.getC4(); break;
+		case 4 : Owner = pg.getC4(); break;*/
+		case 1 : Owner = ch[0]; break;
+		case 2 : Owner = ch[1]; break;
+		case 3 : Owner = ch[2]; break;
+		case 4 : Owner = ch[3]; break;
 		}
 		return Owner;
 	}
@@ -613,7 +618,7 @@ public class MarbleController extends JFrame implements MouseListener {
 
 	public void selection(JLabel selectedCountry) {
 		pg.beforeC();
-		pg.beforeCar();
+		pg.resetCar();
 		if (planeMsg.isVisible()) {
 			for (int i = 1; i < Jlist.length; i++)
 				if (Jlist[i] == selectedCountry) {
@@ -688,7 +693,7 @@ public class MarbleController extends JFrame implements MouseListener {
 								if (compName != null) {
 									if (compName.equals("Jlist" + i + "" + j)) {
 										System.out.println(compName+" "+ct[i].getName() + " 매각");
-										((JComponent) pan).setOpaque(true);
+										((JComponent) pan).setOpaque(false);
 									}
 								}
 							}
@@ -740,7 +745,7 @@ public class MarbleController extends JFrame implements MouseListener {
 			}
 		}
 		pg.nextC();
-		pg.nextCar();
+		pg.resetCar();
 	}
 	
 	public JLabel selectOlympic(JLabel selectedCountry){

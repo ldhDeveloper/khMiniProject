@@ -119,6 +119,10 @@ public class GoldKey extends JFrame{
 				if (ct[i].getOwner() == c.getcNo())
 					continue;
 				cityStatus = ct[i].getStatus();
+				if (c.getOwnBuild() == 0){
+					sellable = false;
+					break;
+				}
 				if (cityStatus>0 && cityStatus!=5) {
 					sellable = true;
 					break;

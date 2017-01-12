@@ -32,7 +32,8 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private JTextField chatField;
 	private JButton btn1, buttonStart, buttonFinish;
 	private JLabel[] Jlist = new JLabel[24];
-	private JLabel car1, car2, car3, car4;
+	private JLabel car[] = new JLabel[4];
+	//private JLabel car1, car2, car3, car4;
 	private JLabel cityInfoLabel = new JLabel("");
 	private JLabel planeMsg = new JLabel("이동할 도시를 선택해주세요 ", JLabel.CENTER);
 	private JLabel sellMsg = new JLabel("황금열쇠 : 도시 매각 \n매각할 도시를 선택해주세요 ", JLabel.CENTER);;
@@ -40,7 +41,8 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private Cities[] ct = new Cities[24];
 	private MarbleController controller;
 	private ClientBackground client;
-	private Charcter c1, c2, c3, c4;
+	//private Charcter c1, c2, c3, c4;
+	private Charcter[] charcter = new Charcter[4];
 	
 	public PageGame(MainFrame m){
 				
@@ -54,11 +56,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		Info();
 
 		getController().setBtn1(getBtn1());
-		getController().setC(c1);
-		getController().setCar(car1);
+		//getController().setC(c1);
+		getController().setC(charcter[0]);
+		getController().setCar(car[0]);
 		getController().setPanelBoard(panelBoard);
 		getController().createUserInfo(user1Money, user2Money, user3Money, user4Money);
-		getController().setUserInfo(c1.getMoney()+"", c2.getMoney()+"", c3.getMoney()+"", c4.getMoney()+"");
+		getController().setUserInfo(charcter[0].getMoney()+"", charcter[1].getMoney()+"", charcter[2].getMoney()+"", charcter[3].getMoney()+"");
 		getController().setCityInfoLabel(cityInfoLabel);
 		getController().setPlaneMsg(planeMsg);
 		getController().setSellMsg(sellMsg);
@@ -89,11 +92,15 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		setController(new MarbleController());
 		
 		
-		c1 = new Charcter(1, "1번", 400, 0, false, true, 0, 0);
+		/*c1 = new Charcter(1, "1번", 400, 0, false, true, 0, 0);
 		c2= new Charcter(2, "2번", 400, 0, false, true, 0, 0);
 		c3= new Charcter(3, "3번", 400, 0, false, true, 0, 0);
-		c4= new Charcter(4, "4번", 400, 0, false, true, 0, 0);
+		c4= new Charcter(4, "4번", 400, 0, false, true, 0, 0);*/
 		
+		charcter[0] = new Charcter(1, "1번", 400, 0, false, true, 0, 0);
+		charcter[1] = new Charcter(2, "2번", 400, 0, false, true, 0, 0);
+		charcter[2] = new Charcter(3, "3번", 400, 0, false, true, 0, 0);
+		charcter[3] = new Charcter(4, "4번", 400, 0, false, true, 0, 0);
 		
 		JlistInit();
 		car1Init();
@@ -155,10 +162,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		panelBoard.add(c16b1);
 		panelBoard.add(c16b2);
 		panelBoard.add(c16b3);
-		panelBoard.add(car1);
-		panelBoard.add(car2);
-		panelBoard.add(car3);
-		panelBoard.add(car4);
+		panelBoard.add(car[0]);
+		panelBoard.add(car[1]);
+		panelBoard.add(car[2]);
+		panelBoard.add(car[3]);
 		panelBoard.add(getBtn1());
 		panelBoard.add(planeMsg, 0);
 		panelBoard.add(sellMsg);
@@ -210,7 +217,9 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		
 	}
 	
-	public Charcter getC1() {
+	
+	
+	/*public Charcter getC1() {
 		return c1;
 	}
 
@@ -254,8 +263,16 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 	public void setC4(Charcter c4) {
 		this.c4 = c4;
-	}
+	}*/
 	
+	public Charcter[] getCharcter() {
+		return charcter;
+	}
+
+	public void setCharcter(Charcter[] charcter) {
+		this.charcter = charcter;
+	}
+
 	private void Info() {
 
 		// 타이틀
@@ -774,47 +791,47 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	
 	
 	public void car1Init() {
-		car1 = new JLabel("1");
-		car1.setOpaque(true);
-		car1.setHorizontalAlignment(car1.CENTER);
-		car1.setForeground(Color.white);
-		car1.setBackground(new Color(238, 99, 99));
-		car1.setSize(15,15);
-		car1.setLocation(100,68);
-		car1.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		car[0] = new JLabel("1");
+		car[0].setOpaque(true);
+		car[0].setHorizontalAlignment(car[0].CENTER);
+		car[0].setForeground(Color.white);
+		car[0].setBackground(new Color(238, 99, 99));
+		car[0].setSize(15,15);
+		car[0].setLocation(100,68);
+		car[0].setBorder(BorderFactory.createLineBorder(Color.white, 1));
 	}
 	
 	public void car2Init() {
-		car2 = new JLabel("2");
-		car2.setOpaque(true);
-		car2.setHorizontalAlignment(car2.CENTER);
-		car2.setForeground(Color.white);
-		car2.setBackground(new Color(113, 198, 113));
-		car2.setSize(15,15);
-		car2.setLocation(118,68);
-		car2.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		car[1] = new JLabel("2");
+		car[1].setOpaque(true);
+		car[1].setHorizontalAlignment(car[1].CENTER);
+		car[1].setForeground(Color.white);
+		car[1].setBackground(new Color(113, 198, 113));
+		car[1].setSize(15,15);
+		car[1].setLocation(118,68);
+		car[1].setBorder(BorderFactory.createLineBorder(Color.white, 1));
 	}
 	
 	public void car3Init() {
-		car3 = new JLabel("3");
-		car3.setOpaque(true);
-		car3.setHorizontalAlignment(car3.CENTER);
-		car3.setForeground(Color.white);
-		car3.setBackground(new Color(99, 184, 255));
-		car3.setSize(15,15);
-		car3.setLocation(100,86);
-		car3.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		car[2] = new JLabel("3");
+		car[2].setOpaque(true);
+		car[2].setHorizontalAlignment(car[2].CENTER);
+		car[2].setForeground(Color.white);
+		car[2].setBackground(new Color(99, 184, 255));
+		car[2].setSize(15,15);
+		car[2].setLocation(100,86);
+		car[2].setBorder(BorderFactory.createLineBorder(Color.white, 1));
 	}
 	
 	public void car4Init() {
-		car4 = new JLabel("4");
-		car4.setOpaque(true);
-		car4.setHorizontalAlignment(car4.CENTER);
-		car4.setForeground(Color.white);
-		car4.setBackground(new Color(142, 56, 142));
-		car4.setSize(15,15);
-		car4.setLocation(118,86);
-		car4.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		car[3] = new JLabel("4");
+		car[3].setOpaque(true);
+		car[3].setHorizontalAlignment(car[3].CENTER);
+		car[3].setForeground(Color.white);
+		car[3].setBackground(new Color(142, 56, 142));
+		car[3].setSize(15,15);
+		car[3].setLocation(118,86);
+		car[3].setBorder(BorderFactory.createLineBorder(Color.white, 1));
 	}
 	
 	
@@ -843,14 +860,15 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			getController().exitMarble();
 		
 		else {
-			if(cStatus() == 0){
+			/*if(cStatus() == 0){
 				controller.rollDice(gameInfo);
 			} else if(cStatus() ==1){
 				JOptionPane.showMessageDialog(this, getController().getC().getcNo() + " 님은 무인도에 있습니다.");
-			} 
-	
-			nextCar();
+			} */
+			controller.rollDice(gameInfo);
 			nextC();
+			resetCar();
+			System.out.println("Car : " + controller.getCar().getText());
 			/*getBtn1().setEnabled(false);
 			PageGame distribution = (PageGame)(client.getM().getPan3());
 			MarbleController gift = distribution.getController();
@@ -865,6 +883,25 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		}
 	}
 	
+	public void checkEnd(){
+		int endCount = 0;
+		for(int i = 0; i < charcter.length; i++){
+			if(charcter[i].getMoney() < 0){
+				charcter[i].setStart(false);
+				JOptionPane.showMessageDialog(this, charcter[i].getcNo() + " 님께서 게임에서 패배하셨습니다.");
+				endCount++;
+			} 
+		}
+		if(endCount == charcter.length-1){
+			for(int i = 0; i < charcter.length; i++){
+				if(charcter[i].isStart() == true){
+					JOptionPane.showMessageDialog(this, charcter[i].getcNo() + " 님께서 게임에서 승리하셨습니다!!!");
+					System.exit(0);
+				}
+			}
+		}
+	}
+	
 	public int cStatus(){
 		int result = 0;
 		if(controller.getC().isIslandflag() == true){
@@ -876,7 +913,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		return result;
 	}
 	
-	public void nextC(){
+	/*public void nextC(){
 		if(controller.getC() == c1){
 			controller.setC(c2);
 		} else if(controller.getC() == c2){
@@ -886,35 +923,122 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		} else if(controller.getC() == c4){
 			controller.setC(c1);
 		}
+	}*/
+	
+	public void nextC(){
+		for(int i = 0; i < charcter.length; i++){
+			if(controller.getC() == charcter[i]){
+				if(i==charcter.length-1){
+					controller.setC(charcter[0]);
+					System.out.println("setC : " + charcter[0].getcNo());
+					if(controller.getC().isStart() == false){
+						System.out.println("is스타트 실행");
+						nextC();
+					} else if(controller.getC().isIslandflag() == true) {
+						System.out.println("is섬 실행");
+						controller.getC().setIslandflag(false);
+						nextC();
+					} else {
+						break;
+					}
+				} else {
+					controller.setC(charcter[i+1]);
+					System.out.println("setC : " + charcter[i+1].getcNo());
+					if(controller.getC().isStart() == false){
+						System.out.println("is스타트 실행");
+						nextC();
+					} else if(controller.getC().isIslandflag() == true) {
+						System.out.println("is섬 실행");
+						controller.getC().setIslandflag(false);
+						nextC();
+					} else {
+						break;
+					}
+				}
+			}
+		}
 	}
+	
+	/*public void beforeC(){
+		if(controller.getC() == c1){
+			controller.setC(c4);
+		} else if(controller.getC() == c2){
+			controller.setC(c1);
+		} else if(controller.getC() == c3){
+			controller.setC(c2);
+		} else if(controller.getC() == c4){
+			controller.setC(c3);
+		}
+	}*/
 	
 	public void beforeC(){
-		if(controller.getC() == c1){
-			controller.setC(c4);
-		} else if(controller.getC() == c2){
-			controller.setC(c1);
-		} else if(controller.getC() == c3){
-			controller.setC(c2);
-		} else if(controller.getC() == c4){
-			controller.setC(c3);
+		for(int i = 0; i < charcter.length; i++){
+			if(controller.getC() == charcter[i]){
+				if(i==0){
+					controller.setC(charcter[charcter.length-1]);
+					System.out.println("before setC : " + charcter[charcter.length-1]);
+					if(controller.getC().isStart() == false){
+						beforeC();
+					} 
+				} else {
+					controller.setC(charcter[i-1]);
+					System.out.println("before setC : " + charcter[i-1]);
+					if(controller.getC().isStart() == false){
+						beforeC();
+					} 
+				}
+			}
 		}
 	}
 	
+	
+	/*public void nextCar() {
+		if(controller.getCar() == car1){
+			controller.setCar(car2);
+		} else if(controller.getCar() == car2){
+			controller.setCar(car3);
+		} else if(controller.getCar() == car3){
+			controller.setCar(car4);
+		} else if(controller.getCar() == car4){
+			controller.setCar(car1);
+		}
+		
+	}*/
+	public void resetCar() {
+		for(int i = 0; i < car.length; i++){
+			if(controller.getC().getcNo()-1 == i){
+				controller.setCar(car[i]);
+			}
+		}
+	}
 	
 	public void nextCar() {
-		if(controller.getCar() == car1){
-			controller.setCar(car2);
-		} else if(controller.getCar() == car2){
-			controller.setCar(car3);
-		} else if(controller.getCar() == car3){
-			controller.setCar(car4);
-		} else if(controller.getCar() == car4){
-			controller.setCar(car1);
+		for(int i = 0; i < car.length; i++){
+			if(controller.getC().getcNo()-1 == i){
+				if(i == car.length-1){
+					controller.setCar(car[0]);
+				} else {
+					controller.setCar(car[i+1]);
+				}
+				
+			}
 		}
-		
 	}
 	
+	
 	public void beforeCar() {
+		for(int i = 0; i < car.length; i++){
+			if(controller.getC().getcNo()-1 == i){
+				if(i == 0){
+					controller.setCar(car[car.length-1]);
+				} else {
+					controller.setCar(car[i-1]);
+				}
+				
+			}
+		}
+	}
+	/*public void beforeCar() {
 		if(controller.getCar() == car1){
 			controller.setCar(car4);
 		} else if(controller.getCar() == car2){
@@ -925,7 +1049,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			controller.setCar(car3);
 		}
 		
-	}
+	}*/
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
