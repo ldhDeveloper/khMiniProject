@@ -6,6 +6,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
 
+import marble.controller.Receiver;
 import marble.model.Member;
 import marble.run.ServerGui;
 import marble.view.*;
@@ -22,19 +23,19 @@ public class ServerBackground {
 	private Member[] players;
 
 	private Map<String, DataOutputStream> guest;
-	private ArrayList<Thread> gamer;
+	private ArrayList<Receiver> gamer;
 	private String IDkey;
 	private Member member;
 	private String rutf;
 	private String msgFromClient;
-	private Receiver receiver;
-
+	private ReceiverManager receiverManager;
+	
 	public final void setGui(ServerGui gui) {
 		this.gui = gui;
 	}
 
 	public ServerBackground() {
-		gamer = new ArrayList<Thread>();
+		gamer = new ArrayList<Receiver>();
 		guest = new HashMap<String, DataOutputStream>();
 		Collections.synchronizedMap(guest);
 
@@ -51,8 +52,8 @@ public class ServerBackground {
 				DataInputStream dis = new DataInputStream(socket.getInputStream());
 				System.out.println("서버 대기중...");
 				System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
-				receiver = new Receiver(socket);
-				receiver.start();
+				receiverManager = new ReceiverManager(socket);
+				receiverManager.start();
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -77,8 +78,8 @@ public class ServerBackground {
 		System.out.println("sendMessage");
 		for (int i = 0; i < gamer.size(); i++) {
 			try {
-				((Receiver) gamer.get(i)).out.writeUTF(msg);
-				((Receiver) gamer.get(i)).out.flush();
+				gamer.get(i).getOut().writeUTF(msg);
+				gamer.get(i).getOut().flush();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -88,24 +89,18 @@ public class ServerBackground {
 	}
 
 
-	class Receiver extends Thread {
+	class ReceiverManager extends Thread {
+
 		private Socket socket;
 		private DataInputStream in;
 		private DataOutputStream out;
-		private ObjectInputStream ois;
-		private ObjectOutputStream oos;
-		private Object pageGame;
-		private Object marble;
-		public Receiver(Socket socket) {
+		
+		public ReceiverManager(Socket socket) {
 			this.setSocket(socket);
 			try {
 				out = new DataOutputStream(socket.getOutputStream());
 				in = new DataInputStream(socket.getInputStream());
-				ois = new ObjectInputStream(socket.getInputStream());
-				oos = new ObjectOutputStream(socket.getOutputStream());
-				pageGame = new Object();
-				marble = new Object();
-				System.out.println("Receiver 생성자");
+				System.out.println("ReceiverManager 생성자");
 			} catch (Exception e) {
 			}
 		}
@@ -128,7 +123,7 @@ public class ServerBackground {
 					oos.writeObject(info);
 					oos.flush();
 					out.writeByte(21);
-					System.out.println("중복된 아이디 X ()21");
+					System.out.println("중복된 아이디 X (21)");
 				} else {
 					System.out.println("중복된 아이디 (11)");
 					out.writeByte(11);
@@ -190,16 +185,21 @@ public class ServerBackground {
 		}
 
 		public void run() {
+			
 			byte action = 0;
+			int index;
+			
 			try {
 				IDkey = "unknown";
 				addGuest(IDkey, out);
 				int count = 0;
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
-				game: while (true) {// 버튼에 따른 처리 게임 시작 이전까지
+				//BufferedReader br = new BufferedReader(new InputStreamReader(in));
+				Object gameInfo= null;
+				game: while (true) { // 버튼에 따른 처리 게임 시작 이전까지
 					System.out.println("while");
 					String log = "";
 					choice = in.readByte();
+					
 					switch (choice) {
 					case (byte)10:
 						log = in.readUTF();
@@ -210,8 +210,14 @@ public class ServerBackground {
 						logConfirm(log);
 						break;
 					case (byte)30:
-						gamer.add(receiver);
-						out.writeUTF(gamer.size() + " " + IDkey);
+						gamer.add(new Receiver(socket));
+						index = gamer.size()-1;
+						gamer.get(index).getOut().writeUTF(index+1 + " " + IDkey);
+						gameInfo = gamer.get(index).getOis().readObject();
+						for(int i =0; i<gamer.size(); i++){
+						gamer.get(i).getOos().writeObject(gameInfo);
+						}
+						
 						break;
 					case (byte)40:
 						count++;
@@ -222,32 +228,34 @@ public class ServerBackground {
 						break game;
 					}
 				}
-					System.out.println("action");//확인용
-					Receiver sequence[] = new Receiver[gamer.size()];
-					for(int i =0; i<gamer.size();i++){
-						sequence[i] = (Receiver)gamer.get(i);
-					}
-					System.out.println("oper");
+				System.out.println("action");//확인용
+				Object pageGame = new Object();
+				Object marble = new Object();
 				while (true) {
-					for (int k = 0; k < gamer.size(); k++) {
-						try{
-						pageGame = ois.readObject();//페이지 게임의 객체정보받기
-						marble = ois.readObject();//마블컨트롤러의 객체정보받기
-						}catch(ClassNotFoundException cnfe){}
-							for(Receiver e : sequence){
-								e.out.writeByte(100);
-								e.oos.writeObject(pageGame);
-								e.oos.writeObject(marble);
-							
-							}sequence[k].out.writeByte(110);
-							int re =0;
-							re=sequence[k].in.readInt();//for문 정지용
-							}
-						}
-
+				byte bridge = 0;
+					//out.writeByte(100);
 					
+					for (int k = 0; k < gamer.size(); k++) {
+					
+						
+						for (int j=0 ; j< gamer.size(); j++)  {
+							System.out.println("주사위 비활성화 ");
+							gamer.get(j).getOut().writeByte(100);
+							gamer.get(j).getOos().writeObject(pageGame);
+							bridge = gamer.get(j).getIn().readByte(); //게임판 갱신했다는 신호
+							gamer.get(j).getOos().writeObject(marble); 
+							bridge = gamer.get(j).getIn().readByte(); //게임판 갱신했다는 신호
+							}
 
-				
+						System.out.println("주사위 활성화 ");
+						gamer.get(k).getOut().writeByte(110);
+						pageGame =gamer.get(k).getOis().readObject();
+						gamer.get(k).getOut().writeByte(1); //객체 받았다는 신호
+						marble =gamer.get(k).getOis().readObject();
+						gamer.get(k).getOut().writeInt(2); //객체 전부 받았다는신호
+											
+					}
+				}
 
 				/*
 				 * while (true) { if ((msgFromClient = br.readLine())!= null) {
@@ -259,7 +267,10 @@ public class ServerBackground {
 				System.out.println("BindException 발생!");
 				// removeClient(IDkey);
 			} catch (IOException e) {
+				System.out.println("IOException");
 				// removeClient(IDkey);
+			} catch(ClassNotFoundException e3){
+				System.out.println("클래스를 찾을수가 없습니다.");
 			}
 		}
 

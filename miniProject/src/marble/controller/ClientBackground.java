@@ -22,7 +22,8 @@ public class ClientBackground {
 	private String name;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-
+	private InputStream sis;
+	private OutputStream sops;
 	public void setGui(PageGame gui) {
 		this.gui = gui;
 	}
@@ -43,22 +44,24 @@ public class ClientBackground {
 
 	public ClientBackground() throws UnknownHostException, IOException {
 		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
-		out = new DataOutputStream(socket.getOutputStream());
-		in = new DataInputStream(socket.getInputStream());
-		setOis(new ObjectInputStream(socket.getInputStream()));
-		setOos(new ObjectOutputStream(socket.getOutputStream()));
-
+		sis =socket.getInputStream();
+		sops =socket.getOutputStream();
+		out = new DataOutputStream(sops);
+		in = new DataInputStream(sis);
+		/*ois = new ObjectInputStream(sis);
+		oos = new ObjectOutputStream(sops);*/
+		
 	}
 
 	public void connet() {
-		PageGame pageGame = ((PageGame) m.getPan3());
+		
 		try {
 			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			if (socket.isConnected())
 				System.out.println("서버 연결됨. (" + socket + ")");
-
 			m.represent();
-
+			
+			PageGame pageGame = ((PageGame) m.getPan3());
 			PrintWriter pw = new PrintWriter(out);
 			boolean flag = true;
 			while (flag) { // 서버와 신호에 따른 결과값 중계
@@ -93,18 +96,23 @@ public class ClientBackground {
 					case 1:
 						pageGame.getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser1Money().setText("400000");
+						oos.writeObject(pageGame);
+						pageGame =(PageGame)ois.readObject();
 						break;
 					case 2:
 						pageGame.getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser2Money().setText("400000");
+						oos.writeObject(pageGame);
 						break;
 					case 3:
 						pageGame.getUser3Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser3Money().setText("400000");
+						oos.writeObject(pageGame);
 						break;
 					case 4:
 						pageGame.getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser4Money().setText("400000");
+						oos.writeObject(pageGame);
 						break;
 					}
 					setGui((PageGame) (m.getPan3()));
@@ -114,20 +122,25 @@ public class ClientBackground {
 				}
 			}
 			while (true) {
+				int endTurn =0;
 				System.out.println("시작");
 				byte turn = 0;// 현재 값 읽기 불가 오류발생
 				turn = in.readByte();
 				System.out.println(turn);
+				byte result =0;
 				switch (turn) {// 순서에 의한 주사위 버튼의 사용조건 설정
 
 				case 100: //현재 객체값 읽어들이는 순서도만 적용 세부내용 구체화 필요
-					pageGame.getBtn1().setEnabled(false);
 					pageGame = (PageGame) ois.readObject();
+					out.writeByte(1);
 					setGui(pageGame);
 					pageGame.setController((MarbleController) ois.readObject());
+					out.writeByte(1);
 					break;
 				case 110:
 					pageGame.getBtn1().setEnabled(true);
+					endTurn = in.readInt();
+					endTurn =0;
 					break;
 				}
 				System.out.println("실패");
