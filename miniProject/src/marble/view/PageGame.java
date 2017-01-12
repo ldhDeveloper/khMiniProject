@@ -838,8 +838,8 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 				ioe.printStackTrace();
 				
 			}*/
-				
-	}
+
+		}
 	
 	public void nextC(){
 		if(controller.getC() == c1){
