@@ -729,20 +729,23 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		else if (e.getSource()==buttonFinish)
 			getController().exitMarble();
 		
-		else
-			controller.rollDice(gameInfo);
+		else{			
+				controller.rollDice(gameInfo);
 			getBtn1().setEnabled(false);
-			PageGame distribution = (PageGame)(client.getM().getPan3());
-			MarbleController gift = distribution.getController();
-			try{
-			client.getOos().writeObject(distribution);
-			client.getOos().writeObject(gift);}
-			catch(IOException ioe){
+			PageGame distribution = null;
+			distribution = (PageGame) (client.getM().getPan3());
+			MarbleController gift = null;
+			gift = distribution.getController();
+			try {
+				client.getOos().writeObject(distribution);
+				client.getOos().writeObject(gift);
+			} catch (IOException ioe) {
 				ioe.printStackTrace();
-				
+
 			}
-				
-	}
+			}
+
+		}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {

@@ -2,6 +2,8 @@ package marble.controller;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 
 import marble.model.Charcter;
@@ -580,8 +582,18 @@ public class MarbleController extends JFrame implements MouseListener {
 	public void exitMarble() {
 		Object[] option = { "종료", "취소" };
 		if ((JOptionPane.showOptionDialog(this, "종료 하시겠습니까?", "종료", JOptionPane.YES_NO_OPTION,
-				JOptionPane.QUESTION_MESSAGE, null, option, option[1])) == 0)
+				JOptionPane.QUESTION_MESSAGE, null, option, option[1])) == 0){
+		 try{
+			pg.getClient().getOis().close();
+		 pg.getClient().getOos().close();
+		 pg.getClient().getOut().close();
+		 pg.getClient().getIn().close();}
+		 catch(IOException e){
+			 e.getMessage();
+		 }
 			System.exit(0);
+				
+		}
 	}
 
 	public void makeTooltip() {
@@ -694,3 +706,4 @@ public class MarbleController extends JFrame implements MouseListener {
 	
 	
 }
+

@@ -92,10 +92,10 @@ public class ServerBackground {
 		private Socket socket;
 		private DataInputStream in;
 		private DataOutputStream out;
-		private ObjectInputStream ois;
-		private ObjectOutputStream oos;
-		private Object pageGame;
-		private Object marble;
+		private ObjectInputStream ois; //게임정보 받을 스트림
+		private ObjectOutputStream oos; //게임정보 전송할 스트림
+		private Object pageGame; //게임정보가 담긴 객체받아줄 참조변수
+		private Object marble;  //게임정보가 담긴 객체받아줄 참조변수
 		public Receiver(Socket socket) {
 			this.setSocket(socket);
 			try {
@@ -103,8 +103,8 @@ public class ServerBackground {
 				in = new DataInputStream(socket.getInputStream());
 				ois = new ObjectInputStream(socket.getInputStream());
 				oos = new ObjectOutputStream(socket.getOutputStream());
-				pageGame = new Object();
-				marble = new Object();
+				
+				
 				System.out.println("Receiver 생성자");
 			} catch (Exception e) {
 			}
@@ -211,7 +211,15 @@ public class ServerBackground {
 						break;
 					case (byte)30:
 						gamer.add(receiver);
+						if(pageGame!=null)
+							oos.writeObject(pageGame);
 						out.writeUTF(gamer.size() + " " + IDkey);
+						try{
+						pageGame= ois.readObject();}
+						catch(ClassNotFoundException cnfe){
+							System.out.println("객체 읽어들이기 실패");
+						}
+						
 						break;
 					case (byte)40:
 						count++;
@@ -222,12 +230,12 @@ public class ServerBackground {
 						break game;
 					}
 				}
-					System.out.println("action");//확인용
+					System.out.println("게임대기 반복문 빠져나감");//확인용
 					Receiver sequence[] = new Receiver[gamer.size()];
 					for(int i =0; i<gamer.size();i++){
 						sequence[i] = (Receiver)gamer.get(i);
 					}
-					System.out.println("oper");
+					System.out.println("게임시작시의 신호");
 				while (true) {
 					for (int k = 0; k < gamer.size(); k++) {
 						try{
