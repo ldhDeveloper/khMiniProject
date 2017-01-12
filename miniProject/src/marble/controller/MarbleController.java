@@ -508,7 +508,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		 * user1Info.setText("<html>아이디: " + c.getName() + "<br>자산: " +
 		 * c.getMoney() + "</html>");
 		 */
-		user1Money.setText(c.getMoney() + "");
+		CharcterMoney(c).setText(c.getMoney() + "");
 
 	}
 
