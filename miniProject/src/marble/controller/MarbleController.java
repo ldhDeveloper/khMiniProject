@@ -129,12 +129,6 @@ public class MarbleController extends JFrame implements MouseListener {
 		this.c = c;
 	}
 
-
-
-	
-
-
-
 	public JLabel getCar() {
 		return car;
 	}
@@ -263,7 +257,8 @@ public class MarbleController extends JFrame implements MouseListener {
 		dice2 = new Random().nextInt(6) + 1;
 		dice = dice1 + dice2;
 
-		gameInfo.setText(dice + "칸 이동! ");
+		
+		gameInfo.setText(gameInfo.getText()+"\n" + c.getcNo() + " 님 : " + dice + "칸 이동! ");
 
 		previousLocation = location;
 		location = c.getLocation() + dice;

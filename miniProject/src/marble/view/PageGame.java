@@ -66,6 +66,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		getController().setJlist(Jlist);
 		getController().makeTooltip();
 		getController().setPg(this);
+		gameInfo.setText(getController().getC().getcNo() + " 님 차례입니다.");
 		
 		/*
         Scanner scanner = new Scanner(System.in);
@@ -855,7 +856,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 				ioe.printStackTrace();
 				
 			}*/
-
+			gameInfo.setText(getController().getC().getcNo() + " 님 차례입니다.");
 		}
 	
 	public void nextC(){
