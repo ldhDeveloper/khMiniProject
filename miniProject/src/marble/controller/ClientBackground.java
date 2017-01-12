@@ -22,7 +22,7 @@ public class ClientBackground {
 	private String name;
 	private ObjectInputStream ois;
 	private ObjectOutputStream oos;
-
+	
 	public void setGui(PageGame gui) {
 		this.gui = gui;
 	}
@@ -118,13 +118,15 @@ public class ClientBackground {
 				byte turn = 0;// 현재 값 읽기 불가 오류발생
 				turn = in.readByte();
 				System.out.println(turn);
+				byte result =0;
 				switch (turn) {// 순서에 의한 주사위 버튼의 사용조건 설정
 
 				case 100: //현재 객체값 읽어들이는 순서도만 적용 세부내용 구체화 필요
-					pageGame.getBtn1().setEnabled(false);
 					pageGame = (PageGame) ois.readObject();
+					out.writeByte(1);
 					setGui(pageGame);
 					pageGame.setController((MarbleController) ois.readObject());
+					out.writeByte(1);
 					break;
 				case 110:
 					pageGame.getBtn1().setEnabled(true);

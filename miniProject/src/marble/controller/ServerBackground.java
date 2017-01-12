@@ -94,7 +94,7 @@ public class ServerBackground {
 		private Socket socket;
 		private DataInputStream in;
 		private DataOutputStream out;
-
+		
 		public ReceiverManager(Socket socket) {
 			this.setSocket(socket);
 			try {
@@ -224,21 +224,30 @@ public class ServerBackground {
 					}
 				}
 				System.out.println("action");//확인용
-				
+				Object pageGame = new Object();
+				Object marble = new Object();
 				while (true) {
-				
+				byte bridge = 0;
 					//out.writeByte(100);
 					
 					for (int k = 0; k < gamer.size(); k++) {
 					
+						
 						for (int j=0 ; j< gamer.size(); j++)  {
 							System.out.println("주사위 비활성화 ");
 							gamer.get(j).getOut().writeByte(100);
-						}
+							gamer.get(j).getOos().writeObject(pageGame);
+							bridge = gamer.get(j).getIn().readByte();
+							gamer.get(j).getOos().writeObject(marble);
+							bridge = gamer.get(j).getIn().readByte();
+							}
 
 						System.out.println("주사위 활성화 ");
 						gamer.get(k).getOut().writeByte(110);
-						int re = gamer.get(k).getIn().readInt(); //for문 정지용
+						pageGame =gamer.get(k).getOis().readObject();
+						gamer.get(k).getOut().writeByte(1); 
+						marble =gamer.get(k).getOis().readObject();
+											
 					}
 				}
 
@@ -254,6 +263,8 @@ public class ServerBackground {
 			} catch (IOException e) {
 				System.out.println("IOException");
 				// removeClient(IDkey);
+			} catch(ClassNotFoundException e3){
+				System.out.println("클래스를 찾을수가 없습니다.");
 			}
 		}
 

@@ -720,7 +720,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	
+	byte reaction =0;
 		if (e.getSource()==chatField) {
 			if (chatField.getText().equals("입력"))
 				chatField.setText("");
@@ -738,7 +738,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			gift = distribution.getController();
 			try {
 				client.getOos().writeObject(distribution);
+				reaction= client.getIn().readByte();
 				client.getOos().writeObject(gift);
+				reaction= client.getIn().readByte();
+				reaction=0;
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 
