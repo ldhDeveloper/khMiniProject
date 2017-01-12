@@ -268,7 +268,7 @@ public class MarbleController extends JFrame implements MouseListener {
 
 		moveHorse(location);
 
-		if (location < previousLocation) {
+		if (c.getLocation() < previousLocation) {
 			salary();
 		}
 		/*
