@@ -428,6 +428,7 @@ public class MarbleController extends JFrame implements MouseListener {
 	
 	public Charcter OwnerSelect(Cities ct){
 		Charcter Owner=null;
+		System.out.println(ct.getOwner());
 		switch(ct.getOwner()){
 		case 1 : Owner = pg.getC1(); break;
 		case 2 : Owner = pg.getC2(); break;
@@ -450,7 +451,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		}
 		
 		
-		
+		//
 		switch (location) {
 		case 0:
 			salary();
@@ -486,6 +487,7 @@ public class MarbleController extends JFrame implements MouseListener {
 			break;
 		case 18:
 			System.out.println("무인도 ");
+			c.setIslandflag(true);
 			goldkey.setUserInfo(userMoney);
 			goldkey.setFlag(false);
 			goldkey.toIsland(Jlist, car, c);
@@ -624,8 +626,8 @@ public class MarbleController extends JFrame implements MouseListener {
 								selectedCountry.getText() + "의 건물 " + (cityStatus - 1) + "채를 매각합니다.\n+" + cost + "원");
 						//c.setMoney(c.getMoney() + cost);
 						//CharcterMoney(c).setText(c.getMoney() + "");
-						OwnerSelect(ct[location]).setMoney(OwnerSelect(ct[location]).getMoney() + cost);
-						OwnerMoney(ct[location]).setText(OwnerSelect(ct[location]).getMoney() + cost+"");
+						OwnerSelect(ct[i]).setMoney(OwnerSelect(ct[i]).getMoney() + cost);
+						OwnerMoney(ct[i]).setText(OwnerSelect(ct[i]).getMoney() + cost+"");
 						ct[i].setStatus(0);
 
 						for (Component pan : panelBoard.getComponents()) {

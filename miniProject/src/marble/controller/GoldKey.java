@@ -26,7 +26,7 @@ public class GoldKey extends JFrame{
 			
 			keyNum = (int) (Math.random() * 10 + 1);
 			
-			switch(keyNum){
+			switch(9){
 			case 1: 
 				toIsland(Jlist, car, c); 
 				break;

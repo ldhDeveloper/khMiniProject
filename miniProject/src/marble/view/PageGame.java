@@ -89,10 +89,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		setController(new MarbleController());
 		
 		
-		c1 = new Charcter(1, "1번", 400, 0);
-		c2= new Charcter(2, "2번", 400, 0);
-		c3= new Charcter(3, "3번", 400, 0);
-		c4= new Charcter(4, "4번", 400, 0);
+		c1 = new Charcter(1, "1번", 400, 0, false, true);
+		c2= new Charcter(2, "2번", 400, 0, false, true);
+		c3= new Charcter(3, "3번", 400, 0, false, true);
+		c4= new Charcter(4, "4번", 400, 0, false, true);
 		
 		
 		JlistInit();
@@ -842,8 +842,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		else if (e.getSource()==buttonFinish)
 			getController().exitMarble();
 		
-		else
-			controller.rollDice(gameInfo);
+		else {
+			if(cStatus() == true)
+				controller.rollDice(gameInfo);
+		}
 			nextCar();
 			nextC();
 			/*getBtn1().setEnabled(false);
@@ -858,6 +860,17 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			}*/
 			gameInfo.setText(getController().getC().getcNo() + " 님 차례입니다.");
 		}
+	
+	public boolean cStatus(){
+		boolean result = true;
+		if(controller.getC().isIslandflag() == true){
+			result = false;
+			controller.getC().setIslandflag(false);
+		} else if(controller.getC().isStart() == false) {
+			result = false;
+		}
+		return result;
+	}
 	
 	public void nextC(){
 		if(controller.getC() == c1){

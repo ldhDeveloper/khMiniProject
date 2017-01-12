@@ -5,6 +5,9 @@ public class Charcter {
 	private String name;
 	private int money;
 	private int location;
+	private boolean islandflag; 
+	private boolean start;
+	
 	public String getName() {
 		return name;
 	}
@@ -31,15 +34,32 @@ public class Charcter {
 	public void setcNo(int cNo) {
 		this.cNo = cNo;
 	}
+	
+	
+	public boolean isIslandflag() {
+		return islandflag;
+	}
+	public void setIslandflag(boolean islandflag) {
+		this.islandflag = islandflag;
+	}
+	
+	public boolean isStart() {
+		return start;
+	}
+	public void setStart(boolean start) {
+		this.start = start;
+	}
 	public Charcter(){
 		
 	}
-	public Charcter(int cNo, String name, int money, int location) {
+	public Charcter(int cNo, String name, int money, int location, boolean islandflag, boolean start) {
 		super();
 		this.cNo = cNo;
 		this.name = name;
 		this.money = money;
 		this.location = location;
+		this.islandflag = islandflag;
+		this.start = start;
 	}
 	@Override
 	public String toString() {
