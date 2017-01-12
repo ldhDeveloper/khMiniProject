@@ -89,10 +89,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		setController(new MarbleController());
 		
 		
-		c1 = new Charcter(1, "1번", 400, 0, false, true);
-		c2= new Charcter(2, "2번", 400, 0, false, true);
-		c3= new Charcter(3, "3번", 400, 0, false, true);
-		c4= new Charcter(4, "4번", 400, 0, false, true);
+		c1 = new Charcter(1, "1번", 400, 0, false, true, 0);
+		c2= new Charcter(2, "2번", 400, 0, false, true, 0);
+		c3= new Charcter(3, "3번", 400, 0, false, true, 0);
+		c4= new Charcter(4, "4번", 400, 0, false, true, 0);
 		
 		
 		JlistInit();
@@ -843,9 +843,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			getController().exitMarble();
 		
 		else {
-			if(cStatus() == true)
+			if(cStatus() == 0){
 				controller.rollDice(gameInfo);
-		}
+			} else if(cStatus() ==1){
+				JOptionPane.showMessageDialog(this, getController().getC().getcNo() + " 님은 무인도에 있습니다.");
+			} 
+	
 			nextCar();
 			nextC();
 			/*getBtn1().setEnabled(false);
@@ -860,14 +863,15 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			}*/
 			gameInfo.setText(getController().getC().getcNo() + " 님 차례입니다.");
 		}
+	}
 	
-	public boolean cStatus(){
-		boolean result = true;
+	public int cStatus(){
+		int result = 0;
 		if(controller.getC().isIslandflag() == true){
-			result = false;
+			result = 1;
 			controller.getC().setIslandflag(false);
 		} else if(controller.getC().isStart() == false) {
-			result = false;
+			result = 2;
 		}
 		return result;
 	}
@@ -884,6 +888,19 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		}
 	}
 	
+	public void beforeC(){
+		if(controller.getC() == c1){
+			controller.setC(c4);
+		} else if(controller.getC() == c2){
+			controller.setC(c1);
+		} else if(controller.getC() == c3){
+			controller.setC(c2);
+		} else if(controller.getC() == c4){
+			controller.setC(c3);
+		}
+	}
+	
+	
 	public void nextCar() {
 		if(controller.getCar() == car1){
 			controller.setCar(car2);
@@ -893,6 +910,19 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			controller.setCar(car4);
 		} else if(controller.getCar() == car4){
 			controller.setCar(car1);
+		}
+		
+	}
+	
+	public void beforeCar() {
+		if(controller.getCar() == car1){
+			controller.setCar(car4);
+		} else if(controller.getCar() == car2){
+			controller.setCar(car1);
+		} else if(controller.getCar() == car3){
+			controller.setCar(car2);
+		} else if(controller.getCar() == car4){
+			controller.setCar(car3);
 		}
 		
 	}

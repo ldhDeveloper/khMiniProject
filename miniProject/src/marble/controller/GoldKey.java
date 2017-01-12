@@ -26,7 +26,7 @@ public class GoldKey extends JFrame{
 			
 			keyNum = (int) (Math.random() * 10 + 1);
 			
-			switch(9){
+			switch(keyNum){
 			case 1: 
 				toIsland(Jlist, car, c); 
 				break;
@@ -46,7 +46,7 @@ public class GoldKey extends JFrame{
 				buildingRepair(ct, c, Jlist, userMoney);
 				break;
 			case 7:
-				getNoFee();
+				getNoFee(c);
 				break;
 			case 8:
 				gotoAirport(btn1, planeMsg);
@@ -142,9 +142,9 @@ public class GoldKey extends JFrame{
 				planeMsg.setVisible(true);
 		}
 
-		public void getNoFee() {
+		public void getNoFee(Charcter c) {
 			// TODO Auto-generated method stub
-			
+			c.setFreeCoupon(c.getFreeCoupon()+1);
 			JOptionPane.showMessageDialog(this, "황금열쇠 : 무료 통행권 \n"
 					+ "다음 상대방 도시 방문 시 무료로 통행합니다.");
 			
@@ -242,12 +242,11 @@ public class GoldKey extends JFrame{
 				c.setLocation(18);
 			}
 			
-			else
+			else{
 				JOptionPane.showMessageDialog(this, 
 						"무인도 입니다.");
-			
-			
-			
+			}	
+			c.setIslandflag(true);
 			
 		}
 }

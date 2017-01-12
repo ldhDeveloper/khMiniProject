@@ -7,6 +7,7 @@ public class Charcter {
 	private int location;
 	private boolean islandflag; 
 	private boolean start;
+	private int freeCoupon;
 	
 	public String getName() {
 		return name;
@@ -28,6 +29,12 @@ public class Charcter {
 	}
 	
 	
+	public int getFreeCoupon() {
+		return freeCoupon;
+	}
+	public void setFreeCoupon(int freeCoupon) {
+		this.freeCoupon = freeCoupon;
+	}
 	public int getcNo() {
 		return cNo;
 	}
@@ -52,7 +59,7 @@ public class Charcter {
 	public Charcter(){
 		
 	}
-	public Charcter(int cNo, String name, int money, int location, boolean islandflag, boolean start) {
+	public Charcter(int cNo, String name, int money, int location, boolean islandflag, boolean start, int freeCoupon) {
 		super();
 		this.cNo = cNo;
 		this.name = name;
@@ -60,6 +67,7 @@ public class Charcter {
 		this.location = location;
 		this.islandflag = islandflag;
 		this.start = start;
+		this.freeCoupon = freeCoupon;
 	}
 	@Override
 	public String toString() {
