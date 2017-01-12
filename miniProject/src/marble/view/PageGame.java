@@ -99,6 +99,11 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		car4Init();
 		diceInit();
 		
+		ImageIcon title2g = new ImageIcon("title2g.png");
+		JLabel image = new JLabel(title2g);
+		image.setBounds(340, 200, 217, 120);
+		
+		panelBoard.add(image);
 		panelBoard.add(c1b1);
 		panelBoard.add(c1b2);
 		panelBoard.add(c1b3);
@@ -164,6 +169,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		
 		// 채팅창
 		chatScreen = new JTextArea("채팅창", 10, 5);
+		chatScreen.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		JScrollPane scroll = new JScrollPane(chatScreen);
 		//chatScreen.setPreferredSize(new Dimension(900, 100));
 		scroll.setBounds(0, 0, 900, 100);
@@ -173,6 +179,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		
 		// 채팅입력창
 		chatField = new JTextField("입력");
+		chatField.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		chatField.setBounds(0, 100, 900, 30);
 		chatField.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		chatField.setBorder(BorderFactory.createCompoundBorder
@@ -251,11 +258,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		// 타이틀
 		infoLabel = new JLabel("브루마블 게임방");
 		infoLabel.setBounds(35, 20, 160, 50);
-		infoLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
+		infoLabel.setFont(new Font("맑은 고딕", Font.BOLD, 20));
 		
 		// 이용자정보 타이틀
 		infoLabel2 = new JLabel("이용자 정보");
 		infoLabel2.setBounds(20, 95, 80, 20);
+		infoLabel2.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		
 		// 이용자정보
 		user1Label = new JLabel("1");
@@ -266,7 +274,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user1Label.setForeground(Color.WHITE);
 		
 		user1Info = new JLabel("<html>아이디: <br>자산: </html>");
-		user1Info.setFont(new Font("Gulim", Font.PLAIN, 12));
+		user1Info.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		
 		user1Info.setBounds(60, 120, 140, 40);
 		user1Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -285,7 +293,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user2Label.setForeground(Color.WHITE);
 		
 		user2Info = new JLabel("<html>아이디: <br>자산: </html>");
-		user2Info.setFont(new Font("Gulim", Font.PLAIN, 12));
+		user2Info.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		user2Info.setBounds(60, 170, 140, 40);
 		user2Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user2Info.setBorder(BorderFactory.createCompoundBorder
@@ -303,7 +311,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user3Label.setForeground(Color.WHITE);
 		
 		user3Info = new JLabel("<html>아이디: <br>자산: </html>");
-		user3Info.setFont(new Font("Gulim", Font.PLAIN, 12));
+		user3Info.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		user3Info.setBounds(60, 220, 140, 40);
 		user3Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user3Info.setBorder(BorderFactory.createCompoundBorder
@@ -321,7 +329,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		user4Label.setForeground(Color.WHITE);
 		
 		user4Info = new JLabel("<html>아이디: <br>자산: </html>");
-		user4Info.setFont(new Font("Gulim", Font.PLAIN, 12));
+		user4Info.setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		user4Info.setBounds(60, 270, 140, 40);
 		user4Info.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		user4Info.setBorder(BorderFactory.createCompoundBorder
@@ -334,9 +342,11 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		//게임정보창 타이틀
 		infoLabel3 = new JLabel("게임안내창");
 		infoLabel3.setBounds(20, 335, 100, 20);
+		infoLabel3.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		
 		// 게임정보창
 		setGameInfo(new JTextArea("게임안내창", 10, 5));
+		getGameInfo().setFont(new Font("맑은 고딕", Font.PLAIN, 12));
 		getGameInfo().setBounds(20, 360, 180, 190);
 		getGameInfo().setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		getGameInfo().setBorder(BorderFactory.createCompoundBorder
@@ -345,6 +355,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		
 		// 버튼
 		buttonStart = new JButton("게임시작");
+		buttonStart.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		buttonStart.setBounds(20, 590, 180, 40);
 		buttonStart.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		buttonStart.setBackground(new Color(255, 125, 64));
@@ -359,6 +370,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			}});
 		
 		buttonFinish = new JButton("나가기");
+		buttonFinish.setFont(new Font("맑은 고딕", Font.BOLD, 13));
 		buttonFinish.setBounds(20, 640, 180, 40);
 		buttonFinish.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		buttonFinish.setBackground(new Color(193, 193, 193));
@@ -750,6 +762,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c16b3.setName("Jlist233");
 		
 		for(int i =0; i<Jlist.length;i++){
+			Jlist[i].setFont(new Font("맑은 고딕", Font.BOLD, 12));
 			panelBoard.add(Jlist[i]);
 		}
 		
@@ -803,10 +816,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	
 	
 	public void diceInit() {
-		setBtn1(new JButton("주사위 버튼"));
-		getBtn1().setLocation(300, 300);
-		getBtn1().setSize(100, 50);
-		getBtn1().setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		setBtn1(new JButton("주사위"));
+		getBtn1().setBounds(590, 330, 70, 70);
+		getBtn1().setFont(new Font("맑은 고딕", Font.BOLD, 13));
+		getBtn1().setBorder(BorderFactory.createLineBorder(Color.white, 2));
+		getBtn1().setForeground(Color.white);
+		getBtn1().setBackground(new Color(255, 125, 64));
 		getBtn1().addActionListener(this);
 		getBtn1().setName("btn1");
 		getBtn1().setEnabled(true);
