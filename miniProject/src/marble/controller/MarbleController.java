@@ -16,7 +16,7 @@ public class MarbleController extends JFrame implements MouseListener {
 	private JFrame f = new JFrame();
 	private JPanel p = new JPanel();
 	private JPanel panelBoard;
-	private JLabel user1Money;
+	private JLabel user1Money, user2Money, user3Money, user4Money;
 	private JLabel car, carinfo, diceLabel;
 	private JLabel diceLabelImage1, diceLabelImage2;
 	private JLabel selectedCountry, beforeOlympic = null;
@@ -39,8 +39,8 @@ public class MarbleController extends JFrame implements MouseListener {
 		cityManager = new CityManager();
 		goldkey = new GoldKey();
 
-		c = new Charcter("1번", 400, 0);
-
+		
+		
 		cityInit();
 
 		f.setTitle("부루마블");
@@ -53,17 +53,34 @@ public class MarbleController extends JFrame implements MouseListener {
 		p.setBackground(Color.white);
 		p.setLayout(null);
 
-		car = new JLabel("A");
+		
+		
+		/*car = new JLabel("A");
 		car.setOpaque(true);
 		car.setBackground(Color.RED);
 		car.setSize(15, 15);
 		car.setLocation(100, 68);
 		car.setBorder(BorderFactory.createLineBorder(Color.black, 1));
-
+		
+		car2 = new JLabel("B");
+		car2.setSize(15,15);
+		car2.setLocation(118,68);
+		car2.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		
+		car3 = new JLabel("C");
+		car3.setSize(15,15);
+		car3.setLocation(100,86);
+		car3.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		
+		car4 = new JLabel("D");
+		car4.setSize(15,15);
+		car4.setLocation(118,86);
+		car4.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+		
 		carinfo = new JLabel("이름 : " + c.getName() + " 자금 : " + c.getMoney(), JLabel.CENTER);
 		carinfo.setSize(200, 100);
 		carinfo.setLocation(200, 300);
-		carinfo.setBorder(BorderFactory.createLineBorder(Color.black, 1));
+		carinfo.setBorder(BorderFactory.createLineBorder(Color.black, 1));*/
 
 		/*
 		 * lb2.addMouseListener(new MouseAdapter(){ String title =
@@ -100,6 +117,28 @@ public class MarbleController extends JFrame implements MouseListener {
 
 	}
 
+	
+
+	public Charcter getC() {
+		return c;
+	}
+
+
+
+	public void setC(Charcter c) {
+		this.c = c;
+	}
+
+
+
+	
+
+
+
+	public JLabel getCar() {
+		return car;
+	}
+
 	public void setBtn1(JButton btn1) {
 		this.btn1 = btn1;
 	}
@@ -112,9 +151,12 @@ public class MarbleController extends JFrame implements MouseListener {
 		this.panelBoard = panelBoard;
 	}
 
-	public void setUserInfo(JLabel user1Money) {
+	public void setUserInfo(JLabel user1Money, JLabel user2Money, JLabel user3Money, JLabel user4Money) {
 		this.user1Money = user1Money;
-		goldkey.setUserInfo(user1Money);
+		this.user2Money = user2Money;
+		this.user3Money = user3Money;
+		this.user4Money = user4Money;
+		//goldkey.setUserInfo(user1Money);
 
 	}
 
@@ -233,26 +275,35 @@ public class MarbleController extends JFrame implements MouseListener {
 	}
 
 	public void moveHorse(int location) {
-
+		
+		
+		int cGapX = 0, cGapY = 0;
+		switch(c.getcNo()){
+		case 1 : cGapX = 50; cGapY = 18; break;
+		case 2 : cGapX = 50; cGapY = 36; break;
+		case 3 : cGapX = 68; cGapY = 18; break;
+		case 4 : cGapX = 68; cGapY = 36; break;
+		}
 		c.setLocation(location); // 캐릭터 위치 값 저장
-
+		
+		
 		if (previousLocation + dice >= ct.length) {
 			for (int i = previousLocation + 1; i < Jlist.length; i++) {
-				xPoint = (int) Jlist[i].getLocation().getX() + 50;
-				yPoint = (int) Jlist[i].getLocation().getY() + 18;
+				xPoint = (int) Jlist[i].getLocation().getX() + cGapX;
+				yPoint = (int) Jlist[i].getLocation().getY() + cGapY;
 				car.setLocation(xPoint, yPoint);
 			}
 			for (int i = 0; i <= location; i++) {
-				xPoint = (int) Jlist[i].getLocation().getX() + 50;
-				yPoint = (int) Jlist[i].getLocation().getY() + 18;
+				xPoint = (int) Jlist[i].getLocation().getX() + cGapX;
+				yPoint = (int) Jlist[i].getLocation().getY() + cGapY;
 				car.setLocation(xPoint, yPoint);
 			}
 		}
 
 		for (int i = previousLocation + 1; i <= location; i++) {
 
-			xPoint = (int) Jlist[i].getLocation().getX() + 50;
-			yPoint = (int) Jlist[i].getLocation().getY() + 18;
+			xPoint = (int) Jlist[i].getLocation().getX() + cGapX;
+			yPoint = (int) Jlist[i].getLocation().getY() + cGapY;
 			car.setLocation(xPoint, yPoint);
 
 		}
@@ -268,14 +319,21 @@ public class MarbleController extends JFrame implements MouseListener {
 	}
 
 	public void cityAction(int location) {
-
 		int result = 0;
 		int cityStatus = ct[location].getStatus();
+		JLabel userMoney = null;
+		switch(c.getcNo()){
+		case 1 : userMoney = user1Money; break;
+		case 2 : userMoney = user2Money; break;
+		case 3 : userMoney = user3Money; break;
+		case 4 : userMoney = user4Money; break;
+		}
+		
 
 		if (cityStatus == 0) {
 			// 구입 X 0
-
-			result = cityManager.OwnCity(ct[location], c, user1Money);
+			
+			result = cityManager.OwnCity(ct[location], c, userMoney);
 
 			if (result == 0) {
 				cityAction(location);
@@ -285,48 +343,50 @@ public class MarbleController extends JFrame implements MouseListener {
 		}
 
 		else {
+			if(ct[location].getOwner() == c.getcNo()){
+				String r = cityManager.UpgradeCity(ct[location], c, userMoney);
 
-			String r = cityManager.UpgradeCity(ct[location], c, user1Money);
+				if (r == null)
+					return;
 
-			if (r == null)
-				return;
+				if (cityStatus == 1) {
+					// 건물이 0채일 때
 
-			if (cityStatus == 1) {
-				// 건물이 0채일 때
+					if (r.equals("1")) // 1채 짓기
+						building(location, cityStatus, 1);
 
-				if (r.equals("1")) // 1채 짓기
-					building(location, cityStatus, 1);
+					else if (r.equals("2")) // 2채 짓기
+						building(location, cityStatus, 2);
 
-				else if (r.equals("2")) // 2채 짓기
-					building(location, cityStatus, 2);
+					else if (r.equals("3")) // 3채 짓기
+						building(location, cityStatus, 3);
+				}
 
-				else if (r.equals("3")) // 3채 짓기
-					building(location, cityStatus, 3);
+				else if (cityStatus == 2) {
+
+					if (r.equals("1"))
+						building(location, cityStatus, 1);
+
+					else if (r.equals("2"))
+						building(location, cityStatus, 2);
+				}
+
+				else if (cityStatus == 3) {//2채인 상태
+
+					if (r.equals("1"))
+						building(location, cityStatus, 2);
+				}
+
+				else if (cityStatus == 4) {//건물 3채인 상태
+					cityStatus = ct[location].getStatus();// 주석처리하면 랜드마크 색 표시가 안됨
+					if (r.equals("0"))
+						building(location, cityStatus, 1);
+				}
+
+				else
+					System.out.println("랜드마크 방문 보상 ");
 			}
-
-			else if (cityStatus == 2) {
-
-				if (r.equals("1"))
-					building(location, cityStatus, 1);
-
-				else if (r.equals("2"))
-					building(location, cityStatus, 2);
-			}
-
-			else if (cityStatus == 3) {//2채인 상태
-
-				if (r.equals("1"))
-					building(location, cityStatus, 2);
-			}
-
-			else if (cityStatus == 4) {//건물 3채인 상태
-				cityStatus = ct[location].getStatus();// 주석처리하면 랜드마크 색 표시가 안됨
-				if (r.equals("0"))
-					building(location, cityStatus, 1);
-			}
-
-			else
-				System.out.println("랜드마크 방문 보상 ");
+			
 		}
 		setTooltip();
 		pg.repaint();
@@ -337,29 +397,43 @@ public class MarbleController extends JFrame implements MouseListener {
 
 		previousLocation = location;
 
+		JLabel userMoney = null;
+		switch(c.getcNo()){
+		case 1 : userMoney = user1Money; break;
+		case 2 : userMoney = user2Money; break;
+		case 3 : userMoney = user3Money; break;
+		case 4 : userMoney = user4Money; break;
+		}
+		
+		
+		
 		switch (location) {
 		case 0:
 			salary();
 			break;
 		case 3:
+			goldkey.setUserInfo(userMoney);
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation()) != previousLocation)
 				func();
 			break;
 		case 6:
+			goldkey.setUserInfo(userMoney);
 			goldkey.gotoAirport(btn1, planeMsg);
 			break;
 		case 9:
+			goldkey.setUserInfo(userMoney);
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation()) != previousLocation)
 				func();
 			break;
 		case 12:
-			goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
+			goldkey.openOlympic(ct, Jlist, c , btn1, olympicMsg);
 			break;
 		case 15:
+			goldkey.setUserInfo(userMoney);
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation()) != previousLocation) {
@@ -368,11 +442,13 @@ public class MarbleController extends JFrame implements MouseListener {
 			break;
 		case 18:
 			System.out.println("무인도 ");
+			goldkey.setUserInfo(userMoney);
 			goldkey.setFlag(false);
 			goldkey.toIsland(Jlist, car, c);
 			location = c.getLocation();
 			break;
 		case 21:
+			goldkey.setUserInfo(userMoney);
 			goldkey.setFlag(true);
 			goldkey.goldKeyEvent(ct, Jlist, car, c, btn1, planeMsg, sellMsg, olympicMsg);
 			if ((location = c.getLocation()) != previousLocation)
@@ -402,10 +478,27 @@ public class MarbleController extends JFrame implements MouseListener {
 	public void printBuildingColor(int location, int cityStatus, int lastBuilding) {
 
 		String name;
+		Color buildColor = null, randColor = null;
+		switch(c.getcNo()){
+		case 1 : 
+			buildColor = new Color(238, 99, 99);
+			randColor = new Color(238, 99, 99, 80); 
+		break;
+		case 2 : 
+			buildColor = new Color(113, 198, 113);
+			randColor = new Color(113, 198, 113, 80); break;
+		case 3 : 
+			buildColor = new Color(99, 184, 255);
+			randColor = new Color(99, 184, 255, 80); break;
+		case 4 : 
+			buildColor = new Color(142, 56, 142); 
+			randColor = new Color(142, 56, 142, 80); break;
+		}
+		
 
 		if (cityStatus == 5) {
 			Jlist[location].setOpaque(true);
-			Jlist[location].setBackground(new Color(238, 99, 99, 80));
+			Jlist[location].setBackground(randColor);
 		}
 
 		else
@@ -417,7 +510,7 @@ public class MarbleController extends JFrame implements MouseListener {
 					if (name != null) {
 						
 						if (name.equals("Jlist" + location + "" + i))
-							pan.setBackground(new Color(238, 99, 99));
+							pan.setBackground(buildColor);
 					}
 				}
 			}
@@ -448,13 +541,13 @@ public class MarbleController extends JFrame implements MouseListener {
 						cityStatus = ct[i].getStatus();
 					} catch (NullPointerException e) {
 						JOptionPane.showMessageDialog(this, "선택 불가");
-						goldkey.sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
+						goldkey.sellCity(btn1, sellMsg, c, ct, Jlist, planeMsg);
 						break;
 					}
 
 					if (cityStatus == 0) {
 						JOptionPane.showMessageDialog(this, selectedCountry.getText() + " 은(는) 소유한 도시가 아닙니다.");
-						goldkey.sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
+						goldkey.sellCity(btn1, sellMsg, c, ct, Jlist, planeMsg);
 						break;
 					}
 
@@ -472,7 +565,7 @@ public class MarbleController extends JFrame implements MouseListener {
 
 					else {
 						JOptionPane.showMessageDialog(this, "랜드마크는 매각할 수 없습니다.");
-						goldkey.sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
+						goldkey.sellCity(btn1, sellMsg, c, ct, Jlist, planeMsg);
 						break;
 					}
 
@@ -523,7 +616,7 @@ public class MarbleController extends JFrame implements MouseListener {
 					if (ct[i].getStatus() == 0) {
 						JOptionPane.showMessageDialog(this, "본인 소유가 아니므로 올림픽 개최가 불가능한 도시입니다.");
 						
-						goldkey.openOlympic(ct, Jlist, btn1, olympicMsg);
+						goldkey.openOlympic(ct, Jlist, c, btn1, olympicMsg);
 						listEnableTrue(ct, Jlist);
 						break;
 					}					

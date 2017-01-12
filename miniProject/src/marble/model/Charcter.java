@@ -34,15 +34,16 @@ public class Charcter {
 	public Charcter(){
 		
 	}
-	public Charcter( String name, int money, int location) {
+	public Charcter(int cNo, String name, int money, int location) {
 		super();
+		this.cNo = cNo;
 		this.name = name;
 		this.money = money;
 		this.location = location;
 	}
 	@Override
 	public String toString() {
-		return "Charcter [name=" + name + ", money=" + money + ", location=" + location + "]";
+		return "Charcter [cNo = " + cNo + "name=" + name + ", money=" + money + ", location=" + location + "]";
 	}
 	
 	

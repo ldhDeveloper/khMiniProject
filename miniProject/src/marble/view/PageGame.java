@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
+import marble.model.Charcter;
 import marble.model.Cities;
 import marble.controller.ClientBackground;
 import marble.controller.MarbleController;
@@ -31,7 +32,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private JTextField chatField;
 	private JButton btn1, buttonStart, buttonFinish;
 	private JLabel[] Jlist = new JLabel[24];
-	private JLabel car;
+	private JLabel car1, car2, car3, car4;
 	private JLabel cityInfoLabel = new JLabel("");
 	private JLabel planeMsg = new JLabel("이동할 도시를 선택해주세요 ", JLabel.CENTER);
 	private JLabel sellMsg = new JLabel("황금열쇠 : 도시 매각 \n매각할 도시를 선택해주세요 ", JLabel.CENTER);;
@@ -39,6 +40,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private Cities[] ct = new Cities[24];
 	private MarbleController controller;
 	private ClientBackground client;
+	private Charcter c1, c2, c3, c4;
 	
 	public PageGame(MainFrame m){
 				
@@ -52,9 +54,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		Info();
 
 		getController().setBtn1(getBtn1());
-		getController().setCar(car);
+		getController().setC(c1);
+		getController().setCar(car1);
 		getController().setPanelBoard(panelBoard);
-		getController().setUserInfo(user1Money);
+		getController().setUserInfo(user1Money, user2Money, user3Money, user4Money);
 		getController().setCityInfoLabel(cityInfoLabel);
 		getController().setPlaneMsg(planeMsg);
 		getController().setSellMsg(sellMsg);
@@ -83,9 +86,17 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		//panelBoard.setBorder(BorderFactory.createLineBorder(Color.GRAY));
 		setController(new MarbleController());
 		
-		JlistInit();
 		
-		carInit();
+		c1 = new Charcter(1, "1번", 400, 0);
+		c2= new Charcter(2, "2번", 400, 0);
+		c3= new Charcter(3, "3번", 400, 0);
+		c4= new Charcter(4, "4번", 400, 0);
+		
+		JlistInit();
+		car1Init();
+		car2Init();
+		car3Init();
+		car4Init();
 		diceInit();
 		
 		panelBoard.add(c1b1);
@@ -136,7 +147,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		panelBoard.add(c16b1);
 		panelBoard.add(c16b2);
 		panelBoard.add(c16b3);
-		panelBoard.add(car);
+		panelBoard.add(car1);
+		panelBoard.add(car2);
+		panelBoard.add(car3);
+		panelBoard.add(car4);
 		panelBoard.add(getBtn1());
 		panelBoard.add(planeMsg, 0);
 		panelBoard.add(sellMsg);
@@ -184,6 +198,52 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		this.add(panelChat);
 	
 		
+	}
+	
+	public Charcter getC1() {
+		return c1;
+	}
+
+
+
+	public void setC1(Charcter c1) {
+		this.c1 = c1;
+	}
+
+
+
+	public Charcter getC2() {
+		return c2;
+	}
+
+
+
+	public void setC2(Charcter c2) {
+		this.c2 = c2;
+	}
+
+
+
+	public Charcter getC3() {
+		return c3;
+	}
+
+
+
+	public void setC3(Charcter c3) {
+		this.c3 = c3;
+	}
+
+
+
+	public Charcter getC4() {
+		return c4;
+	}
+
+
+
+	public void setC4(Charcter c4) {
+		this.c4 = c4;
 	}
 	
 	private void Info() {
@@ -696,16 +756,51 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		getController().addJlistEvent(Jlist);
 	}
 	
-	public void carInit() {
-		car = new JLabel("1");
-		car.setOpaque(true);
-		car.setHorizontalAlignment(car.CENTER);
-		car.setForeground(Color.white);
-		car.setBackground(new Color(238, 99, 99));
-		car.setSize(15,15);
-		car.setLocation(100,68);
-		car.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+	
+	public void car1Init() {
+		car1 = new JLabel("1");
+		car1.setOpaque(true);
+		car1.setHorizontalAlignment(car1.CENTER);
+		car1.setForeground(Color.white);
+		car1.setBackground(new Color(238, 99, 99));
+		car1.setSize(15,15);
+		car1.setLocation(100,68);
+		car1.setBorder(BorderFactory.createLineBorder(Color.white, 1));
 	}
+	
+	public void car2Init() {
+		car2 = new JLabel("2");
+		car2.setOpaque(true);
+		car2.setHorizontalAlignment(car2.CENTER);
+		car2.setForeground(Color.white);
+		car2.setBackground(new Color(113, 198, 113));
+		car2.setSize(15,15);
+		car2.setLocation(118,68);
+		car2.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+	}
+	
+	public void car3Init() {
+		car3 = new JLabel("3");
+		car3.setOpaque(true);
+		car3.setHorizontalAlignment(car3.CENTER);
+		car3.setForeground(Color.white);
+		car3.setBackground(new Color(99, 184, 255));
+		car3.setSize(15,15);
+		car3.setLocation(100,86);
+		car3.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+	}
+	
+	public void car4Init() {
+		car4 = new JLabel("4");
+		car4.setOpaque(true);
+		car4.setHorizontalAlignment(car4.CENTER);
+		car4.setForeground(Color.white);
+		car4.setBackground(new Color(142, 56, 142));
+		car4.setSize(15,15);
+		car4.setLocation(118,86);
+		car4.setBorder(BorderFactory.createLineBorder(Color.white, 1));
+	}
+	
 	
 	public void diceInit() {
 		setBtn1(new JButton("주사위 버튼"));
@@ -714,7 +809,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		getBtn1().setBorder(BorderFactory.createLineBorder(Color.black, 1));
 		getBtn1().addActionListener(this);
 		getBtn1().setName("btn1");
-		getBtn1().setEnabled(false);
+		getBtn1().setEnabled(true);
 		
 	}
 
@@ -731,7 +826,9 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		
 		else
 			controller.rollDice(gameInfo);
-			getBtn1().setEnabled(false);
+			nextCar();
+			nextC();
+			/*getBtn1().setEnabled(false);
 			PageGame distribution = (PageGame)(client.getM().getPan3());
 			MarbleController gift = distribution.getController();
 			try{
@@ -740,10 +837,35 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			catch(IOException ioe){
 				ioe.printStackTrace();
 				
-			}
+			}*/
 				
 	}
 	
+	public void nextC(){
+		if(controller.getC() == c1){
+			controller.setC(c2);
+		} else if(controller.getC() == c2){
+			controller.setC(c3);
+		} else if(controller.getC() == c3){
+			controller.setC(c4);
+		} else if(controller.getC() == c4){
+			controller.setC(c1);
+		}
+	}
+	
+	public void nextCar() {
+		if(controller.getCar() == car1){
+			controller.setCar(car2);
+		} else if(controller.getCar() == car2){
+			controller.setCar(car3);
+		} else if(controller.getCar() == car3){
+			controller.setCar(car4);
+		} else if(controller.getCar() == car4){
+			controller.setCar(car1);
+		}
+		
+	}
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub

@@ -8,7 +8,7 @@ import marble.model.Charcter;
 import marble.model.Cities;
 
 public class CityManager extends JFrame{
-		
+
 	public int OwnCity(Cities city, Charcter c, JLabel user1Money){
 		Object[] option = {"구입", "취소"};
 		

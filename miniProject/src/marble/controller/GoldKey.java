@@ -8,12 +8,12 @@ import marble.model.*;
 
 public class GoldKey extends JFrame{
 	
-	private JLabel user1Money;
+	private JLabel userMoney;
 	private boolean  flag = false;
 	private int keyNum;
 	
 	public void setUserInfo(JLabel user1Money) {
-		this.user1Money = user1Money;
+		this.userMoney = user1Money;
 	}
 	
 	public void setFlag(boolean flag) {
@@ -31,7 +31,7 @@ public class GoldKey extends JFrame{
 				toIsland(Jlist, car, c); 
 				break;
 			case 2:	
-				winLotto(c);
+				winLotto(c, userMoney);
 				break;
 			case 3:
 				move3next(car, c, Jlist);
@@ -43,7 +43,7 @@ public class GoldKey extends JFrame{
 				gotoStart(car, c, Jlist);
 				break;
 			case 6:
-				buildingRepair(ct, c, Jlist);
+				buildingRepair(ct, c, Jlist, userMoney);
 				break;
 			case 7:
 				getNoFee();
@@ -52,20 +52,20 @@ public class GoldKey extends JFrame{
 				gotoAirport(btn1, planeMsg);
 				break;
 			case 9:
-				sellCity(btn1, sellMsg, ct, Jlist, planeMsg);
+				sellCity(btn1, sellMsg, c, ct, Jlist, planeMsg);
 				break;
 			case 10:
-				openOlympic(ct, Jlist, btn1, olympicMsg);
+				openOlympic(ct, Jlist, c , btn1, olympicMsg);
 				break;
 		}
 		
 		}
 
-		public void openOlympic(Cities[] ct, JLabel[] Jlist, JButton btn1,
+		public void openOlympic(Cities[] ct, JLabel[] Jlist,Charcter c,  JButton btn1,
 				JLabel olympicMsg) {
 			// TODO Auto-generated method stub
 			
-			if (sellable(ct) == false) {
+			if (sellable(ct, c) == false) {
 				JOptionPane.showMessageDialog(this, "황금열쇠 : 올림픽 \n"
 						+ "소유한 도시가 없기 때문에 올림픽 개최를 할 수 없습니다.");
 				return;
@@ -83,11 +83,11 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void sellCity(JButton btn1, JLabel sellMsg,
+		public void sellCity(JButton btn1, JLabel sellMsg, Charcter c,
 				Cities[] ct, JLabel[] Jlist, JLabel planeMsg) {
 			// TODO Auto-generated method stub
 
-			if (sellable(ct) == false) {
+			if (sellable(ct, c) == false) {
 				JOptionPane.showMessageDialog(this, "황금열쇠 : 도시 매각 \n"
 						+ "소유한 도시가 없기 때문에 매각할 수 없습니다.");
 				return;
@@ -108,13 +108,15 @@ public class GoldKey extends JFrame{
 			}
 		}
 		
-		public boolean sellable(Cities[] ct) {
+		public boolean sellable(Cities[] ct, Charcter c) {
 			
 			boolean sellable = false;
 			int cityStatus;
 			
 			for (int i=1 ; i<ct.length ; i++) {
 				if (i%3==0)
+					continue;
+				if (ct[i].getOwner() == c.getcNo())
 					continue;
 				cityStatus = ct[i].getStatus();
 				if (cityStatus>0 && cityStatus!=5) {
@@ -148,7 +150,7 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void buildingRepair(Cities[] ct, Charcter c, JLabel[] Jlist) {
+		public void buildingRepair(Cities[] ct, Charcter c, JLabel[] Jlist, JLabel userMoney ) {
 			// TODO Auto-generated method stub
 			
 			int sum = 0;
@@ -168,7 +170,7 @@ public class GoldKey extends JFrame{
 					+ sum + "원");
 
 			c.setMoney(c.getMoney() - sum);
-			user1Money.setText(c.getMoney()+"");
+			userMoney.setText(c.getMoney()+"");
 			
 		}
 
@@ -220,11 +222,11 @@ public class GoldKey extends JFrame{
 			
 		}
 
-		public void winLotto(Charcter c) {
+		public void winLotto(Charcter c, JLabel userMoney) {
 			// TODO Auto-generated method stub
 			JOptionPane.showMessageDialog(this, "황금열쇠 : 로또 \n100원 get");
 			c.setMoney(c.getMoney() + 100);
-			user1Money.setText(c.getMoney()+"");
+			userMoney.setText(c.getMoney()+"");
 			
 		}
 
