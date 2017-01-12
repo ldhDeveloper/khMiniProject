@@ -249,7 +249,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private void Info() {
 
 		// 타이틀
-		infoLabel = new JLabel("블루마블 게임방");
+		infoLabel = new JLabel("브루마블 게임방");
 		infoLabel.setBounds(35, 20, 160, 50);
 		infoLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
 		

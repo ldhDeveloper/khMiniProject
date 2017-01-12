@@ -29,7 +29,6 @@ public class PageLogIn extends JPanel {
 
 		this.setLayout(null);
 
-		titleBL = new JLabel("부루마블");
 		titleL = new JLabel("로그인");
 		idL = new JLabel("ID");
 		pwdL = new JLabel("PWD");
@@ -39,10 +38,10 @@ public class PageLogIn extends JPanel {
 		buttonJoin = new JButton("Join");
 
 		// 블루마블
-		titleBL.setFont(new Font("SansSerif", Font.BOLD, 40));
-		titleBL.setBounds(100, 100, 400, 200);
-		titleBL.setLocation(510, 200);
-
+		ImageIcon title = new ImageIcon("title.png");
+		titleBL = new JLabel(title);
+		titleBL.setBounds(360, 140, 452, 250);
+		
 		// 로그인
 		titleL.setFont(new Font("SansSerif", Font.BOLD, 20));
 		titleL.setSize(80, 80);
@@ -102,7 +101,7 @@ public class PageLogIn extends JPanel {
 		});
 		buttonJoin.setBounds(40, 40, 175, 40);
 		buttonJoin.setLocation(520, 520);
-		buttonJoin.setBackground(new Color(30, 144, 255));
+		buttonJoin.setBackground(new Color(52, 200, 233));
 		buttonJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

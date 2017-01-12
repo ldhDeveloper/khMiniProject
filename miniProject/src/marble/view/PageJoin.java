@@ -44,7 +44,6 @@ public class PageJoin extends JPanel {
 		
 		this.setLayout(null);
 
-		titleBL = new JLabel("부루마블");
 		titleL = new JLabel("회원가입");
 		idL = new JLabel("ID");
 		pwdL1 = new JLabel("PWD");
@@ -56,9 +55,9 @@ public class PageJoin extends JPanel {
 		buttonCancel = new JButton("가입취소");
 
 		// 블루마블
-		titleBL.setFont(new Font("SansSerif", Font.BOLD, 40));
-		titleBL.setBounds(100, 100, 400, 200);
-		titleBL.setLocation(510, 200);
+		ImageIcon title = new ImageIcon("title.png");
+		titleBL = new JLabel(title);
+		titleBL.setBounds(360, 140, 452, 250);
 
 		// 회원가입
 		titleL.setFont(new Font("SansSerif", Font.BOLD, 20));
@@ -85,7 +84,7 @@ public class PageJoin extends JPanel {
 		// 버튼
 		buttonJoin.setBounds(40, 40, 175, 30);
 		buttonJoin.setLocation(510, 550);
-		buttonJoin.setBackground(new Color(35, 144, 255));
+		buttonJoin.setBackground(new Color(52, 200, 233));
 		buttonJoin.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -126,7 +125,7 @@ public class PageJoin extends JPanel {
 		});
 		buttonCancel.setBounds(40, 40, 175, 30);
 		buttonCancel.setLocation(510, 590);
-		buttonCancel.setBackground(Color.GRAY);
+		buttonCancel.setBackground(Color.lightGray);
 		buttonCancel.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
