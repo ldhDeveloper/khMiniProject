@@ -411,9 +411,9 @@ public class MarbleController extends JFrame implements MouseListener {
 					System.out.println("랜드마크 방문 보상 ");
 			} else {
 				JOptionPane.showMessageDialog(this, "통행료 지불 : " + ct[location].getFee() + " 원 지불합니다." );
-				OwnerSelect(ct[location]).setMoney(OwnerSelect(ct[location]).getMoney() + ct[location].getFee());;
 				c.setMoney(c.getMoney() - ct[location].getFee());
 				userMoney.setText(c.getMoney()+"");
+				OwnerSelect(ct[location]).setMoney(OwnerSelect(ct[location]).getMoney() + ct[location].getFee());;
 				OwnerMoney(ct[location]).setText(OwnerSelect(ct[location]).getMoney() + ct[location].getFee()+"");
 			}
 			
@@ -619,8 +619,10 @@ public class MarbleController extends JFrame implements MouseListener {
 
 						JOptionPane.showMessageDialog(this,
 								selectedCountry.getText() + "의 건물 " + (cityStatus - 1) + "채를 매각합니다.\n+" + cost + "원");
-						c.setMoney(c.getMoney() + cost);
-						user1Money.setText(c.getMoney() + "");
+						//c.setMoney(c.getMoney() + cost);
+						//CharcterMoney(c).setText(c.getMoney() + "");
+						OwnerSelect(ct[location]).setMoney(OwnerSelect(ct[location]).getMoney() + cost);
+						OwnerMoney(ct[location]).setText(OwnerSelect(ct[location]).getMoney() + cost+"");
 						ct[i].setStatus(0);
 
 						for (Component pan : panelBoard.getComponents()) {
