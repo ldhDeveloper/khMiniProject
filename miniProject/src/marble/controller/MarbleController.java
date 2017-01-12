@@ -151,11 +151,11 @@ public class MarbleController extends JFrame implements MouseListener {
 		this.panelBoard = panelBoard;
 	}
 
-	public void setUserInfo(JLabel user1Money, JLabel user2Money, JLabel user3Money, JLabel user4Money) {
-		this.user1Money = user1Money;
-		this.user2Money = user2Money;
-		this.user3Money = user3Money;
-		this.user4Money = user4Money;
+	public void setUserInfo(String user1, String user2, String user3, String user4) {
+		this.user1Money.setText(user1);
+		this.user2Money.setText(user2); 
+		this.user3Money.setText(user3); 
+		this.user4Money.setText(user4); 
 		//goldkey.setUserInfo(user1Money);
 
 	}

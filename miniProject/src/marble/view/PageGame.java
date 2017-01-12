@@ -57,7 +57,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		getController().setC(c1);
 		getController().setCar(car1);
 		getController().setPanelBoard(panelBoard);
-		getController().setUserInfo(user1Money, user2Money, user3Money, user4Money);
+		getController().setUserInfo(c1.getMoney()+"", c2.getMoney()+"", c3.getMoney()+"", c4.getMoney()+"");
 		getController().setCityInfoLabel(cityInfoLabel);
 		getController().setPlaneMsg(planeMsg);
 		getController().setSellMsg(sellMsg);
@@ -91,6 +91,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c2= new Charcter(2, "2번", 400, 0);
 		c3= new Charcter(3, "3번", 400, 0);
 		c4= new Charcter(4, "4번", 400, 0);
+		
 		
 		JlistInit();
 		car1Init();
