@@ -317,7 +317,31 @@ public class MarbleController extends JFrame implements MouseListener {
 		} else
 			func();
 	}
+	
+	public JLabel CharcterMoney(Charcter c){
+		JLabel userMoney = null;
+		switch(c.getcNo()){
+		case 1 : userMoney = user1Money; break;
+		case 2 : userMoney = user2Money; break;
+		case 3 : userMoney = user3Money; break;
+		case 4 : userMoney = user4Money; break;
+		}
+		return userMoney;
+	}
 
+		
+	public JLabel OwnerMoney(Cities ct){
+		JLabel userMoney = null;
+		switch(ct.getOwner()){
+		case 1 : userMoney = user1Money; break;
+		case 2 : userMoney = user2Money; break;
+		case 3 : userMoney = user3Money; break;
+		case 4 : userMoney = user4Money; break;
+		}
+		return userMoney;
+	}
+	
+	
 	public void cityAction(int location) {
 		int result = 0;
 		int cityStatus = ct[location].getStatus();
@@ -385,12 +409,29 @@ public class MarbleController extends JFrame implements MouseListener {
 
 				else
 					System.out.println("랜드마크 방문 보상 ");
+			} else {
+				JOptionPane.showMessageDialog(this, "통행료 지불 : " + ct[location].getFee() + " 원 지불합니다." );
+				OwnerSelect(ct[location]).setMoney(OwnerSelect(ct[location]).getMoney() + ct[location].getFee());;
+				c.setMoney(c.getMoney() - ct[location].getFee());
+				userMoney.setText(c.getMoney()+"");
+				OwnerMoney(ct[location]).setText(OwnerSelect(ct[location]).getMoney() + ct[location].getFee()+"");
 			}
 			
-		}
+		} 
 		setTooltip();
 		pg.repaint();
 		listEnableTrue(ct, Jlist);
+	}
+	
+	public Charcter OwnerSelect(Cities ct){
+		Charcter Owner=null;
+		switch(ct.getOwner()){
+		case 1 : Owner = pg.getC1(); break;
+		case 2 : Owner = pg.getC2(); break;
+		case 3 : Owner = pg.getC3(); break;
+		case 4 : Owner = pg.getC4(); break;
+		}
+		return Owner;
 	}
 
 	public void func() {
