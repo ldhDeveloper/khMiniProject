@@ -260,7 +260,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		
 		gameInfo.setText(gameInfo.getText()+"\n" + c.getcNo() + " 님 : " + dice + "칸 이동! ");
 
-		previousLocation = location;
+		previousLocation = c.getLocation();
 		location = c.getLocation() + dice;
 
 		if (location >= ct.length)
@@ -290,7 +290,10 @@ public class MarbleController extends JFrame implements MouseListener {
 		c.setLocation(location); // 캐릭터 위치 값 저장
 		
 		
-		if (previousLocation + dice >= ct.length) {
+		xPoint = (int) Jlist[location].getLocation().getX() + cGapX;
+		yPoint = (int) Jlist[location].getLocation().getY() + cGapY;
+		car.setLocation(xPoint, yPoint);
+		/*if (previousLocation + dice >= ct.length) {
 			for (int i = previousLocation + 1; i < Jlist.length; i++) {
 				xPoint = (int) Jlist[i].getLocation().getX() + cGapX;
 				yPoint = (int) Jlist[i].getLocation().getY() + cGapY;
@@ -309,7 +312,7 @@ public class MarbleController extends JFrame implements MouseListener {
 			yPoint = (int) Jlist[i].getLocation().getY() + cGapY;
 			car.setLocation(xPoint, yPoint);
 
-		}
+		}*/
 
 		if (ct[location] != null) {
 			cityAction(location);
@@ -413,7 +416,7 @@ public class MarbleController extends JFrame implements MouseListener {
 				else
 					System.out.println("랜드마크 방문 보상 ");
 			} else {
-				String compName = null;
+				//String compName = null;
 				if(c.getFreeCoupon() == 0){
 					JOptionPane.showMessageDialog(this, "통행료 지불 : " + ct[location].getFee() + " 원 지불합니다." );
 					c.setMoney(c.getMoney() - ct[location].getFee());
@@ -432,24 +435,26 @@ public class MarbleController extends JFrame implements MouseListener {
 						result1 = JOptionPane.showOptionDialog(this, "인수 : 도시를 인수 하시겠습니까?\n인수비용 : " + (ct[location].getFee()/2) , "도시 인수",
 								JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, option, option[1]);
 						if(result1 == 0){
-							for (Component pan : panelBoard.getComponents()) {
+							/*for (Component pan : panelBoard.getComponents()) {
 
 								for (int j = 1; j <= 3; j++) {
 									compName = pan.getName();
 									if (compName != null) {
 										if (compName.equals("Jlist" + location + "" + j)) {
-											((JComponent) pan).setOpaque(false);
+											((JComponent) pan).setOpaque(true);
 											pan.repaint();
 										}
 									}
 								}
-							}
+							}*/
 							c.setMoney(c.getMoney() - ct[location].getFee()/2);
+							c.setOwnBuild(c.getOwnBuild()+1);
 							userMoney.setText(c.getMoney()+"");
 							OwnerSelect(ct[location]).setMoney(OwnerSelect(ct[location]).getMoney() + ct[location].getFee()/2);
 							OwnerMoney(ct[location]).setText(OwnerSelect(ct[location]).getMoney() + ct[location].getFee()/2+"");
+							OwnerSelect(ct[location]).setOwnBuild(OwnerSelect(ct[location]).getOwnBuild()-1);
 							ct[location].setOwner(c.getcNo());
-							printBuildingColor(location, ct[location].getStatus(), ct[location].getStatus() - 1);
+							printBuildingColor(location, 1, ct[location].getStatus() - 1);
 							pg.repaint();
 						}
 					} else {
@@ -565,7 +570,6 @@ public class MarbleController extends JFrame implements MouseListener {
 
 		String name;
 		Color buildColor = null, randColor = null;
-		System.out.println("c.getcNO : " + c.getcNo());
 		switch(c.getcNo()){
 		case 1 : 
 			buildColor = new Color(238, 99, 99);
@@ -582,15 +586,13 @@ public class MarbleController extends JFrame implements MouseListener {
 			randColor = new Color(142, 56, 142, 80); break;
 		}
 		
-
 		if (cityStatus == 5) {
 			Jlist[location].setOpaque(true);
 			Jlist[location].setBackground(randColor);
 		}
 
-		else
+		else{
 			for (Component pan : panelBoard.getComponents()) {
-
 				for (int i = cityStatus; i <= lastBuilding; i++) {
 					
 					name = pan.getName();
@@ -604,6 +606,9 @@ public class MarbleController extends JFrame implements MouseListener {
 					}
 				}
 			}
+		}
+			
+			
 	}
 
 	public void selection(JLabel selectedCountry) {
@@ -625,8 +630,10 @@ public class MarbleController extends JFrame implements MouseListener {
 			String compName = null;
 
 			for (int i = 1; i < ct.length; i++)
-
-				if (Jlist[i] == selectedCountry) {
+				if (c.getOwnBuild() == 0){
+					JOptionPane.showMessageDialog(this, "보유한 도시가 없습니다.");
+				}
+				else if (Jlist[i] == selectedCountry) {
 
 					try {
 						cityStatus = ct[i].getStatus();
@@ -670,6 +677,7 @@ public class MarbleController extends JFrame implements MouseListener {
 						//c.setMoney(c.getMoney() + cost);
 						//CharcterMoney(c).setText(c.getMoney() + "");
 						OwnerSelect(ct[i]).setMoney(OwnerSelect(ct[i]).getMoney() + cost);
+						OwnerSelect(ct[i]).setOwnBuild(OwnerSelect(ct[i]).getOwnBuild() - 1);
 						OwnerMoney(ct[i]).setText(OwnerSelect(ct[i]).getMoney() + cost+"");
 						ct[i].setStatus(0);
 
@@ -703,8 +711,10 @@ public class MarbleController extends JFrame implements MouseListener {
 			}
 			
 			for (int i = 1; i < Jlist.length; i++) {
-				
-				if (Jlist[i] == selectedCountry) {
+				if (c.getOwnBuild() == 0){
+					JOptionPane.showMessageDialog(this, "보유한 도시가 없습니다.");
+				}
+				else if (Jlist[i] == selectedCountry) {
 					
 					if (ct[i].getStatus() == 0 || ct[i].getOwner() != c.getcNo()) {
 						JOptionPane.showMessageDialog(this, "본인 소유가 아니므로 올림픽 개최가 불가능한 도시입니다.");

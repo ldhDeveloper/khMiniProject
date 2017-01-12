@@ -89,10 +89,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		setController(new MarbleController());
 		
 		
-		c1 = new Charcter(1, "1번", 400, 0, false, true, 0);
-		c2= new Charcter(2, "2번", 400, 0, false, true, 0);
-		c3= new Charcter(3, "3번", 400, 0, false, true, 0);
-		c4= new Charcter(4, "4번", 400, 0, false, true, 0);
+		c1 = new Charcter(1, "1번", 400, 0, false, true, 0, 0);
+		c2= new Charcter(2, "2번", 400, 0, false, true, 0, 0);
+		c3= new Charcter(3, "3번", 400, 0, false, true, 0, 0);
+		c4= new Charcter(4, "4번", 400, 0, false, true, 0, 0);
 		
 		
 		JlistInit();

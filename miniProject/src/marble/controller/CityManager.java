@@ -25,6 +25,7 @@ public class CityManager extends JFrame{
 			city.setStatus(1);
 			city.setFee(city.getGrandCost() * 2);
 			System.out.println(city.getName()+"구매");
+			c.setOwnBuild(c.getOwnBuild() + 1);
 		}
 		/*
 		user1Info.setText("<html>아이디: " + c.getName()

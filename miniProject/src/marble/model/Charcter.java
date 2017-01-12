@@ -8,6 +8,7 @@ public class Charcter {
 	private boolean islandflag; 
 	private boolean start;
 	private int freeCoupon;
+	private int ownBuild;
 	
 	public String getName() {
 		return name;
@@ -43,6 +44,12 @@ public class Charcter {
 	}
 	
 	
+	public int getOwnBuild() {
+		return ownBuild;
+	}
+	public void setOwnBuild(int ownBuild) {
+		this.ownBuild = ownBuild;
+	}
 	public boolean isIslandflag() {
 		return islandflag;
 	}
@@ -59,7 +66,7 @@ public class Charcter {
 	public Charcter(){
 		
 	}
-	public Charcter(int cNo, String name, int money, int location, boolean islandflag, boolean start, int freeCoupon) {
+	public Charcter(int cNo, String name, int money, int location, boolean islandflag, boolean start, int freeCoupon, int ownBuild) {
 		super();
 		this.cNo = cNo;
 		this.name = name;
@@ -68,6 +75,7 @@ public class Charcter {
 		this.islandflag = islandflag;
 		this.start = start;
 		this.freeCoupon = freeCoupon;
+		this.ownBuild = ownBuild;
 	}
 	@Override
 	public String toString() {
