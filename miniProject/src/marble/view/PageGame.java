@@ -815,7 +815,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-	
+	byte reaction =0;
 		if (e.getSource()==chatField) {
 			if (chatField.getText().equals("입력"))
 				chatField.setText("");
