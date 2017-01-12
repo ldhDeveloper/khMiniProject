@@ -26,7 +26,7 @@ public class TestGUI {
 		
 		
 		MainFrame m = new MainFrame();
-		m.getCardLayout().show(m.getContentPane(), "game");
+		m.getCardLayout().show(m.getContentPane(), "Login");
 		m.represent();
 	}
 
