@@ -22,10 +22,6 @@ public class ServerBackground {
 	private byte choice;
 	private String msg;
 	private Map<String, Member> info;
-	private Member[] players;
-
-	private Map<String, ObjectOutputStream> guest;
-	private Map<String, Socket> socketMap;
 	private ArrayList<ReceiverManager> gamer;
 	private String IDkey;
 	private Member member;
@@ -40,10 +36,7 @@ public class ServerBackground {
 
 	public ServerBackground() {
 		gamer = new ArrayList<ReceiverManager>();
-		guest = new HashMap<String, ObjectOutputStream>();
-		socketMap = new HashMap<String, Socket>();
-		Collections.synchronizedMap(guest);
-
+		
 	}
 
 	public void connectionSignal() throws IOException {
@@ -56,9 +49,7 @@ public class ServerBackground {
 				socket = serverSocket.accept();
 				System.out.println("서버 대기중...");
 				System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
-				
-				socketMap.put(IDkey, socket);
-				
+							
 				if (flag==true) {
 				receiverManager = new ReceiverManager(socket);
 				gamer.add(receiverManager);
@@ -82,11 +73,7 @@ public class ServerBackground {
 		}
 	}
 
-	public void addGuest(String nick, ObjectOutputStream out) throws IOException {
-		System.out.println(nick + " 입장");
-		guest.put(nick, out);
-	}
-
+	
 	public void sendMessage(String msg) {
 		System.out.println("sendMessage");
 		for (int i = 0; i < gamer.size(); i++) {
@@ -193,13 +180,26 @@ public class ServerBackground {
 						System.out.println("로그인 값 비교 완료");
 					}
 				} else {
-					oos.writeByte(11);
-					oos.flush();
-					System.out.println("해당 회원정보 존재하지 X");
-				}
-
+					try {
+						oos.writeByte(11);
+						System.out.println("해당 회원정보 존재하지 X");
+						
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					}
 			} catch (Exception e) {
-				System.out.println(e);
+				try {
+					oos.writeByte(11);
+					System.out.println("해당 회원정보 존재하지 X");
+					
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+				
 			}
 		}
 
@@ -210,7 +210,7 @@ public class ServerBackground {
 			
 			try {
 				IDkey = "unknown";
-				addGuest(IDkey, oos);
+				
 				int count = 0;
 				//BufferedReader br = new BufferedReader(new InputStreamReader(in));
 				PageGame gameInfo= null;
