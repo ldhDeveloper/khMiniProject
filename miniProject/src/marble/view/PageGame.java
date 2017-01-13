@@ -382,7 +382,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		buttonStart.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				client.sendSignial((byte)40);
+				client.sendSignal((byte)40);
 				buttonStart.setEnabled(false);
 				
 				
@@ -869,16 +869,18 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			nextC();
 			resetCar();
 			System.out.println("Car : " + controller.getCar().getText());
-			/*getBtn1().setEnabled(false);
+			getBtn1().setEnabled(false);
 			PageGame distribution = (PageGame)(client.getM().getPan3());
 			MarbleController gift = distribution.getController();
 			try{
 			client.getOos().writeObject(distribution);
-			client.getOos().writeObject(gift);}
+			client.getOos().flush();
+			client.getOos().writeObject(gift);
+			client.getOos().flush();
+			}
 			catch(IOException ioe){
 				ioe.printStackTrace();
-				
-			}*/
+			}
 			gameInfo.setText(getController().getC().getcNo() + " 님 차례입니다.");
 		}
 	}

@@ -7,11 +7,11 @@ import java.util.Scanner;
 
 import marble.view.*;
 
-public class ClientBackground {
+public class ClientBackground implements Serializable {
 
-	private Socket socket;
-	private DataInputStream in;
-	private DataOutputStream out;
+	transient private Socket socket;
+	transient private ObjectOutputStream oos;
+	transient private ObjectInputStream ois;
 	private PageGame gui;
 	private MainFrame m;
 	private PageLogIn p;
@@ -20,10 +20,15 @@ public class ClientBackground {
 	private byte result = 30;
 	private String ChatMsg;
 	private String name;
-	private ObjectInputStream ois;
-	private ObjectOutputStream oos;
-	private InputStream sis;
-	private OutputStream sops;
+
+	public ClientBackground() throws UnknownHostException, IOException {
+		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
+		ois = new ObjectInputStream(socket.getInputStream());
+		oos = new ObjectOutputStream(socket.getOutputStream());
+		//oos_receicer = new ObjectOutputStream(socket.getOutputStream());;
+		System.out.println("ClientBackground");
+	}
+
 	public void setGui(PageGame gui) {
 		this.gui = gui;
 	}
@@ -33,24 +38,15 @@ public class ClientBackground {
 	}
 
 	public void recordTry(String log) throws IOException {
-		out.writeByte(10);
-		out.writeUTF(log);
+		oos.writeByte(10);
+		oos.writeUTF(log);
+		oos.flush();
 	}
 
 	public void loginTry(String log) throws IOException {
-		out.writeByte(20);
-		out.writeUTF(log);
-	}
-
-	public ClientBackground() throws UnknownHostException, IOException {
-		socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
-		sis =socket.getInputStream();
-		sops =socket.getOutputStream();
-		out = new DataOutputStream(sops);
-		in = new DataInputStream(sis);
-		/*ois = new ObjectInputStream(sis);
-		oos = new ObjectOutputStream(sops);*/
-		
+		oos.writeByte(20);
+		oos.writeUTF(log);
+		oos.flush();
 	}
 
 	public void connet() {
@@ -61,12 +57,14 @@ public class ClientBackground {
 				System.out.println("서버 연결됨. (" + socket + ")");
 			m.represent();
 			
-			PageGame pageGame = ((PageGame) m.getPan3());
-			PrintWriter pw = new PrintWriter(out);
+			PageGame pageGame = (PageGame)m.getPan3();
+			//PageGame pageGame = new PageGame();
+			
+			 PrintWriter pw = new PrintWriter(oos);
 			boolean flag = true;
 			while (flag) { // 서버와 신호에 따른 결과값 중계
 				System.out.println("중복");
-				result = in.readByte();
+				result = ois.readByte();
 				System.out.println((result != 30) ? ("result : " + result) : "");
 
 				switch (result) {
@@ -79,44 +77,53 @@ public class ClientBackground {
 					setButtonResult(1);
 					break;
 				case (byte) 31:
-					out.writeByte(30);
+					setButtonResult(1);
+					oos.writeByte(30);
+					oos.flush();
 					int order = 0; // 게임 페이지에 기록될 순번과 이름
 					String queue = "";
-					try {
-						Thread.sleep(200l);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					queue = in.readUTF();
+					//ois_receicer = new ObjectInputStream(socket.getInputStream());
+					queue = ois.readUTF();
+					
+					System.out.println("queue : " + queue);
 					String[] orderAndName = queue.split(" ");
 					order = Integer.parseInt(orderAndName[0]);
+					System.out.println("order : " + order);
 
 					switch (order) {// 아이디 위치 플레이 순서 배정
 					case 1:
+						/*
 						pageGame.getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser1Money().setText("400000");
+						*/
 						oos.writeObject(pageGame);
+						oos.flush();
 						pageGame =(PageGame)ois.readObject();
 						break;
 					case 2:
 						pageGame.getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser2Money().setText("400000");
 						oos.writeObject(pageGame);
+						oos.flush();
 						break;
 					case 3:
 						pageGame.getUser3Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser3Money().setText("400000");
 						oos.writeObject(pageGame);
+						oos.flush();
 						break;
 					case 4:
 						pageGame.getUser4Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser4Money().setText("400000");
 						oos.writeObject(pageGame);
+						oos.flush();
 						break;
 					}
-					setGui((PageGame) (m.getPan3()));
+
+					
+					setGui(pageGame);
 					m.getCardLayout().show(m.getContentPane(), "game");
+					
 					System.out.println("입장성공");
 					flag = false;
 				}
@@ -125,21 +132,21 @@ public class ClientBackground {
 				int endTurn =0;
 				System.out.println("시작");
 				byte turn = 0;// 현재 값 읽기 불가 오류발생
-				turn = in.readByte();
+				turn = ois.readByte();
 				System.out.println(turn);
 				byte result =0;
 				switch (turn) {// 순서에 의한 주사위 버튼의 사용조건 설정
 
 				case 100: //현재 객체값 읽어들이는 순서도만 적용 세부내용 구체화 필요
 					pageGame = (PageGame) ois.readObject();
-					out.writeByte(1);
+					oos.writeByte(1);
 					setGui(pageGame);
 					pageGame.setController((MarbleController) ois.readObject());
-					out.writeByte(1);
+					oos.writeByte(1);
 					break;
 				case 110:
 					pageGame.getBtn1().setEnabled(true);
-					endTurn = in.readInt();
+					endTurn = ois.readInt();
 					endTurn =0;
 					break;
 				}
@@ -168,9 +175,10 @@ public class ClientBackground {
 
 	}
 
-	public void sendSignial(byte sign) {
+	public void sendSignal(byte sign) {
 		try {
-			out.writeByte(sign);
+			oos.writeByte(sign);
+			oos.flush();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -179,7 +187,7 @@ public class ClientBackground {
 
 	public void sendMessage(String msg) {
 		try {
-			out.writeUTF(msg);
+			oos.writeUTF(msg);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -203,14 +211,6 @@ public class ClientBackground {
 
 	public void getName(String name) {
 		this.name = name;
-	}
-
-	public DataInputStream getIn() {
-		return in;
-	}
-
-	public DataOutputStream getOut() {
-		return out;
 	}
 
 	public ObjectInputStream getOis() {

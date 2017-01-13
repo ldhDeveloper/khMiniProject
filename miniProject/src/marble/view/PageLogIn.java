@@ -90,7 +90,7 @@ public class PageLogIn extends JPanel {
 					break;
 
 				case 1:
-					JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공");
+					//JOptionPane.showMessageDialog(tfID.getParent(), "로그인 성공"); 에러
 					c = new Charcter(i, tfID.getText(), 4000000, 0, false, true, 0, 0);
 					gamePanel.getUser1Info().setText("<html>ID : " + c.getName() + "<br>자산 :");
 					gamePanel.getUser1Money().setText("" + c.getMoney());
