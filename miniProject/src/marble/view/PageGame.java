@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import javax.swing.*;
@@ -43,7 +44,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private MarbleController controller;
 	private ClientBackground client;
 	//private Charcter c1, c2, c3, c4;
-	private Charcter[] charcter = new Charcter[4];
+	private ArrayList<Charcter> carArr = new ArrayList();
 	
 	public PageGame(MainFrame m){
 				
@@ -58,11 +59,11 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 		getController().setBtn1(getBtn1());
 		//getController().setC(c1);
-		getController().setC(charcter[0]);
+		getController().setC(carArr.get(0));
 		getController().setCar(car[0]);
 		getController().setPanelBoard(panelBoard);
 		getController().createUserInfo(user1Money, user2Money, user3Money, user4Money);
-		getController().setUserInfo(charcter[0].getMoney()+"", charcter[1].getMoney()+"", charcter[2].getMoney()+"", charcter[3].getMoney()+"");
+		getController().setUserInfo(carArr.get(0).getMoney()+"", carArr.get(1).getMoney()+"", carArr.get(2).getMoney()+"", carArr.get(3).getMoney()+"");
 		getController().setCityInfoLabel(cityInfoLabel);
 		getController().setPlaneMsg(planeMsg);
 		getController().setSellMsg(sellMsg);
@@ -99,10 +100,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		c3= new Charcter(3, "3번", 400, 0, false, true, 0, 0);
 		c4= new Charcter(4, "4번", 400, 0, false, true, 0, 0);*/
 		
-		charcter[0] = new Charcter(1, "1번", 400, 0, false, true, 0, 0);
-		charcter[1] = new Charcter(2, "2번", 400, 0, false, true, 0, 0);
-		charcter[2] = new Charcter(3, "3번", 400, 0, false, true, 0, 0);
-		charcter[3] = new Charcter(4, "4번", 400, 0, false, true, 0, 0);
+		
 		
 		JlistInit();
 		car1Init();
@@ -265,7 +263,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 
 	public void setC4(Charcter c4) {
 		this.c4 = c4;
-	}*/
+	}*//*
 	
 	public Charcter[] getCharcter() {
 		return charcter;
@@ -274,7 +272,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	public void setCharcter(Charcter[] charcter) {
 		this.charcter = charcter;
 	}
-
+*/
 	private void Info() {
 
 		// 타이틀
@@ -868,11 +866,12 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 				JOptionPane.showMessageDialog(this, getController().getC().getcNo() + " 님은 무인도에 있습니다.");
 			} */
 			controller.rollDice(gameInfo);
-			nextC();
+			/*nextC();
 			resetCar();
-			checkEnd();
+			checkEnd();*/
 			System.out.println("Car : " + controller.getCar().getText());
 			getBtn1().setEnabled(false);
+			/*gameInfo.setText(getController().getC().getcNo() + " 님 차례입니다.");*/
 			PageGame distribution = (PageGame)(client.getM().getPan3());
 			MarbleController gift = distribution.getController();
 			try{
@@ -884,25 +883,25 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			catch(IOException ioe){
 				ioe.printStackTrace();
 			}
-			gameInfo.setText(getController().getC().getcNo() + " 님 차례입니다.");
+			
 		}
 	}
 	
 	public void checkEnd(){
 		int endCount = 0;
-		for(int i = 0; i < charcter.length; i++){
-			if(charcter[i].getMoney() < 0){
-				charcter[i].setStart(false);
-				endMsg.setText(charcter[i].getcNo() + " 님께서 게임에서 패배하셨습니다.");
+		for(int i = 0; i < carArr.size(); i++){
+			if(carArr.get(i).getMoney() < 0){
+				carArr.get(i).setStart(false);
+				endMsg.setText(carArr.get(i).getcNo() + " 님께서 게임에서 패배하셨습니다.");
 				endMsg.setVisible(true);
-				JOptionPane.showMessageDialog(this, charcter[i].getcNo() + " 님께서 게임에서 패배하셨습니다.");
+				JOptionPane.showMessageDialog(this, carArr.get(i).getcNo() + " 님께서 게임에서 패배하셨습니다.");
 				endCount++;
 			} 
 		}
-		if(endCount == charcter.length-1){
-			for(int i = 0; i < charcter.length; i++){
-				if(charcter[i].isStart() == true){
-					JOptionPane.showMessageDialog(this, charcter[i].getcNo() + " 님께서 게임에서 승리하셨습니다!!!");
+		if(endCount == carArr.size()-1){
+			for(int i = 0; i < carArr.size(); i++){
+				if(carArr.get(i).isStart() == true){
+					JOptionPane.showMessageDialog(this, carArr.get(i).getcNo() + " 님께서 게임에서 승리하셨습니다!!!");
 					System.exit(0);
 				}
 			}
@@ -931,14 +930,14 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			controller.setC(c1);
 		}
 	}*/
-	
+	/*
 	public void nextC(){
-		for(int i = 0; i < charcter.length; i++){
-			if(controller.getC() == charcter[i]){
-				if(i==charcter.length-1){
+		for(int i = 0; i < carArr.size(); i++){
+			if(controller.getC() == carArr.get(i)){
+				if(i==carArr.size()-1){
 					controller.setC(charcter[0]);
 					System.out.println("setC : " + charcter[0].getcNo());
-					System.out.println("set " + charcter[i].getcNo() + " : istart = " + controller.getC().isStart());
+					System.out.println("set " + carArr.get(i).getcNo() + " : istart = " + controller.getC().isStart());
 					if(controller.getC().isStart() == false){
 						System.out.println("is스타트 실행");
 						nextC();
@@ -966,7 +965,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			}
 		}
 	}
-	
+	*/
 	/*public void beforeC(){
 		if(controller.getC() == c1){
 			controller.setC(c4);
@@ -978,10 +977,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			controller.setC(c3);
 		}
 	}*/
-	
+	/*
 	public void beforeC(){
 		for(int i = 0; i < charcter.length; i++){
-			if(controller.getC() == charcter[i]){
+			if(controller.getC() == carArr.get(i)){
 				if(i==0){
 					controller.setC(charcter[charcter.length-1]);
 					System.out.println("before setC : " + charcter[charcter.length-1]);
@@ -997,7 +996,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 				}
 			}
 		}
-	}
+	}*/
 	
 	
 	/*public void nextCar() {
@@ -1011,7 +1010,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			controller.setCar(car1);
 		}
 		
-	}*/
+	}*//*
 	public void resetCar() {
 		for(int i = 0; i < car.length; i++){
 			if(controller.getC().getcNo()-1 == i){
@@ -1031,7 +1030,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 				
 			}
 		}
-	}
+	}*/
 	
 	
 	public void beforeCar() {
@@ -1147,5 +1146,10 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	public void setGameInfo(JTextArea gameInfo) {
 		this.gameInfo = gameInfo;
 	}
-	
+	public ArrayList<Charcter> getCarArr(){
+		return this.carArr;
+	}
+	public void setCatArr(ArrayList carArr){
+		this.carArr=carArr;
+	}
 }

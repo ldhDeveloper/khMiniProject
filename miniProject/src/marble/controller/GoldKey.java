@@ -11,7 +11,7 @@ public class GoldKey extends JFrame{
 	private JLabel userMoney;
 	private boolean  flag = false;
 	private int keyNum;
-	
+	private ClientBackground client;
 	public void setUserInfo(JLabel user1Money) {
 		this.userMoney = user1Money;
 	}
@@ -252,5 +252,12 @@ public class GoldKey extends JFrame{
 			}	
 			c.setIslandflag(true);
 			
+		}
+
+		public ClientBackground getClient(){
+			return this.client;
+		}
+		public void setClient(ClientBackground client){
+			this.client = client;
 		}
 }

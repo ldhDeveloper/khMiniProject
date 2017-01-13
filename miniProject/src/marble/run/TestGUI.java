@@ -7,13 +7,15 @@ import marble.view.*;
 public class TestGUI {
 
 	public static void main(String[] args) {
-		/*try {
+		try {
 			ClientBackground client = new ClientBackground();
 			MainFrame m = new MainFrame();
 			client.setM(m);
 			PageLogIn pl = (PageLogIn)m.getPan1();
 			PageJoin pj = (PageJoin)m.getPan2();
 			PageGame pg = (PageGame)m.getPan3();
+			pg.getController().setClient(client);
+			pg.getController().getGoldKey().setClient(client);
 			pl.setClient(client);
 			pj.setClient(client);
 			pg.setClient(client);
@@ -22,7 +24,7 @@ public class TestGUI {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		
 		MainFrame m = new MainFrame();

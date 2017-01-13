@@ -31,7 +31,7 @@ public class MarbleController extends JFrame implements MouseListener {
 	private CityManager cityManager;
 	private PageGame pg;
 	private int lastolympic;
-
+	private ClientBackground client;
 	
 
 	public MarbleController() {
@@ -42,7 +42,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		
 		
 		cityInit();
-
+		
 		f.setTitle("부루마블");
 		f.setSize(1000, 780);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -325,7 +325,7 @@ public class MarbleController extends JFrame implements MouseListener {
 
 		if (ct[location] != null) {
 			cityAction(location);
-
+			//클라이언트에서 신호 쏴준다
 			/*
 			 * carinfo.setText("이름 : " + c.getName() + " 자금 : " + c.getMoney());
 			 */
@@ -366,6 +366,7 @@ public class MarbleController extends JFrame implements MouseListener {
 		case 2 : userMoney = user2Money; break;
 		case 3 : userMoney = user3Money; break;
 		case 4 : userMoney = user4Money; break;
+		
 		}
 		
 
@@ -478,12 +479,13 @@ public class MarbleController extends JFrame implements MouseListener {
 		setTooltip();
 		pg.repaint();
 		listEnableTrue(ct, Jlist);
+		
 	}
 	
 	public Charcter OwnerSelect(Cities ct){
 		Charcter Owner=null;
 		System.out.println(ct.getOwner());
-		Charcter[] ch = pg.getCharcter();
+		Charcter[] ch = (Charcter[])pg.getCarArr().toArray();
 		switch(ct.getOwner()){
 		/*case 1 : Owner = pg.getC1(); break;
 		case 2 : Owner = pg.getC2(); break;
@@ -626,8 +628,7 @@ public class MarbleController extends JFrame implements MouseListener {
 	}
 
 	public void selection(JLabel selectedCountry) {
-		pg.beforeC();
-		pg.resetCar();
+		
 		if (planeMsg.isVisible()) {
 			for (int i = 1; i < Jlist.length; i++)
 				if (Jlist[i] == selectedCountry) {
@@ -753,8 +754,6 @@ public class MarbleController extends JFrame implements MouseListener {
 				}
 			}
 		}
-		pg.nextC();
-		pg.resetCar();
 	}
 	
 	public JLabel selectOlympic(JLabel selectedCountry){
@@ -902,7 +901,17 @@ public class MarbleController extends JFrame implements MouseListener {
 		this.pg = pg;
 	}
 
-	
-	
+	public ClientBackground getClient(){
+		return this.client;
+	}
+	public void setClient(ClientBackground client){
+		this.client = client;
+	}
+	public void setGoldKey(GoldKey gKey){
+		this.goldkey=gKey;
+	}
+	public GoldKey getGoldKey(){
+		return this.goldkey;
+	}
 	
 }

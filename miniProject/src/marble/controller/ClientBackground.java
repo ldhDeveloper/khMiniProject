@@ -5,6 +5,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
+import marble.model.Charcter;
 import marble.view.*;
 
 public class ClientBackground implements Serializable {
@@ -52,7 +53,6 @@ public class ClientBackground implements Serializable {
 	public void connet() {
 		
 		try {
-			socket = new Socket(InetAddress.getLocalHost().getHostAddress(), 5000);
 			if (socket.isConnected())
 				System.out.println("서버 연결됨. (" + socket + ")");
 			m.represent();
@@ -89,13 +89,14 @@ public class ClientBackground implements Serializable {
 					String[] orderAndName = queue.split(" ");
 					order = Integer.parseInt(orderAndName[0]);
 					System.out.println("order : " + order);
-
+					
+					
 					switch (order) {// 아이디 위치 플레이 순서 배정
 					case 1:
-						/*
+						
 						pageGame.getUser1Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser1Money().setText("400000");
-						*/
+						
 						oos.writeObject(pageGame);
 						oos.flush();
 						pageGame =(PageGame)ois.readObject();
@@ -103,6 +104,7 @@ public class ClientBackground implements Serializable {
 					case 2:
 						pageGame.getUser2Info().setText("<html>ID : " + orderAndName[1] + "<br>자산 :");
 						pageGame.getUser2Money().setText("400000");
+						
 						oos.writeObject(pageGame);
 						oos.flush();
 						break;
