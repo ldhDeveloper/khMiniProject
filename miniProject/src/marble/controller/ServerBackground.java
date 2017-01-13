@@ -1,12 +1,11 @@
 package marble.controller;
 
 import java.io.*;
+
 import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
-
-import marble.controller.Receiver;
 import marble.model.Member;
 import marble.run.ServerGui;
 import marble.view.*;
@@ -27,7 +26,7 @@ public class ServerBackground {
 
 	private Map<String, ObjectOutputStream> guest;
 	private Map<String, Socket> socketMap;
-	private ArrayList<Receiver> gamer;
+	private ArrayList<ReceiverManager> gamer;
 	private String IDkey;
 	private Member member;
 	private String rutf;
@@ -40,7 +39,7 @@ public class ServerBackground {
 	}
 
 	public ServerBackground() {
-		gamer = new ArrayList<Receiver>();
+		gamer = new ArrayList<ReceiverManager>();
 		guest = new HashMap<String, ObjectOutputStream>();
 		socketMap = new HashMap<String, Socket>();
 		Collections.synchronizedMap(guest);
@@ -53,6 +52,7 @@ public class ServerBackground {
 		try {
 			serverSocket = new ServerSocket(5000);
 			while (true) {
+				if(gamer.size()<4){
 				socket = serverSocket.accept();
 				System.out.println("서버 대기중...");
 				System.out.println(socket.getInetAddress() + "에서 접속했습니다.");
@@ -60,10 +60,11 @@ public class ServerBackground {
 				socketMap.put(IDkey, socket);
 				
 				if (flag==true) {
-				receiverManager = new ReceiverManager();
+				receiverManager = new ReceiverManager(socket);
+				gamer.add(receiverManager);
 				receiverManager.start();
 				flag = false;
-				
+				}
 				}
 			}
 		} catch (Exception e) {
@@ -96,14 +97,13 @@ public class ServerBackground {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	}
 
 
 	class ReceiverManager extends Thread {
 
-		public ReceiverManager() {
+		public ReceiverManager(Socket socket) {
 			try {
 				oos = new ObjectOutputStream(socket.getOutputStream());
 				ois = new ObjectInputStream(socket.getInputStream());
@@ -228,7 +228,6 @@ public class ServerBackground {
 						logConfirm(log);
 						break;
 					case (byte)30:
-						gamer.add(new Receiver(socket, oos, ois));
 						index = gamer.size()-1;
 						ObjectOutputStream oos2 = gamer.get(index).getOos();
 						ObjectInputStream ois2 = gamer.get(index).getOis();
@@ -304,7 +303,15 @@ public class ServerBackground {
 				System.out.println("클래스를 찾을수가 없습니다.");
 			}
 		}
-
+		public  void setOis(){}
+		public void setOos(){}
+		public ObjectInputStream getOis(){
+			return ois;
+		}
+		public ObjectOutputStream getOos(){
+			return oos;
+		}
+		
 
 		public Socket getSocket() {
 			return socket;
