@@ -2,6 +2,8 @@ package marble.controller;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 
 import marble.model.*;
@@ -251,7 +253,12 @@ public class GoldKey extends JFrame{
 						"무인도 입니다.");
 			}	
 			c.setIslandflag(true);
-			
+			try {
+				client.getOos().write(c.getcNo()-1);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		public ClientBackground getClient(){

@@ -2,6 +2,8 @@ package marble.controller;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+
 import javax.swing.*;
 
 import marble.model.Charcter;
@@ -386,8 +388,15 @@ public class MarbleController extends JFrame implements MouseListener {
 			if(ct[location].getOwner() == c.getcNo()){
 				String r = cityManager.UpgradeCity(ct[location], c, userMoney);
 
-				if (r == null)
-					return;
+				if (r == null){
+					try {
+						client.getOos().writeByte(10);
+						client.getOos().flush();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					return;}
 
 				if (cityStatus == 1) {
 					// 건물이 0채일 때
@@ -479,7 +488,13 @@ public class MarbleController extends JFrame implements MouseListener {
 		setTooltip();
 		pg.repaint();
 		listEnableTrue(ct, Jlist);
-		
+		try {
+			client.getOos().writeByte(10);
+			client.getOos().flush();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public Charcter OwnerSelect(Cities ct){

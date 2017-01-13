@@ -248,7 +248,7 @@ public class ServerBackground {
 				Object pageGame = new Object();
 				Object marble = new Object();
 				while (true) {
-					byte bridge = 0;
+					
 					// out.writeByte(100);
 					byte activate =0;
 					gamer.get(0).getOos().writeByte(110);
@@ -258,7 +258,37 @@ public class ServerBackground {
 					case  10:
 					//기본 동작
 					for (int k = 0; k < gamer.size(); k++) {
+					
+						System.out.println("주사위 활성화 ");
+						gamer.get(k).getOos().writeByte(110);
+						gamer.get(k).getOos().flush();
+						pageGame = (PageGame) (gamer.get(k).getOis().readObject());
+						gamer.get(k).getOos().writeByte(1); // 객체 받았다는 신호
+						gamer.get(k).getOos().flush();
+						marble = (MarbleController) (gamer.get(k).getOis().readObject());
+						gamer.get(k).getOos().writeInt(2); // 객체 전부 받았다는신호
+						gamer.get(k).getOos().flush();
+											
+						for (int j = 0; j < gamer.size(); j++) {
+							System.out.println("주사위 비활성화 ");
+							gamer.get(j).getOos().writeByte(100);
+							gamer.get(j).getOos().flush();
+							gamer.get(j).getOos().writeObject(pageGame);
+							gamer.get(j).getOos().flush();
+							 gamer.get(j).getOis().readByte(); // 게임판
+																		// 갱신했다는
+																		// 신호
+							gamer.get(j).getOos().writeObject(marble);
+							gamer.get(j).getOos().flush();
+							 gamer.get(j).getOis().readByte(); // 게임판
+																		// 갱신했다는
+																		// 신호
+							}
 
+					}break;
+					default : for (int k = 0; k < gamer.size(); k++) {
+						if(k==(int)activate)
+							continue;
 						System.out.println("주사위 활성화 ");
 						gamer.get(k).getOos().writeByte(110);
 						gamer.get(k).getOos().flush();
@@ -275,20 +305,17 @@ public class ServerBackground {
 							gamer.get(j).getOos().flush();
 							gamer.get(j).getOos().writeObject(pageGame);
 							gamer.get(j).getOos().flush();
-							bridge = gamer.get(j).getOis().readByte(); // 게임판
+							gamer.get(j).getOis().readByte(); // 게임판
 																		// 갱신했다는
 																		// 신호
 							gamer.get(j).getOos().writeObject(marble);
 							gamer.get(j).getOos().flush();
-							bridge = gamer.get(j).getOis().readByte(); // 게임판
+							gamer.get(j).getOis().readByte(); // 게임판
 																		// 갱신했다는
 																		// 신호
-							}
-
-					}break;
-					case 11:
-						
-					case 12:
+							}break;
+					}
+					
 					
 					
 				}
