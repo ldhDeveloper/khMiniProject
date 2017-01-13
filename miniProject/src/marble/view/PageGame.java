@@ -38,6 +38,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 	private JLabel planeMsg = new JLabel("이동할 도시를 선택해주세요 ", JLabel.CENTER);
 	private JLabel sellMsg = new JLabel("황금열쇠 : 도시 매각 \n매각할 도시를 선택해주세요 ", JLabel.CENTER);;
 	private JLabel olympicMsg = new JLabel("황금열쇠 : 올림픽 \n올림픽을 개최할 도시를 선택해주세요 ", JLabel.CENTER);;
+	private JLabel endMsg = new JLabel("", JLabel.CENTER);
 	private Cities[] ct = new Cities[24];
 	private MarbleController controller;
 	private ClientBackground client;
@@ -66,6 +67,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		getController().setPlaneMsg(planeMsg);
 		getController().setSellMsg(sellMsg);
 		getController().setOlympicMsgMsg(olympicMsg);
+		getController().setEndMsgMsg(endMsg);
 		getController().setJlist(Jlist);
 		getController().makeTooltip();
 		getController().setPg(this);
@@ -868,6 +870,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 			controller.rollDice(gameInfo);
 			nextC();
 			resetCar();
+			checkEnd();
 			System.out.println("Car : " + controller.getCar().getText());
 			getBtn1().setEnabled(false);
 			PageGame distribution = (PageGame)(client.getM().getPan3());
@@ -890,6 +893,8 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 		for(int i = 0; i < charcter.length; i++){
 			if(charcter[i].getMoney() < 0){
 				charcter[i].setStart(false);
+				endMsg.setText(charcter[i].getcNo() + " 님께서 게임에서 패배하셨습니다.");
+				endMsg.setVisible(true);
 				JOptionPane.showMessageDialog(this, charcter[i].getcNo() + " 님께서 게임에서 패배하셨습니다.");
 				endCount++;
 			} 
@@ -933,6 +938,7 @@ public class PageGame extends JPanel implements MouseListener, ActionListener {
 				if(i==charcter.length-1){
 					controller.setC(charcter[0]);
 					System.out.println("setC : " + charcter[0].getcNo());
+					System.out.println("set " + charcter[i].getcNo() + " : istart = " + controller.getC().isStart());
 					if(controller.getC().isStart() == false){
 						System.out.println("is스타트 실행");
 						nextC();
