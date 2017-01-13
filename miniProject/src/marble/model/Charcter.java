@@ -1,6 +1,8 @@
 package marble.model;
 
-public class Charcter {
+import java.io.Serializable;
+
+public class Charcter implements Serializable{
 	private int cNo;
 	private String name;
 	private int money;
