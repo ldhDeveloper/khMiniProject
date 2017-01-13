@@ -22,7 +22,7 @@ public class MarbleController extends JFrame implements MouseListener {
 	private JLabel selectedCountry, beforeOlympic = null;
 	private ImageIcon diceImage[];
 	private JButton btn1;
-	private JLabel cityInfoLabel, planeMsg, sellMsg, olympicMsg;
+	private JLabel cityInfoLabel, planeMsg, sellMsg, olympicMsg, endMsg;
 	private JLabel[] Jlist;
 	private Cities[] ct = new Cities[24];
 	private int dice1, dice2, dice, location = 0;
@@ -198,6 +198,15 @@ public class MarbleController extends JFrame implements MouseListener {
 		olympicMsg.setBackground(new Color(225, 225, 225));
 		olympicMsg.setVisible(false);
 	}
+	
+	public void setEndMsgMsg(JLabel endMsg) {
+		this.endMsg = endMsg;
+		endMsg.setSize(400, 150);
+		endMsg.setLocation(panelBoard.getSize().width / 2 - 400 / 2, panelBoard.getSize().height / 2 - 150);
+		endMsg.setOpaque(true);
+		endMsg.setBackground(new Color(225, 225, 225));
+		endMsg.setVisible(false);
+	}
 
 	public void setJlist(JLabel[] Jlist) {
 		this.Jlist = Jlist;
@@ -252,11 +261,11 @@ public class MarbleController extends JFrame implements MouseListener {
 	}
 
 	public void rollDice(JTextArea gameInfo) {
-
+		endMsg.setVisible(false);
 		dice1 = new Random().nextInt(6) + 1;
 		dice2 = new Random().nextInt(6) + 1;
-		//dice = dice1 + dice2;
-		dice = 6;
+		dice = dice1 + dice2;
+		//dice = 6;
 		
 		gameInfo.setText(gameInfo.getText()+"\n" + c.getcNo() + " 님 : " + dice + "칸 이동! ");
 
